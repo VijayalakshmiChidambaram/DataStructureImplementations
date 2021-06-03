@@ -6,10 +6,11 @@ import java.util.Scanner;
 public class ArrayDataStructure {
     public static void main(String[] args) {
         ArrayDataStructure arr = new ArrayDataStructure();
-        System.out.println(Arrays.toString(arr.traversal()));
+        /*System.out.println(Arrays.toString(arr.traversal()));
         System.out.println(Arrays.toString(arr.arrayinsertmiddle()));
         System.out.println(Arrays.toString(arr.arrayInsertionEnd()));
-        System.out.println(Arrays.toString(arr.arrayInsertBegin()));
+        System.out.println(Arrays.toString(arr.arrayInsertBegin()));*/
+        System.out.println(Arrays.toString(arr.unSortedArrayInsert()));
     }
 
     //Array Traversal
@@ -82,5 +83,28 @@ public class ArrayDataStructure {
         arrayBegin[0] = insertElement;
         insertionSize++;
         return arrayBegin;
+    }
+
+    //Insertion into UnSorted Array
+    //Insertion at the middle
+    public int[] unSortedArrayInsert()
+    {
+        int[] unsortedarraymid = new int[10];
+        unsortedarraymid[0] = 1;
+        unsortedarraymid[1] = 2;
+        unsortedarraymid[2] = 3;
+        unsortedarraymid[3] = 5;
+        unsortedarraymid[4] = 6;
+        int size = unsortedarraymid.length;
+        int position = 3;
+        int insertNumber = 4;
+        int sizeOfArray = 5;
+        if (position<=0 || position>size) {
+            System.out.println("Array index out of bound exception");
+        }
+        unsortedarraymid[sizeOfArray-1] = unsortedarraymid[position-1];
+        unsortedarraymid[position-1] = insertNumber;
+
+        return unsortedarraymid;
     }
 }
