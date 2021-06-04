@@ -1,5 +1,6 @@
 package dataStructureImplementation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -11,8 +12,9 @@ public class ArrayDataStructure {
         System.out.println(Arrays.toString(arr.arrayInsertionEnd()));
         System.out.println(Arrays.toString(arr.arrayInsertBegin()));
         System.out.println(Arrays.toString(arr.unSortedArrayInsert()));
-        System.out.println(Arrays.toString(arr.sortedArrayDeletemid()));*/
-        System.out.println(Arrays.toString(arr.sortArray()));
+        System.out.println(Arrays.toString(arr.sortedArrayDeletemid()));
+        System.out.println(Arrays.toString(arr.sortArray()));*/
+        System.out.println(arr.searchElement());
     }
 
     //Array Traversal
@@ -140,5 +142,20 @@ public class ArrayDataStructure {
         }
         return unsortedArray;
     }
-}
 
+    //Search for an element in an character array
+    public char searchElement() {
+        char[] ch = {'a', 'b', 'd', 'e', 'f'};
+        char newValue = 0;
+
+        int size = ch.length;
+        int position = 4 ;
+        for (int i =0; i<size; i++ ) {
+            if (ch[i]==ch[position]) {
+                newValue = ch[position];
+            }
+        }
+        return newValue;
+    }
+
+}
