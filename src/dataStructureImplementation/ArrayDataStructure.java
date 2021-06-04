@@ -6,11 +6,12 @@ import java.util.Scanner;
 public class ArrayDataStructure {
     public static void main(String[] args) {
         ArrayDataStructure arr = new ArrayDataStructure();
-        /*System.out.println(Arrays.toString(arr.traversal()));
+        System.out.println(Arrays.toString(arr.traversal()));
         System.out.println(Arrays.toString(arr.arrayinsertmiddle()));
         System.out.println(Arrays.toString(arr.arrayInsertionEnd()));
-        System.out.println(Arrays.toString(arr.arrayInsertBegin()));*/
+        System.out.println(Arrays.toString(arr.arrayInsertBegin()));
         System.out.println(Arrays.toString(arr.unSortedArrayInsert()));
+        System.out.println(Arrays.toString(arr.sortedArrayDeletemid()));
     }
 
     //Array Traversal
@@ -106,5 +107,21 @@ public class ArrayDataStructure {
         unsortedarraymid[position-1] = insertNumber;
 
         return unsortedarraymid;
+    }
+
+    //Deletion into Sorted Array
+    //Deletion from middle
+    public char[] sortedArrayDeletemid()
+    {
+        char[] arraydelmid = { 'a', 'b', 'c', 'd', 'e'};
+        int position = 2;
+        int size = arraydelmid.length;
+        char[] newarraydelmid = new char[size-1];
+
+        for (int i =position; i<size; i++) {
+            arraydelmid[i-1] = arraydelmid[i];
+        }
+        System.arraycopy(arraydelmid, 0, newarraydelmid, 0, size-1);
+        return newarraydelmid;
     }
 }
