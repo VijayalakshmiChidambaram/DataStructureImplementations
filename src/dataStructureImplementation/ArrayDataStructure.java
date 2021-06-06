@@ -1,7 +1,5 @@
 package dataStructureImplementation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class ArrayDataStructure {
@@ -13,8 +11,9 @@ public class ArrayDataStructure {
         System.out.println(Arrays.toString(arr.arrayInsertBegin()));
         System.out.println(Arrays.toString(arr.unSortedArrayInsert()));
         System.out.println(Arrays.toString(arr.sortedArrayDeletemid()));
-        System.out.println(Arrays.toString(arr.sortArray()));*/
-        System.out.println(arr.searchElement());
+        System.out.println(Arrays.toString(arr.sortArray()));
+        System.out.println(arr.searchElement());*/
+        System.out.println(arr.searchElementInString());
     }
 
     //Array Traversal
@@ -42,14 +41,10 @@ public class ArrayDataStructure {
         int insertionSize = 5;
         int position = 3;
         int insertionNumber = 3;
-        if (position <= 0 || position > size) {
-            System.out.println("Array index out of bound exception");
-        }
         for (int i = insertionSize - 1; i >= position - 1; i--) {
             arraymid[i + 1] = arraymid[i];
         }
         arraymid[position - 1] = insertionNumber;
-        insertionSize++;
 
         return arraymid;
     }
@@ -66,7 +61,6 @@ public class ArrayDataStructure {
 
         int insertEnd = 15;
         arrayEnd[insertionNumber] = insertEnd;
-        insertionNumber++;
 
         return arrayEnd;
     }
@@ -85,7 +79,6 @@ public class ArrayDataStructure {
             arrayBegin[i + 1] = arrayBegin[i];
         }
         arrayBegin[0] = insertElement;
-        insertionSize++;
         return arrayBegin;
     }
 
@@ -149,13 +142,30 @@ public class ArrayDataStructure {
         char newValue = 0;
 
         int size = ch.length;
-        int position = 4 ;
-        for (int i =0; i<size; i++ ) {
-            if (ch[i]==ch[position]) {
+        int position = 4;
+        for (int i = 0; i < size; i++) {
+            if (ch[i] == ch[position]) {
                 newValue = ch[position];
             }
         }
         return newValue;
     }
 
+
+    //Search a character in a string
+    public char searchElementInString() {
+        String value = "Hello";
+
+        int position = 3;
+        char finalVal = 0;
+        int size = value.length();
+
+        for (int i = 0; i < size; i++) {
+            if (value.charAt(i) == value.charAt(position)) {
+                finalVal = value.charAt(i);
+                return finalVal;
+            }
+        }
+        return finalVal;
+    }
 }
