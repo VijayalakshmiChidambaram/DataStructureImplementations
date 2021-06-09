@@ -1,5 +1,6 @@
 package dataStructureImplementation;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
 
@@ -9,9 +10,10 @@ public class StringHashingArrayPrograms {
         StringHashingArrayPrograms sha = new StringHashingArrayPrograms();
         /*sha.practise1("viiimmal");
         sha.practise2();
-        System.out.println(sha.UniqueCharactersArray("Hello"));*/
+        System.out.println(sha.UniqueCharactersArray("Hello"));
         System.out.println(sha.UniqueCharactersHashSet("Vvampire"));
-        System.out.println(sha.UniqueCharactersHashTable("Wworld"));
+        System.out.println(sha.UniqueCharactersHashTable("Wworld"));*/
+        System.out.println(sha.UniqueCharactersBoolArray("victory"));
     }
 
     //Time - O(n^2)
@@ -54,6 +56,27 @@ public class StringHashingArrayPrograms {
         return true;
     }
 
+    //Ascii value range - 128
+    public boolean UniqueCharactersBoolArray(String s) {
+        int size = s.length();
+        Boolean[] b = new Boolean[128];
+        //Arrays.fill(b,false);
+        if(size>128) {
+            return false;
+        }
+        for (int i=0; i<128; i++) {
+            b[i]=false;
+        }
+        for (int i =0; i<size; i++) {
+            int value = s.charAt(i);
+            if(b[value]==true) {
+                return false;
+            }
+            b[value]=true;
+        }
+        return true;
+    }
+
     //Hashset values adding
     public void practise1(String s) {
         int size = s.length();
@@ -76,4 +99,12 @@ public class StringHashingArrayPrograms {
             tab.put(2, "P");
         System.out.println("Table " + tab);
         }
+
+    public void check() {
+        String s = "Mr Vimal  ";
+        char[] ch = s.toCharArray();
+        System.out.println(" ch content " + Arrays.toString(ch));
+        int len = ch.length;
+        System.out.println("Len " + len);
+    }
 }
