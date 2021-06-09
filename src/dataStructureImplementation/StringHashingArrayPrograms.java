@@ -12,8 +12,9 @@ public class StringHashingArrayPrograms {
         sha.practise2();
         System.out.println(sha.UniqueCharactersArray("Hello"));
         System.out.println(sha.UniqueCharactersHashSet("Vvampire"));
-        System.out.println(sha.UniqueCharactersHashTable("Wworld"));*/
-        System.out.println(sha.UniqueCharactersBoolArray("victory"));
+        System.out.println(sha.UniqueCharactersHashTable("Wworld"));
+        System.out.println(sha.UniqueCharactersBoolArray("victory"));*/
+        System.out.println(sha.UniqueCharactersBitVector("nearing"));
     }
 
     //Time - O(n^2)
@@ -73,6 +74,19 @@ public class StringHashingArrayPrograms {
                 return false;
             }
             b[value]=true;
+        }
+        return true;
+    }
+
+    public boolean UniqueCharactersBitVector(String s) {
+        int count = 0;
+        int size = s.length();
+        for(int i=0; i<size; i++) {
+            int val = s.charAt(i)- 'a';
+            if((count & (1 << val)) > 0) {
+                return false;
+            }
+            count = count | (1 << val);
         }
         return true;
     }
