@@ -3,6 +3,7 @@ package dataStructureImplementation;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Locale;
 
 import static java.util.Arrays.sort;
 
@@ -18,7 +19,8 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.UniqueCharactersHashTable("Wworld"));
         System.out.println(sha.UniqueCharactersBoolArray("victory"));
         System.out.println(sha.UniqueCharactersBitVector("nearing"));*/
-        System.out.println(sha.permutationUsingSort("abcd", "dcba"));
+        //System.out.println(sha.permutationUsingSort("abcd", "dcba"));
+        System.out.println(sha.permutationCaseSensitiveAndSpace("   Do  g", "God "));
 
     }
 
@@ -119,7 +121,17 @@ public class StringHashingArrayPrograms {
         return sortedS1.equals(sortedS2);
         }
 
-
+    public boolean permutationCaseSensitiveAndSpace(String s1, String s2) {
+        String newS1 = s1.toLowerCase().replace(" ","");
+        System.out.println(" s1" + newS1);
+        //newS1.replace(" ","");
+        String newS2 = s2.toLowerCase().replace(" ","");
+        System.out.println(" s2" + newS2);
+        if(newS1.length()!=newS2.length()) {
+            return false;
+        }
+        return sorting(newS1).equals(sorting(newS2));
+    }
 
     //Hashset values adding
     public void practise1(String s) {
