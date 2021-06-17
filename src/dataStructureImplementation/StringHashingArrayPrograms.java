@@ -4,17 +4,22 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
 
+import static java.util.Arrays.sort;
+
 public class StringHashingArrayPrograms {
 
     public static void main(String args[]) {
         StringHashingArrayPrograms sha = new StringHashingArrayPrograms();
         /*sha.practise1("viiimmal");
         sha.practise2();
+
         System.out.println(sha.UniqueCharactersArray("Hello"));
         System.out.println(sha.UniqueCharactersHashSet("Vvampire"));
         System.out.println(sha.UniqueCharactersHashTable("Wworld"));
-        System.out.println(sha.UniqueCharactersBoolArray("victory"));*/
-        System.out.println(sha.UniqueCharactersBitVector("nearing"));
+        System.out.println(sha.UniqueCharactersBoolArray("victory"));
+        System.out.println(sha.UniqueCharactersBitVector("nearing"));*/
+        System.out.println(sha.permutationUsingSort("abcd", "dcba"));
+
     }
 
     //Time - O(n^2)
@@ -30,6 +35,7 @@ public class StringHashingArrayPrograms {
         return true;
     }
 
+    //Time - O(n)
     public boolean UniqueCharactersHashSet(String s) {
         int size = s.length();
         HashSet<Character> set = new HashSet<Character>();
@@ -41,7 +47,7 @@ public class StringHashingArrayPrograms {
         }
         return true;
     }
-
+    //Time - O(n)
     public boolean UniqueCharactersHashTable(String s) {
         int size = s.length();
         Hashtable<Character,Integer> table = new Hashtable<Character,Integer>();
@@ -52,32 +58,36 @@ public class StringHashingArrayPrograms {
                     return false;
             }
             table.put(s.charAt(i),count+1);
-            System.out.println("Put " + table);
+            System.out.println("Put " + table.put(s.charAt(i),count+1));
+            System.out.println(" final " + table);
         }
         return true;
     }
 
     //Ascii value range - 128
+    //Time - O(n) , Space O(n)
     public boolean UniqueCharactersBoolArray(String s) {
         int size = s.length();
         Boolean[] b = new Boolean[128];
-        //Arrays.fill(b,false);
-        if(size>128) {
+
+        if (size > 128) {
             return false;
         }
-        for (int i=0; i<128; i++) {
-            b[i]=false;
+        //Arrays.fill(b,false);
+        for (int i = 0; i < 128; i++) {
+            b[i] = false;
         }
-        for (int i =0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             int value = s.charAt(i);
-            if(b[value]==true) {
+            if (b[value] == true) {
                 return false;
             }
-            b[value]=true;
+            b[value] = true;
         }
         return true;
     }
 
+    //Time - O(n), Space - O(1)
     public boolean UniqueCharactersBitVector(String s) {
         int count = 0;
         int size = s.length();
@@ -91,6 +101,26 @@ public class StringHashingArrayPrograms {
         return true;
     }
 
+    // 2) Permutation of a given two strings - case insensitive and whitespace significant
+    //Time - O(n logn) - Because of sorting
+    private String sorting(String s) {
+        char[] ch = s.toCharArray();
+        sort(ch);
+        return String.valueOf(ch);
+       // return Arrays.toString(ch);
+    }
+
+    public boolean permutationUsingSort(String s1, String s2) {
+        if(s1.length() != s2.length()) {
+            return false;
+        }
+        String sortedS1 = sorting(s1);
+        String sortedS2 = sorting(s2);
+        return sortedS1.equals(sortedS2);
+        }
+
+
+
     //Hashset values adding
     public void practise1(String s) {
         int size = s.length();
@@ -100,6 +130,8 @@ public class StringHashingArrayPrograms {
             System.out.println(set);
         }
         System.out.println("Set " + set);
+        int ch = Character.getNumericValue('d');
+        System.out.println(" try " + ch);
     }
 
     //HashTable values adding
