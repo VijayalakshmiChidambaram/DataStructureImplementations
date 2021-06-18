@@ -1,9 +1,6 @@
 package dataStructureImplementation;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.Locale;
+import java.util.*;
 
 import static java.util.Arrays.sort;
 
@@ -18,9 +15,10 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.UniqueCharactersHashSet("Vvampire"));
         System.out.println(sha.UniqueCharactersHashTable("Wworld"));
         System.out.println(sha.UniqueCharactersBoolArray("victory"));
-        System.out.println(sha.UniqueCharactersBitVector("nearing"));*/
-        //System.out.println(sha.permutationUsingSort("abcd", "dcba"));
-        System.out.println(sha.permutationCaseSensitiveAndSpace("   Do  g", "God "));
+        System.out.println(sha.UniqueCharactersBitVector("nearing"));
+        System.out.println(sha.permutationUsingSort("abcd", "dcba"));
+        System.out.println(sha.permutationCaseSensitiveAndSpace("   Do  g", "God "));*/
+        System.out.println(sha.permutationHashSet("dog","god"));
 
     }
 
@@ -128,6 +126,40 @@ public class StringHashingArrayPrograms {
             return false;
         }
         return sorting(newS1).equals(sorting(newS2));
+    }
+
+    // Permutation of a given two strings - case insensitive and whitespace significant
+    // Time - O(n) - Because of sorting
+
+    public boolean permutationHashSet(String s1, String s2) {
+        if(s1.length() != s2.length()) {
+            return false;
+        }
+
+        HashSet<Character> set = new HashSet<>(s1.length());
+        int count = 0;
+        for(int i=0; i<s1.length(); i++) {
+            set.add(s1.charAt(i));
+            count++;
+        }
+        for(int j=0; j<s2.length(); j++) {
+            if (set.contains(s2.charAt(j))) {
+                count--;
+            }
+        }
+        if(count!=0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean permutationHashMap(String s1, String s2) {
+        if(s1.length() != s2.length()) {
+            return false;
+        }
+        HashMap<Character,Integer> map = new HashMap<>(s1.length());
+        return true;
     }
 
     //Hashset values adding
