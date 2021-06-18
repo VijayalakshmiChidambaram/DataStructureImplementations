@@ -17,8 +17,9 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.UniqueCharactersBoolArray("victory"));
         System.out.println(sha.UniqueCharactersBitVector("nearing"));
         System.out.println(sha.permutationUsingSort("abcd", "dcba"));
-        System.out.println(sha.permutationCaseSensitiveAndSpace("   Do  g", "God "));*/
-        System.out.println(sha.permutationHashSet("dog","god"));
+        System.out.println(sha.permutationCaseSensitiveAndSpace("   Do  g", "God "));
+        System.out.println(sha.permutationHashSet("dog","god"));*/
+        System.out.println(sha.permutationHashMap(" filter", "retlif "));
 
     }
 
@@ -159,6 +160,18 @@ public class StringHashingArrayPrograms {
             return false;
         }
         HashMap<Character,Integer> map = new HashMap<>(s1.length());
+        int count=0;
+        for(int i=0; i<s1.length(); i++) {
+            map.put(s1.charAt(i),count++);
+        }
+        for (int j=0; j<s2.length(); j++) {
+            if(map.containsKey(s2.charAt(j))); {
+                count--;
+            }
+        }
+        if (count!=0) {
+            return false;
+        }
         return true;
     }
 
