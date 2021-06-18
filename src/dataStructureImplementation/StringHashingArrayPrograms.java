@@ -123,10 +123,7 @@ public class StringHashingArrayPrograms {
 
     public boolean permutationCaseSensitiveAndSpace(String s1, String s2) {
         String newS1 = s1.toLowerCase().replace(" ","");
-        System.out.println(" s1" + newS1);
-        //newS1.replace(" ","");
         String newS2 = s2.toLowerCase().replace(" ","");
-        System.out.println(" s2" + newS2);
         if(newS1.length()!=newS2.length()) {
             return false;
         }
