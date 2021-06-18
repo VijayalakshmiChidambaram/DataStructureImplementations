@@ -18,8 +18,9 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.UniqueCharactersBitVector("nearing"));
         System.out.println(sha.permutationUsingSort("abcd", "dcba"));
         System.out.println(sha.permutationCaseSensitiveAndSpace("   Do  g", "God "));
-        System.out.println(sha.permutationHashSet("dog","god"));*/
-        System.out.println(sha.permutationHashMap(" filter", "retlif "));
+        System.out.println(sha.permutationHashSet("dog","god"));
+        System.out.println(sha.permutationHashMap(" filter", "retlif "));*/
+        System.out.println(sha.permutationArray("run1", "1nur"));
 
     }
 
@@ -129,8 +130,8 @@ public class StringHashingArrayPrograms {
         return sorting(newS1).equals(sorting(newS2));
     }
 
-    // Permutation of a given two strings - case insensitive and whitespace significant
-    // Time - O(n) - Because of sorting
+    // Permutation of a given two strings Hash set- case insensitive and whitespace significant
+    // Time - O(n)
 
     public boolean permutationHashSet(String s1, String s2) {
         if(s1.length() != s2.length()) {
@@ -155,6 +156,8 @@ public class StringHashingArrayPrograms {
         return true;
     }
 
+    // Permutation of a given two strings Hash Map - case insensitive and whitespace significant
+    // Time - O(n)
     public boolean permutationHashMap(String s1, String s2) {
         if(s1.length() != s2.length()) {
             return false;
@@ -175,8 +178,26 @@ public class StringHashingArrayPrograms {
         return true;
     }
 
+    public boolean permutationArray(String s1, String s2) {
+        if (s1.length() != s2.length()) {
+            return false;
+        }
+        int[] b = new int[128];
+        Arrays.fill(b, 0);
+        for (int i = 0; i < s1.length(); i++) {
+            b[s1.charAt(i)]++;
+        }
+        for (int j = 0; j < s2.length(); j++) {
+            b[s2.charAt(j)]--;
+            if (b[s2.charAt(j)] != 0) {
+                return false;
+            }
+        }
+            return true;
+        }
+
     //Hashset values adding
-    public void practise1(String s) {
+    public void practise1 (String s) {
         int size = s.length();
         HashSet<Character> set = new HashSet<>();
         for (int i=0; i<size; i++) {
