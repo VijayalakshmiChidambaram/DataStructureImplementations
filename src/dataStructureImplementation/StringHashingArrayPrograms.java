@@ -178,6 +178,8 @@ public class StringHashingArrayPrograms {
         return true;
     }
 
+    // Permutation of a given two strings Array - case insensitive and whitespace significant
+    // Time - O(n)
     public boolean permutationArray(String s1, String s2) {
         if (s1.length() != s2.length()) {
             return false;
