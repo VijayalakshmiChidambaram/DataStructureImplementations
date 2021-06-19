@@ -22,8 +22,9 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.permutationHashMap(" filter", "retlif "));
         System.out.println(sha.permutationArray("run1", "1nur"));
         System.out.println(sha.urlifyArray("Mr John Smith    ", 13));
-        System.out.println(sha.urlifyArrayList("Mr John Smith    ", 13));*/
-        System.out.println(sha.urlifystringbuilder("United States of America !!"));
+        System.out.println(sha.urlifyArrayList("Mr John Smith    ", 13));
+        System.out.println(sha.urlifystringbuilder("United States of America !!"));*/
+        System.out.println(sha.palindromePermutation("Tacocattt"));
 
     }
 
@@ -201,7 +202,7 @@ public class StringHashingArrayPrograms {
             return true;
         }
 
-    //3) URLify Replace all spaces in a string with %20 - Using char array
+    //3) URLify Replace all spaces in a string with %20 - Using char array - O(n)
     public String urlifyArray(String s1, int truelength) {
         char[] s = s1.toCharArray();
         int space =0;
@@ -232,10 +233,10 @@ public class StringHashingArrayPrograms {
         return String.valueOf(s);
     }
 
-    //3) URLify Replace all spaces in a string with %20 - Using ArrayList
+    //3) URLify Replace all spaces in a string with %20 - Using ArrayList - O(n)
     public String urlifyArrayList(String s1, int truelength) {
         ArrayList<Character> list = new ArrayList<Character>(s1.length());
-        char[] ch = new char[list.size()];
+        String str = new String();
         for(int i=0; i<s1.length(); i++) {
             list.add(s1.charAt(i));
         }
@@ -260,12 +261,12 @@ public class StringHashingArrayPrograms {
                 list.set(finallength - 1, list.get(i));
                 finallength--;
             }
-            ch = list.toString().toCharArray();
+            str = list.toString().replaceAll(", ", "").replaceAll("\\[|\\]","");
         }
-        return String.valueOf(ch);
+        return str;
     }
 
-    //3) URLify Replace all spaces in a string with %20 - Using Stringbuilder
+    //3) URLify Replace all spaces in a string with %20 - Using Stringbuilder - O(n)
     public StringBuilder urlifystringbuilder (String s1) {
         char[] s = s1.toCharArray();
         StringBuilder modifiedString = new StringBuilder();
@@ -280,7 +281,33 @@ public class StringHashingArrayPrograms {
         return modifiedString;
     }
 
+    //4) Palindrome Permutation - O(n^2)
+    public boolean palindromePermutation(String s1) {
+        int valz = Character.getNumericValue('z');
+        int vala = Character.getNumericValue('a');
+        int[] table = new int[(valz - vala) + 1];
+        char[] ch1 = s1.toLowerCase(Locale.ROOT).toCharArray();
+        char[] ch = s1.toCharArray();
 
+        for(int i=0; i<ch.length; i++) {
+            int val = Character.getNumericValue(ch[i]) - vala;
+            if (val>valz && val<vala) {
+                return false;
+            }
+                table[val]++;
+        }
+        boolean found = false;
+        for(int i=0; i<table.length; i++) {
+
+            if(table[i]%2 ==1) {
+                if(found) {
+                    return false;
+                }
+                found = true;
+            }
+        }
+        return true;
+    }
 
     //Hashset values adding
     public void practise1 (String s) {
