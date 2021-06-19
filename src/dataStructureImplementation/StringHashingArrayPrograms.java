@@ -22,6 +22,7 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.permutationHashMap(" filter", "retlif "));
         System.out.println(sha.permutationArray("run1", "1nur"));*/
         System.out.println(sha.urlifyArray("Mr John Smith    ", 13));
+        System.out.println(sha.urlifyArrayList("Mr John Smith    ", 13));
 
     }
 
@@ -202,15 +203,12 @@ public class StringHashingArrayPrograms {
         //URLify Replace all spaces in a string with %20 - Using char array
     public String urlifyArray(String s1, int truelength) {
         char[] s = s1.toCharArray();
-        //ArrayList<Character> s = new ArrayList<>(s1.length());
         int space =0;
 
         for(int i = truelength; i<s.length; i++) {
                 s[i] = '\0';
             }
 
-        //for(int i=0; i<s.size(); i++) {
-            //if (s.get(i) == ' ') {
         for(int i=0; i<s1.length(); i++) {
             if(s[i]== ' ') {
                 space++;
@@ -219,24 +217,50 @@ public class StringHashingArrayPrograms {
         int n =3;
         int finallength = truelength + space*(n-1);
         for(int i =truelength-1; i>=0; i--) {
-            //if(s.get(i) == ' ') {
             if(s[i] == ' ') {
                 s[finallength-1] = '0';
                 s[finallength-2] = '2';
                 s[finallength-3] = '%';
-                /*s.add(finallength-1, '0');
-                s.add(finallength-2, '2');
-                s.add(finallength-3, '%');*/
                 finallength = finallength-3;
             }
             else {
                 s[finallength - 1] = s[i];
-                //s.add(finallength-1, s.get(i));
                 finallength--;
             }
         }
-        System.out.println("string" + String.valueOf(s));
         return String.valueOf(s);
+    }
+
+    public String urlifyArrayList(String s1, int truelength) {
+        ArrayList<Character> list = new ArrayList<Character>(s1.length());
+        char[] ch = new char[list.size()];
+        for(int i=0; i<s1.length(); i++) {
+            list.add(s1.charAt(i));
+        }
+        int space=0;
+        for(int i=truelength; i<s1.length(); i++) {
+            list.set(i, '\0');
+        }
+        for(int i =0; i<s1.length(); i++) {
+            if(list.get(i).equals(' ')) {
+                space++;
+            }
+        }
+        int finallength = truelength + space * 2;
+        for (int i=truelength-1; i>=0; i--) {
+            if (list.get(i).equals(' ')) {
+                list.set(finallength-1, '0');
+                list.set(finallength-2, '2');
+                list.set(finallength-3, '%');
+                finallength = finallength-3;
+            }
+            else {
+                list.set(finallength - 1, list.get(i));
+                finallength--;
+            }
+            ch = list.toString().toCharArray();
+        }
+        return String.valueOf(ch);
     }
 
     //Hashset values adding
