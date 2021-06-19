@@ -23,8 +23,11 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.permutationArray("run1", "1nur"));
         System.out.println(sha.urlifyArray("Mr John Smith    ", 13));
         System.out.println(sha.urlifyArrayList("Mr John Smith    ", 13));
-        System.out.println(sha.urlifystringbuilder("United States of America !!"));*/
-        System.out.println(sha.palindromePermutation("Tacocattt"));
+        System.out.println(sha.urlifystringbuilder("United States of America !!"));
+        System.out.println(sha.palindromePermutation("Tacocattt"));*/
+        System.out.println(sha.oneawayArray("pale", "bale"));
+        System.out.println(sha.oneawayArray("aple", "apple"));
+        System.out.println(sha.oneawayArray("apple","aple"));
 
     }
 
@@ -281,7 +284,7 @@ public class StringHashingArrayPrograms {
         return modifiedString;
     }
 
-    //4) Palindrome Permutation - O(n^2)
+    //4) Palindrome Permutation Array - O(n)
     public boolean palindromePermutation(String s1) {
         int valz = Character.getNumericValue('z');
         int vala = Character.getNumericValue('a');
@@ -304,6 +307,52 @@ public class StringHashingArrayPrograms {
                     return false;
                 }
                 found = true;
+            }
+        }
+        return true;
+    }
+
+    //5) One Away: Three types of edits performed on
+    // strings: insert a character, remove a character, or replace a character
+    public boolean oneawayArray(String s1, String s2) {
+        if(s1.length()==s2.length()) {
+            return replace(s1,s2);
+        }
+        else if(s1.length() < s2.length()) {
+            return insertAndremove(s1, s2);
+        }
+        else if (s1.length() > s2.length()) {
+            return insertAndremove(s2, s1);
+        }
+        return false;
+    }
+    public boolean replace(String s1, String s2) {
+        boolean found = false;
+        for(int i=0; i<s1.length(); i++) {
+            if(s1.charAt(i)!=s2.charAt(i)) {
+                if(found) {
+                    return false;
+                }
+                found=true;
+            }
+        }
+        return true;
+    }
+    //aple -> apple
+    public boolean insertAndremove(String s1, String s2) {
+        int i=0, j=0;
+        boolean found = false;
+        while (i<s1.length() & j<s2.length()) {
+            if (s1.charAt(i)!=s2.charAt(j)) {
+                if(found) {
+                    return false;
+                }
+                    found = true;
+                    j++;
+            }
+            else {
+                i++;
+                j++;
             }
         }
         return true;
