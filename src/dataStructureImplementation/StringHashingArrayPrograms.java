@@ -20,9 +20,10 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.permutationCaseSensitiveAndSpace("   Do  g", "God "));
         System.out.println(sha.permutationHashSet("dog","god"));
         System.out.println(sha.permutationHashMap(" filter", "retlif "));
-        System.out.println(sha.permutationArray("run1", "1nur"));*/
+        System.out.println(sha.permutationArray("run1", "1nur"));
         System.out.println(sha.urlifyArray("Mr John Smith    ", 13));
-        System.out.println(sha.urlifyArrayList("Mr John Smith    ", 13));
+        System.out.println(sha.urlifyArrayList("Mr John Smith    ", 13));*/
+        System.out.println(sha.urlifystringbuilder("United States of America !!"));
 
     }
 
@@ -200,7 +201,7 @@ public class StringHashingArrayPrograms {
             return true;
         }
 
-        //URLify Replace all spaces in a string with %20 - Using char array
+    //3) URLify Replace all spaces in a string with %20 - Using char array
     public String urlifyArray(String s1, int truelength) {
         char[] s = s1.toCharArray();
         int space =0;
@@ -231,6 +232,7 @@ public class StringHashingArrayPrograms {
         return String.valueOf(s);
     }
 
+    //3) URLify Replace all spaces in a string with %20 - Using ArrayList
     public String urlifyArrayList(String s1, int truelength) {
         ArrayList<Character> list = new ArrayList<Character>(s1.length());
         char[] ch = new char[list.size()];
@@ -262,6 +264,23 @@ public class StringHashingArrayPrograms {
         }
         return String.valueOf(ch);
     }
+
+    //3) URLify Replace all spaces in a string with %20 - Using Stringbuilder
+    public StringBuilder urlifystringbuilder (String s1) {
+        char[] s = s1.toCharArray();
+        StringBuilder modifiedString = new StringBuilder();
+        for(int i=0; i<s.length; i++) {
+            if(s[i] == ' ') {
+                modifiedString.append("%20");
+            }
+            else {
+                modifiedString.append(s[i]);
+            }
+        }
+        return modifiedString;
+    }
+
+
 
     //Hashset values adding
     public void practise1 (String s) {
