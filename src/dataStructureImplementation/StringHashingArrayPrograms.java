@@ -27,9 +27,11 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.palindromePermutation("Tacocattt"));
         System.out.println(sha.oneawayArray("pale", "bale"));
         System.out.println(sha.oneawayArray("aple", "apple"));
-        System.out.println(sha.oneawayArray("apple","aple"));*/
-        //System.out.println(sha.stringCompressionsb("aabccccaaa"));
-        System.out.println(sha.stringCompressionUsingNewString("aabbba"));
+        System.out.println(sha.oneawayArray("apple","aple"));
+        System.out.println(sha.stringCompressionsb("aabccccaaa"));
+        System.out.println(sha.stringCompressionUsingNewString("aabbba"));*/
+        //System.out.println(sha.oneawayHashMap("peno", "pero"));
+        System.out.println(sha.oneawayHashMap("xeroxx", "xerox"));
 
     }
 
@@ -360,7 +362,60 @@ public class StringHashingArrayPrograms {
         return true;
     }
 
-    //6) String Compression - Using new string O(n^2) - aabbba = a2b3c3d4a1
+    //5) One Away: Three types of edits performed on
+    // strings: insert a character, remove a character, or replace a character
+    public boolean oneawayHashMap(String s1, String s2) {
+        if(s1.length()==s2.length()) {
+            return replaceHM(s1,s2);
+        }
+        else if(s1.length()+1 == s2.length()) {
+            return insertRemoveHT(s1, s2);
+        }
+        else if (s1.length()-1 == s2.length()) {
+            return insertRemoveHT(s2, s1);
+        }
+        return false;
+    }
+    public boolean replaceHM(String s1, String s2) {
+        //HashMap<Character,Integer> map = new HashMap<>(s1.length());
+        HashSet<Character> set = new HashSet<>(s1.length());
+        int count =0;
+        for(int i=0; i<s1.length(); i++) {
+            if(s1.charAt(i)!=s2.charAt(i)) {
+                set.add(s1.charAt(i));
+                count++;
+            }
+        }
+        if(count>1) {
+            return false;
+        }
+        return true;
+    }
+    public boolean insertRemoveHT(String s1, String s2) {
+        Hashtable<Character,Integer> table = new Hashtable<>(s2.length());
+        int count =0, i = 0, j=0;
+        boolean found = false;
+        while (i<s1.length() && j<s2.length()) {
+            if(s1.charAt(i)!=s2.charAt(j)) {
+                if(found == false) {
+                    found = true;
+                    table.put(s2.charAt(i), count++);
+                    j++;
+                }
+                else if(found == true) {
+                    return false;
+                }
+            }
+            i++;
+            j++;
+        }
+        if (count>1) {
+            return false;
+        }
+        return true;
+    }
+
+    //6) String Compression - Using new string O(n^2) - aabbb = a2b3
     //Using a new string will copy the contents of older string into the new new string every time. So time complexity is - x+2x+3X+.. = x(x+1)/2 (G.P)
     //Hence time complexity is O(n^2)
     public String stringCompressionUsingNewString(String s) {
@@ -400,56 +455,7 @@ public class StringHashingArrayPrograms {
             return s;
     }
 
-    //5) One Away: Three types of edits performed on
-    // strings: insert a character, remove a character, or replace a character
-    /*public boolean oneawayHashMap(String s1, String s2) {
-        if(s1.length()==s2.length()) {
-            return replaceHM(s1,s2);
-        }
-        else if(s1.length() < s2.length()) {
-            return insertRemoveHT(s1, s2);
-        }
-        else if (s1.length() > s2.length()) {
-            return insertRemoveHT(s2, s1);
-        }
-        return false;
-    }
-    public boolean replaceHM(String s1, String s2) {
-        HashMap<Character,Integer> map = new HashMap<>(s1.length());
-        int count =0;
-        for(int i=0; i<s1.length(); i++) {
-            map.put(s1.charAt(i), count++);
-        }
-        for(int i=0; i<s2.length();i++) {
-            if(map.get(i) == s2.charAt(i)) {
-                count--;
-            }
-        }
-        if(count>1) {
-            return false;
-        }
-        return true;
-    }
-    public boolean insertRemoveHT(String s1, String s2) {
-        Hashtable<Character,Integer> table = new Hashtable<>(s2.length());
-        int count =0, i = 0, j=0;
-        boolean found = false;
-        while (i<s1.length() && j<s2.length()) {
-            table.put(s1.charAt(i), count++);
-            if(table.get(i)!=s1.charAt(j)) {
-                if(found) {
-                    return false;
-                }
-                j++;
-                found = true;
-            }
-            count--;
-        }
-        if (count>1) {
-            return false;
-        }
-        return true;
-    }
+
 
     //Hashset values adding
     public void practise1 (String s) {
@@ -482,5 +488,5 @@ public class StringHashingArrayPrograms {
         System.out.println(" ch content " + Arrays.toString(ch));
         int len = ch.length;
         System.out.println("Len " + len);
-    }*/
+    }
 }
