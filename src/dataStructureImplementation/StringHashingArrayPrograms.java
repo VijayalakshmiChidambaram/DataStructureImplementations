@@ -28,7 +28,8 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.oneawayArray("pale", "bale"));
         System.out.println(sha.oneawayArray("aple", "apple"));
         System.out.println(sha.oneawayArray("apple","aple"));*/
-        System.out.println(sha.stringCompressionsb("aabccccaaa"));
+        //System.out.println(sha.stringCompressionsb("aabccccaaa"));
+        System.out.println(sha.stringCompressionUsingNewString("aabbba"));
 
     }
 
@@ -358,6 +359,27 @@ public class StringHashingArrayPrograms {
         }
         return true;
     }
+
+    //6) String Compression - Using new string O(n^2) - aabbba = a2b3c3d4a1
+    //Using a new string will copy the contents of older string into the new new string every time. So time complexity is - x+2x+3X+.. = x(x+1)/2 (G.P)
+    //Hence time complexity is O(n^2)
+    public String stringCompressionUsingNewString(String s) {
+        String newString = "";
+        int count=0;
+        for(int i=0; i<s.length(); i++) {
+            count++;
+
+            /*if(i+1>s.length()) {
+                newString = newString + s.charAt(i) + count;
+            }*/
+            if (i+1 >= s.length() || s.charAt(i)!= s.charAt(i+1)) {
+                newString = newString + s.charAt(i) + count;
+                count=0;
+            }
+        }
+        return newString.length() < s.length() ? newString : s;
+    }
+
 
     //6) String compression - stringbuilder - O(n)
     public String stringCompressionsb(String s) {
