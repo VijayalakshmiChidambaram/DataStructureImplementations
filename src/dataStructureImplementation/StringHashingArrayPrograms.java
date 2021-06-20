@@ -369,10 +369,10 @@ public class StringHashingArrayPrograms {
         for(int i=0; i<s.length(); i++) {
             count++;
 
-            /*if(i+1>s.length()) {
+            if(i+1>=s.length()) {
                 newString = newString + s.charAt(i) + count;
-            }*/
-            if (i+1 >= s.length() || s.charAt(i)!= s.charAt(i+1)) {
+            }
+            else if (s.charAt(i)!= s.charAt(i+1)) {
                 newString = newString + s.charAt(i) + count;
                 count=0;
             }
