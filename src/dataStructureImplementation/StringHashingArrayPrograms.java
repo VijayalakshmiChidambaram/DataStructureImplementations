@@ -24,10 +24,11 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.urlifyArray("Mr John Smith    ", 13));
         System.out.println(sha.urlifyArrayList("Mr John Smith    ", 13));
         System.out.println(sha.urlifystringbuilder("United States of America !!"));
-        System.out.println(sha.palindromePermutation("Tacocattt"));*/
+        System.out.println(sha.palindromePermutation("Tacocattt"));
         System.out.println(sha.oneawayArray("pale", "bale"));
         System.out.println(sha.oneawayArray("aple", "apple"));
-        System.out.println(sha.oneawayArray("apple","aple"));
+        System.out.println(sha.oneawayArray("apple","aple"));*/
+        System.out.println(sha.stringCompressionsb("aabccccaaa"));
 
     }
 
@@ -313,7 +314,7 @@ public class StringHashingArrayPrograms {
     }
 
     //5) One Away: Three types of edits performed on
-    // strings: insert a character, remove a character, or replace a character
+    // strings: insert a character, remove a character, or replace a character - O(n)
     public boolean oneawayArray(String s1, String s2) {
         if(s1.length()==s2.length()) {
             return replace(s1,s2);
@@ -358,6 +359,76 @@ public class StringHashingArrayPrograms {
         return true;
     }
 
+    //6) String compression - stringbuilder - O(n)
+    public String stringCompressionsb(String s) {
+        StringBuilder builder = new StringBuilder(s.length());
+
+        int count = 0;
+        for(int i=0; i<s.length(); i++) {
+            count++;
+            if (i+1>=s.length() || s.charAt(i) != s.charAt(i+1)) {
+                builder.append(s.charAt(i));
+                builder.append(count);
+                count = 0;
+            }
+        }
+        if(builder.length() < s.length()) {
+            return builder.toString();
+        }
+            return s;
+    }
+
+    //5) One Away: Three types of edits performed on
+    // strings: insert a character, remove a character, or replace a character
+    /*public boolean oneawayHashMap(String s1, String s2) {
+        if(s1.length()==s2.length()) {
+            return replaceHM(s1,s2);
+        }
+        else if(s1.length() < s2.length()) {
+            return insertRemoveHT(s1, s2);
+        }
+        else if (s1.length() > s2.length()) {
+            return insertRemoveHT(s2, s1);
+        }
+        return false;
+    }
+    public boolean replaceHM(String s1, String s2) {
+        HashMap<Character,Integer> map = new HashMap<>(s1.length());
+        int count =0;
+        for(int i=0; i<s1.length(); i++) {
+            map.put(s1.charAt(i), count++);
+        }
+        for(int i=0; i<s2.length();i++) {
+            if(map.get(i) == s2.charAt(i)) {
+                count--;
+            }
+        }
+        if(count>1) {
+            return false;
+        }
+        return true;
+    }
+    public boolean insertRemoveHT(String s1, String s2) {
+        Hashtable<Character,Integer> table = new Hashtable<>(s2.length());
+        int count =0, i = 0, j=0;
+        boolean found = false;
+        while (i<s1.length() && j<s2.length()) {
+            table.put(s1.charAt(i), count++);
+            if(table.get(i)!=s1.charAt(j)) {
+                if(found) {
+                    return false;
+                }
+                j++;
+                found = true;
+            }
+            count--;
+        }
+        if (count>1) {
+            return false;
+        }
+        return true;
+    }
+
     //Hashset values adding
     public void practise1 (String s) {
         int size = s.length();
@@ -389,5 +460,5 @@ public class StringHashingArrayPrograms {
         System.out.println(" ch content " + Arrays.toString(ch));
         int len = ch.length;
         System.out.println("Len " + len);
-    }
+    }*/
 }
