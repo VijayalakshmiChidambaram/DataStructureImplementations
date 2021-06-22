@@ -28,10 +28,11 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.oneawayArray("pale", "bale"));
         System.out.println(sha.oneawayArray("aple", "apple"));
         System.out.println(sha.oneawayArray("apple","aple"));
-        System.out.println(sha.stringCompressionsb("aabccccaaa"));
-        System.out.println(sha.stringCompressionUsingNewString("aabbba"));*/
+        System.out.println(sha.stringCompressionsb("aabccccaaa"));*/
+        //System.out.println(sha.stringCompressionUsingNewString("aabbba"));
         //System.out.println(sha.oneawayHashMap("peno", "pero"));
-        System.out.println(sha.oneawayHashMap("xeroxx", "xerox"));
+        //System.out.println(sha.oneawayHashMap("xeroxx", "xerox"));
+        System.out.println(sha.inputDataRotateMatrixUsingSwap(4));
 
     }
 
@@ -443,7 +444,7 @@ public class StringHashingArrayPrograms {
         int count = 0;
         for(int i=0; i<s.length(); i++) {
             count++;
-            if (i+1>=s.length() || s.charAt(i) != s.charAt(i+1)) {
+            if ((i+1>=s.length()) || (s.charAt(i) != s.charAt(i+1))) {
                 builder.append(s.charAt(i));
                 builder.append(count);
                 count = 0;
@@ -455,7 +456,30 @@ public class StringHashingArrayPrograms {
             return s;
     }
 
-
+//7) Rotate Matrix- Using swap - Time : O(n^2), Space is O(1) - Done within the same space
+    public int[][] inputDataRotateMatrixUsingSwap(int n) {
+        int[][] matrix = new int[n][n];
+        Scanner input = new Scanner(System.in);
+        for (int i=0; i<n; i++) {
+            for (int j=0; j<n; j++) {
+                matrix[i][j] = input.nextInt();
+            }
+        }
+        return rotateMatrixUsingSwap(matrix);
+    }
+    public int[][] rotateMatrixUsingSwap(int[][] matrix) {
+        int n = matrix.length;
+        for (int i=0; i<n/2; i++) {
+            for (int j=i; j<n; j++) {
+                int top = matrix[i][j];
+               matrix[i][j] = matrix[n-1-j][i];
+               matrix[n-1-j][i] = matrix[n-1-i][n-1-j];
+               matrix[n-1-i][n-1-j] = matrix[j][n-1-i];
+               matrix[j][n-1-i] = top;
+            }
+        }
+        return matrix;
+    }
 
     //Hashset values adding
     public void practise1 (String s) {
