@@ -32,7 +32,9 @@ public class StringHashingArrayPrograms {
         //System.out.println(sha.stringCompressionUsingNewString("aabbba"));
         //System.out.println(sha.oneawayHashMap("peno", "pero"));
         //System.out.println(sha.oneawayHashMap("xeroxx", "xerox"));
-        System.out.println(sha.inputDataRotateMatrixUsingSwap(4));
+        //sha.inputDataRotateMatrixUsingSwap(4);
+        int [][] input = {{0, 50, 100, 20}, {50, 0, 70, 110}, {100, 70, 0, 200}, {20, 110, 200, 0}};
+        System.out.println(Arrays.deepToString(sha.rotateMatrixUsingSwapPassValues(input)));
 
     }
 
@@ -457,7 +459,7 @@ public class StringHashingArrayPrograms {
     }
 
 //7) Rotate Matrix- Using swap - Time : O(n^2), Space is O(1) - Done within the same space
-    public int[][] inputDataRotateMatrixUsingSwap(int n) {
+    public void inputDataRotateMatrixUsingSwap(int n) {
         int[][] matrix = new int[n][n];
         Scanner input = new Scanner(System.in);
         for (int i=0; i<n; i++) {
@@ -465,7 +467,7 @@ public class StringHashingArrayPrograms {
                 matrix[i][j] = input.nextInt();
             }
         }
-        return rotateMatrixUsingSwap(matrix);
+        rotateMatrixUsingSwap(matrix);
     }
     public int[][] rotateMatrixUsingSwap(int[][] matrix) {
         int n = matrix.length;
@@ -478,6 +480,22 @@ public class StringHashingArrayPrograms {
                matrix[j][n-1-i] = top;
             }
         }
+        return matrix;
+    }
+    //7) Rotate Matrix- Using swap - Time : O(n^2), Space is O(1) - Done within the same space
+    public int[][] rotateMatrixUsingSwapPassValues(int[][] matrix) {
+        int n = matrix.length;
+        int i =0, j =0;
+        for (i = 0; i < n / 2; i++) {
+            for (j = i; j < n; j++) {
+                int top = matrix[i][j];
+                matrix[i][j] = matrix[n - 1 - j][i];
+                matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
+                matrix[n - 1 - i][n - 1 - j] = matrix[j][n - 1 - i];
+                matrix[j][n - 1 - i] = top;
+            }
+        }
+                System.out.println("Final matrix" + Arrays.deepToString(matrix));
         return matrix;
     }
 
