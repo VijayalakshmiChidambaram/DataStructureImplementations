@@ -34,7 +34,8 @@ public class StringHashingArrayPrograms {
         //System.out.println(sha.oneawayHashMap("xeroxx", "xerox"));
         //sha.inputDataRotateMatrixUsingSwap(4);
         int [][] input = {{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
-        System.out.println(Arrays.deepToString(sha.rotateMatrixUsingSwapPassValues(input)));
+        //System.out.println(Arrays.deepToString(sha.rotateMatrixUsingSwapPassValues(input)));
+        System.out.println(Arrays.deepToString(sha.rotateMatrixTransposeAndReverse(input)));
 
     }
 
@@ -498,6 +499,28 @@ public class StringHashingArrayPrograms {
             }
         }
                 System.out.println("Final matrix" + Arrays.deepToString(matrix));
+        return matrix;
+    }
+    //7) RotateMatrix- Using transpose and reverse - Time : O(n^2), Space is O(1) - Done within the same space
+    public int[][] rotateMatrixTransposeAndReverse(int[][] matrix) {
+        System.out.println("Transpose and Reverse Matrix" + Arrays.deepToString(matrix));
+        int n= matrix.length;
+        int i =0, j=0;
+        for(i=0; i<n; i++) {
+            for(j=i; j<n; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for (i=0; i<n; i++) {
+            for (j=0; j<n/2; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][n-1-j];
+                matrix[i][n-1-j] = temp;
+            }
+        }
+
         return matrix;
     }
 
