@@ -33,7 +33,7 @@ public class StringHashingArrayPrograms {
         //System.out.println(sha.oneawayHashMap("peno", "pero"));
         //System.out.println(sha.oneawayHashMap("xeroxx", "xerox"));
         //sha.inputDataRotateMatrixUsingSwap(4);
-        int [][] input = {{0, 50, 100, 20}, {50, 0, 70, 110}, {100, 70, 0, 200}, {20, 110, 200, 0}};
+        int [][] input = {{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
         System.out.println(Arrays.deepToString(sha.rotateMatrixUsingSwapPassValues(input)));
 
     }
@@ -467,12 +467,13 @@ public class StringHashingArrayPrograms {
                 matrix[i][j] = input.nextInt();
             }
         }
+        System.out.println(Arrays.deepToString(matrix));
         rotateMatrixUsingSwap(matrix);
     }
-    public int[][] rotateMatrixUsingSwap(int[][] matrix) {
+    public String rotateMatrixUsingSwap(int[][] matrix) {
         int n = matrix.length;
         for (int i=0; i<n/2; i++) {
-            for (int j=i; j<n; j++) {
+            for (int j=i; j<n-1-i; j++) {
                 int top = matrix[i][j];
                matrix[i][j] = matrix[n-1-j][i];
                matrix[n-1-j][i] = matrix[n-1-i][n-1-j];
@@ -480,14 +481,15 @@ public class StringHashingArrayPrograms {
                matrix[j][n-1-i] = top;
             }
         }
-        return matrix;
+        System.out.println(Arrays.deepToString(matrix));
+        return Arrays.deepToString(matrix);
     }
     //7) Rotate Matrix- Using swap - Time : O(n^2), Space is O(1) - Done within the same space
     public int[][] rotateMatrixUsingSwapPassValues(int[][] matrix) {
         int n = matrix.length;
         int i =0, j =0;
         for (i = 0; i < n / 2; i++) {
-            for (j = i; j < n; j++) {
+            for (j = i; j < n-1-i; j++) {
                 int top = matrix[i][j];
                 matrix[i][j] = matrix[n - 1 - j][i];
                 matrix[n - 1 - j][i] = matrix[n - 1 - i][n - 1 - j];
