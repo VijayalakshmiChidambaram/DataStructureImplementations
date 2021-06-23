@@ -33,11 +33,11 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.oneawayHashMap("peno", "pero"));
         int [][] input = {{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
         System.out.println(Arrays.deepToString(sha.rotateMatrixUsingSwapPassValues(input)));
-        System.out.println(Arrays.deepToString(sha.rotateMatrixTransposeAndReverse(input)));*/
+        System.out.println(Arrays.deepToString(sha.rotateMatrixTransposeAndReverse(input)));
         int [][] inputZeroMatrix = {{0,1,1,1},{1,1,1,0},{1,1,1,1}};
-        //System.out.println(Arrays.deepToString(sha.zeroMatrixBoolArray(inputZeroMatrix)));
-        System.out.println(Arrays.deepToString(sha.zeroMatrixInSpace(inputZeroMatrix)));
-
+        System.out.println(Arrays.deepToString(sha.zeroMatrixBoolArray(inputZeroMatrix)));
+        System.out.println(Arrays.deepToString(sha.zeroMatrixInSpace(inputZeroMatrix)));*/
+        System.out.println(sha.isroatateString("mypencil", "encilmyp"));
     }
 
     //Time - O(n^2)
@@ -600,7 +600,28 @@ public class StringHashingArrayPrograms {
     }
 
     //9) String rotation
-
+    public boolean isroatateString(String s1, String s2) {
+        int len1 = s1.length();
+        int len2 = s2.length();
+        String newString;
+        if(len1 == len2 && len1 >0) {
+            newString = s1+s1;
+            return isSubString(newString, s2);
+        }
+        return false;
+    }
+    public boolean isSubString(String s1, String s2) {
+        int count =0;
+        for (int i=0; i<s1.length(); i++) {
+            if(count<s2.length() && (s1.charAt(i) == s2.charAt(count))) {
+                count++;
+            }
+        }
+        if(count==s2.length()) {
+            return true;
+        }
+            return false;
+    }
 
     //Hashset values adding
     public void practise1 (String s) {
