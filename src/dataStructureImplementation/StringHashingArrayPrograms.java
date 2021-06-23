@@ -28,14 +28,15 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.oneawayArray("pale", "bale"));
         System.out.println(sha.oneawayArray("aple", "apple"));
         System.out.println(sha.oneawayArray("apple","aple"));
-        System.out.println(sha.stringCompressionsb("aabccccaaa"));*/
-        //System.out.println(sha.stringCompressionUsingNewString("aabbba"));
-        //System.out.println(sha.oneawayHashMap("peno", "pero"));
-        //System.out.println(sha.oneawayHashMap("xeroxx", "xerox"));
-        //sha.inputDataRotateMatrixUsingSwap(4);
+        System.out.println(sha.stringCompressionsb("aabccccaaa"));
+        System.out.println(sha.stringCompressionUsingNewString("aabbba"));
+        System.out.println(sha.oneawayHashMap("peno", "pero"));
         int [][] input = {{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
-        //System.out.println(Arrays.deepToString(sha.rotateMatrixUsingSwapPassValues(input)));
-        System.out.println(Arrays.deepToString(sha.rotateMatrixTransposeAndReverse(input)));
+        System.out.println(Arrays.deepToString(sha.rotateMatrixUsingSwapPassValues(input)));
+        System.out.println(Arrays.deepToString(sha.rotateMatrixTransposeAndReverse(input)));*/
+        int [][] inputZeroMatrix = {{0,1,1,1},{1,1,1,0},{1,1,1,1}};
+        //System.out.println(Arrays.deepToString(sha.zeroMatrixBoolArray(inputZeroMatrix)));
+        System.out.println(Arrays.deepToString(sha.zeroMatrixInSpace(inputZeroMatrix)));
 
     }
 
@@ -523,6 +524,83 @@ public class StringHashingArrayPrograms {
 
         return matrix;
     }
+
+    //8) Zero Matrix - Using bool array(Extra space) - So space complexity is O(MN), Time complexity - O(n^2)
+    public int[][] zeroMatrixBoolArray(int[][] matrix) {
+        boolean[] row = new boolean[matrix.length];
+        boolean[] column = new boolean[matrix[0].length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 0) {
+                    row[i] = true;
+                    column[j] = true;
+                }
+            }
+        }
+        for (int i = 0; i < row.length; i++) {
+            if (row[i] == true) {
+                for (int j = 0; j < matrix[0].length; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for (int i = 0; i < column.length; i++) {
+            if (column[i] == true) {
+                for (int j = 0; j < matrix.length; j++) {
+                    matrix[j][i] = 0;
+                }
+            }
+        }
+        return matrix;
+    }
+
+    //8) Zero Matrix - Using boolVariable(In space) - So space complexity is O(1), Time complexity - O(n^2)
+    public int[][] zeroMatrixInSpace(int[][] matrix) {
+        boolean row = false;
+        boolean col = false;
+        for(int i=0; i<matrix.length; i++) {
+            for(int j=0; j<matrix[0].length; j++) {
+                if(matrix[i][0]==0) {
+                    row = true;
+                }
+                if(matrix[0][j]==0) {
+                    col = true;
+                }
+                if((i>0 && j>0) && matrix[i][j] ==0) {
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
+                }
+                }
+            }
+        for(int i=1; i<matrix.length; i++) {
+            if(matrix[i][0] == 0) {
+                for(int j=0; j<matrix[0].length; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        for(int i=1; i<matrix[0].length; i++) {
+            if(matrix[0][i] == 0) {
+                for (int j=0; j<matrix.length; j++) {
+                    matrix[j][i] = 0;
+                }
+            }
+        }
+        if(row == true) {
+            for(int i=0; i<matrix[0].length; i++) {
+                matrix[0][i] = 0;
+            }
+        }
+        if(col) {
+            for (int i =0; i<matrix.length; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+        return matrix;
+    }
+
+    //9) String rotation
+
 
     //Hashset values adding
     public void practise1 (String s) {
