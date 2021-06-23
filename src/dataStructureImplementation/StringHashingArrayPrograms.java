@@ -37,8 +37,9 @@ public class StringHashingArrayPrograms {
         int [][] inputZeroMatrix = {{0,1,1,1},{1,1,1,0},{1,1,1,1}};
         System.out.println(Arrays.deepToString(sha.zeroMatrixBoolArray(inputZeroMatrix)));
         System.out.println(Arrays.deepToString(sha.zeroMatrixInSpace(inputZeroMatrix)));*/
-        System.out.println(sha.isroatateString("mypencil", "encilmyp"));
-        System.out.println(sha.isRotateUsingContains("Aaradhaya", "radhayaaa"));
+        //System.out.println(sha.isroatateString("mypencil", "encilmyp"));
+        //System.out.println(sha.isRotateUsingContains("Aaradhaya", "radhayaaa"));
+        System.out.println(sha.isRotate("welcome", "comewel"));
     }
 
     //Time - O(n^2)
@@ -631,6 +632,24 @@ public class StringHashingArrayPrograms {
         }
         return false;
     }
+    //9) String rotation, Time - O(n^2) {Compare two strings of length n - O(n^2)}, Space - O(1)
+    public boolean isRotate(String s1, String s2) {
+        String newString = s1;
+        if(s1.length()==s2.length() && s1.length()>0) {
+            for (int i = 0; i < s1.length(); i++) {
+                if (s1.compareTo(s2) == 0) {
+                    return true;
+                }
+                newString = newString +  s1.charAt(i);
+                newString = newString.substring(1);
+                if (newString.compareTo(s2) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     //Hashset values adding
     public void practise1 (String s) {
         int size = s.length();
