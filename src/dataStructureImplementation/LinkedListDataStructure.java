@@ -16,6 +16,8 @@ public class LinkedListDataStructure {
         node.printValues();
         node.insertAfterprevNode(node.head.next.next.next, 25);
         node.printValues();
+        node.recursiveInsertionMiddle(node.head, 13, 2);
+        node.printValues();
     }
 }
 
@@ -82,6 +84,17 @@ class singlyLinkedList {
             }
             newNode.next = previous_node.next;
             previous_node.next = newNode;
+        }
+
+        public Node recursiveInsertionMiddle(Node temp, int data, int position) {
+            if(position == 0) {
+                Node newNode = new Node(data);
+                newNode.next = temp.next;
+                temp.next = newNode;
+                return newNode;
+            }
+            temp.next = recursiveInsertionMiddle(temp.next, data, position-1);
+            return temp;
         }
 
         public void printValues() {
