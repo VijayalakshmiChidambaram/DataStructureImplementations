@@ -21,6 +21,7 @@ public class LinkedListDataStructure {
         //node.printValues();
         node.deleteEndSLL();
         node.deleteMiddleSLL(3);
+        node.countTotalNodesSLL();
         node.printValues();
     }
 }
@@ -130,6 +131,17 @@ class singlyLinkedList {
                 i++;
             }
             temp.next = temp.next.next;
+        }
+
+        public int countTotalNodesSLL() {
+            int count =0;
+            temp = head;
+            while (temp!=null) {
+                count++;
+                temp = temp.next;
+            }
+            System.out.println("count "+ count);
+            return count;
         }
         public void printValues() {
             Node currentNode = head;
