@@ -17,7 +17,10 @@ public class LinkedListDataStructure {
         node.insertAfterprevNode(node.head.next.next.next, 25);
         node.printValues();
         //node.recursiveInsertionMiddle(node.head, 13, 2);
-        node.deleteBeginSLL(5);
+        node.deleteBeginSLL();
+        //node.printValues();
+        node.deleteEndSLL();
+        node.deleteMiddleSLL(3);
         node.printValues();
     }
 }
@@ -98,13 +101,36 @@ class singlyLinkedList {
             return temp;
         }
 
-        public void deleteBeginSLL(int data) {
+        public void deleteBeginSLL() {
             if(head == null) {
                 return;
             }
             head = head.next;
         }
 
+        public void deleteEndSLL() {
+            if(head == null || head.next == null) {
+                return;
+            }
+            temp = head;
+            while(temp.next != null && temp.next.next!=null) {
+                temp = temp.next;
+            }
+            temp.next = null;
+        }
+
+        public void deleteMiddleSLL(int position) {
+            if(head == null || head.next == null) {
+                return;
+            }
+            temp = head;
+            int i=0;
+            while (i<position-1) {
+                temp = temp.next;
+                i++;
+            }
+            temp.next = temp.next.next;
+        }
         public void printValues() {
             Node currentNode = head;
             System.out.println("LL");
