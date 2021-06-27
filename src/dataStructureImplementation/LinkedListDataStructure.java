@@ -10,8 +10,8 @@ public class LinkedListDataStructure {
         node.printValues();
         node.insertNodeBeginSLL(5);
         node.printValues();
-        //node.insertNodeEndSLL(45);
-        //node.printValues();
+        node.insertNodeEndSLL(45);
+        node.printValues();
         node.insertNodeMiddle(15,2);
         node.printValues();
     }
