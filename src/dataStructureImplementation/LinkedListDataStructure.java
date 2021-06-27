@@ -14,6 +14,8 @@ public class LinkedListDataStructure {
         node.printValues();
         node.insertNodeMiddle(15,2);
         node.printValues();
+        node.insertAfterprevNode(node.head.next.next.next, 25);
+        node.printValues();
     }
 }
 
@@ -71,6 +73,15 @@ class singlyLinkedList {
             }
             newNode.next = temp.next;
             temp.next = newNode;
+        }
+
+        public void insertAfterprevNode(Node previous_node, int data) {
+            Node newNode = new Node(data);
+            if(previous_node == null) {
+                return;
+            }
+            newNode.next = previous_node.next;
+            previous_node.next = newNode;
         }
 
         public void printValues() {
