@@ -4,11 +4,15 @@ public class LinkedListDataStructure {
     public static void main(String[] args) {
         singlyLinkedList node = new singlyLinkedList();
         node.createNodesSLL(11);
-        node.createNodesSLL(2);
-        node.createNodesSLL(1);
-        node.createNodesSLL(20);
+        node.createNodesSLL(22);
+        node.createNodesSLL(33);
+        node.createNodesSLL(40);
         node.printValues();
-        node.insertNodeBeginSLL(15);
+        node.insertNodeBeginSLL(5);
+        node.printValues();
+        //node.insertNodeEndSLL(45);
+        //node.printValues();
+        node.insertNodeMiddle(15,2);
         node.printValues();
     }
 }
@@ -41,6 +45,32 @@ class singlyLinkedList {
             Node newNode = new Node(data);
             newNode.next = head;
             head = newNode;
+        }
+
+        public void insertNodeEndSLL(int data) {
+            Node newNode = new Node(data);
+            if(head == null) {
+                head = newNode;
+                return;
+            }
+            while (temp.next!=null) {
+                temp = temp.next;
+                System.out.println("temp" + temp);
+            }
+            temp.next = newNode;
+            newNode.next = null;
+        }
+
+        public void insertNodeMiddle(int data, int position) {
+            Node newNode = new Node(data);
+            temp = head;
+            int i=0;
+            while (i<position-1) {
+                temp = temp.next;
+                i++;
+            }
+            newNode.next = temp.next;
+            temp.next = newNode;
         }
 
         public void printValues() {
