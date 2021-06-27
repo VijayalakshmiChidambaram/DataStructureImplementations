@@ -3,10 +3,12 @@ package dataStructureImplementation;
 public class LinkedListDataStructure {
     public static void main(String[] args) {
         singlyLinkedList node = new singlyLinkedList();
-        node.createNodes(11);
-        node.createNodes(2);
-        node.createNodes(1);
-        node.createNodes(20);
+        node.createNodesSLL(11);
+        node.createNodesSLL(2);
+        node.createNodesSLL(1);
+        node.createNodesSLL(20);
+        node.printValues();
+        node.insertNodeBeginSLL(15);
         node.printValues();
     }
 }
@@ -24,7 +26,7 @@ class singlyLinkedList {
         Node head;
         Node temp;
 
-        public void createNodes(int data) {
+        public int createNodesSLL(int data) {
             Node newNode = new Node(data);
             if (head == null) {
                 head = temp = newNode;
@@ -32,6 +34,13 @@ class singlyLinkedList {
                 temp.next = newNode;
                 temp = newNode;
             }
+            return temp.data;
+        }
+        //Insertion into a list of already inserted nodes
+        public void insertNodeBeginSLL(int data) {
+            Node newNode = new Node(data);
+            newNode.next = head;
+            head = newNode;
         }
 
         public void printValues() {
