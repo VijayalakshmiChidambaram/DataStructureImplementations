@@ -15,7 +15,8 @@ public class LLProblemSolving {
 
         llist.printNodes();
         //llist.removeDuplicatesUsingHashset();
-        llist.removeDuplicatesHashTable();
+        //llist.removeDuplicatesHashTable();
+        llist.removeDuplicatesTwoPointer();
         llist.printNodes();
     }
 }
@@ -87,8 +88,26 @@ class singlyLinkedListPrograms {
             }
             curr = curr.next;
         }
-
     }
+    //1) Removing duplicates without extra space - HashTable, Space -O(1), Time complexity - O(n^2)
+    public void removeDuplicatesTwoPointer() {
+        Nodes p, n;
+        p=head;
+        while(p!=null) {
+            n=p;
+            while (n.next!=null) {
+                if(p.data == n.next.data) {
+                    n.next = n.next.next;
+                }
+                else{
+                    n=n.next;
+                }
+            }
+            p=p.next;
+        }
+    }
+
+
 }
 
 
