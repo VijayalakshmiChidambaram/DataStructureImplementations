@@ -15,13 +15,15 @@ public class LinkedListDataStructure {
         node.insertNodeMiddle(15,2);
         //node.printValues();
         node.insertAfterprevNode(node.head.next.next.next, 25);
-        node.printValues();
+        //node.printValues();
         //node.recursiveInsertionMiddle(node.head, 13, 2);
         node.deleteBeginSLL();
         //node.printValues();
         node.deleteEndSLL();
         node.deleteMiddleSLL(3);
         node.countTotalNodesSLL();
+        node.printValues();
+        node.reverseSLL();
         node.printValues();
     }
 }
@@ -140,8 +142,21 @@ class singlyLinkedList {
                 count++;
                 temp = temp.next;
             }
-            System.out.println("count "+ count);
             return count;
+        }
+
+        public void reverseSLL() {
+            Node prevNode, nextNode;
+            temp = head;
+            nextNode = head;
+            prevNode = null;
+            while(nextNode!= null) {
+                nextNode = nextNode.next;
+                temp.next = prevNode;
+                prevNode = temp;
+                temp = nextNode;
+            }
+            head = prevNode;
         }
         public void printValues() {
             Node currentNode = head;
