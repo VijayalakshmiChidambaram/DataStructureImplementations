@@ -14,7 +14,8 @@ public class LLProblemSolving {
         llist.createNodes(30);
 
         llist.printNodes();
-        llist.removeDuplicatesUsingHashset();
+        //llist.removeDuplicatesUsingHashset();
+        llist.removeDuplicatesHashTable();
         llist.printNodes();
     }
 }
