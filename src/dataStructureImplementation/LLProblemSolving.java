@@ -12,11 +12,13 @@ public class LLProblemSolving {
         llist.createNodes(30);
         llist.createNodes(20);
         llist.createNodes(30);
+        llist.createNodes(15);
 
         llist.printNodes();
         //llist.removeDuplicatesUsingHashset();
         //llist.removeDuplicatesHashTable();
         llist.removeDuplicatesTwoPointer();
+        llist.returnKthNodeIterative(2);
         llist.printNodes();
     }
 }
@@ -106,7 +108,19 @@ class singlyLinkedListPrograms {
             p=p.next;
         }
     }
-
+    //2) Return kth node from the end - Iterative approach
+    public int returnKthNodeIterative(int position) {
+        Nodes p1 = head;
+        Nodes p2 = head;
+        for(int i=0; i<position; i++) {
+            p1 = p1.next;
+        }
+        while (p1!=null) {
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        return p2.data;
+    }
 
 }
 
