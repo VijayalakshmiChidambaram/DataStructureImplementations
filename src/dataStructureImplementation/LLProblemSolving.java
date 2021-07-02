@@ -20,9 +20,9 @@ public class LLProblemSolving {
         //llist.removeDuplicatesHashTable();
         llist.removeDuplicatesTwoPointer();
         llist.returnKthNodeIterative( 2);
-        llist.returnKthElementRecursive(llist.head, 2);
+        //llist.returnKthElementRecursive(llist.head, 2);
         llist.returnKthElementRecursiveWithCounter(llist.head, 2, 0);
-        llist.printNodes();
+        //llist.printNodes();
     }
 }
 
@@ -129,11 +129,11 @@ class singlyLinkedListPrograms {
         if(head==null) {
             return 0;
         }
-        int index = returnKthElementRecursive(head.next, position);
+        int index = returnKthElementRecursive(head.next, position) + 1;
         if(index == position) {
-            System.out.println(position +" to last element" + head.data);
+            System.out.println(position +" to last element "+ head.data);
         }
-        return head.data;
+        return index;
     }
 
     public int returnKthElementRecursiveWithCounter(Nodes head, int position, int i) {
@@ -142,10 +142,10 @@ class singlyLinkedListPrograms {
         }
         int index = returnKthElementRecursiveWithCounter(head.next, position, i);
         i = i+1;
-        if(index == position) {
+        if(i  == position) {
             System.out.println(position +" to last element" + head.data);
         }
-        return head.data;
+        return position;
     }
 }
 
