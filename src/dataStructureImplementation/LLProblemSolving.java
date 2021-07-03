@@ -110,7 +110,7 @@ class singlyLinkedListPrograms {
             p=p.next;
         }
     }
-    //2) Return kth node from the end - Iterative approach
+    //2) Return kth node from the end - Iterative approach Time - O(n), Space - O(1)
     public int returnKthNodeIterative(int position) {
         Nodes p1 = head;
         Nodes p2 = head;
@@ -123,7 +123,7 @@ class singlyLinkedListPrograms {
         }
         return p2.data;
     }
-
+    //2) Return kth node from the end - Recursive approach, Time - O(n)
    public int returnKthElementRecursive(Nodes head, int position) {
         if(head==null) {
             return 0;
