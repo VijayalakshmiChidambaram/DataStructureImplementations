@@ -14,13 +14,13 @@ public class LLProblemSolving {
         llist.createNodes(30);
         llist.createNodes(15);
         llist.createNodes(25);
-
-        llist.printNodes();
         //llist.removeDuplicatesUsingHashset();
         //llist.removeDuplicatesHashTable();
         llist.removeDuplicatesTwoPointer();
         llist.returnKthNodeIterative( 2);
         llist.returnKthElementRecursive(llist.head, 2);
+        llist.printNodes();
+        llist.deleteMiddleNode(llist.head.next.next);
         llist.printNodes();
     }
 }
@@ -133,6 +133,24 @@ class singlyLinkedListPrograms {
             System.out.println(position +" to last element "+ head.data);
         }
         return index;
+    }
+    //3) Delete Middle Node(Given access to only that node)
+    /* 1-> 2-> 3-> 4-> 5 Delete = 3
+    1-> 2-> 4-> 5
+    Dummy node - Copy next node data to it.
+    Move dummy node data to current node and make the next pointer of dummy node as the next pointer of current
+     */
+
+    Nodes deleteMiddleNode(Nodes middle) {
+        if(middle == null || middle.next== null) {
+            return null;
+        }
+        //Nodes dummyNode = new Nodes(middle.next.data);
+        Nodes dummyNode = middle.next;
+        middle.data = dummyNode.data;
+        middle.next = dummyNode.next;
+        return head;
+
     }
 
 }
