@@ -153,6 +153,13 @@ class singlyLinkedListPrograms {
 
     }
 
+    Nodes deleteMiddleNodeOnly(Nodes middle) {
+        if(head == null || middle == null || middle.next== null) {
+            return null;
+        }
+        Nodes dummyNode = middle;
+        return head;
+    }
 }
 
 
