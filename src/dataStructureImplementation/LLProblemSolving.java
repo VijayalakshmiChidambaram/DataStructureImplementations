@@ -20,7 +20,8 @@ public class LLProblemSolving {
         llist.returnKthNodeIterative( 2);
         llist.returnKthElementRecursive(llist.head, 2);
         llist.printNodes();
-        llist.deleteMiddleNode(llist.head.next.next);
+        //llist.deleteMiddleNode(llist.head.next.next);
+        llist.deleteMiddleNodeOnly(llist.head);
         llist.printNodes();
     }
 }
@@ -154,10 +155,13 @@ class singlyLinkedListPrograms {
     }
 
     Nodes deleteMiddleNodeOnly(Nodes middle) {
-        if(head == null || middle == null || middle.next== null) {
+        if(middle == null || middle.next== null) {
             return null;
         }
         Nodes dummyNode = middle;
+        dummyNode.data= middle.data;
+        dummyNode.data = dummyNode.next.data;
+        dummyNode.next = dummyNode.next.next;
         return head;
     }
 }
