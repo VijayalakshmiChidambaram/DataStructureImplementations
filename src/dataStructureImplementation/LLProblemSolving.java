@@ -21,7 +21,7 @@ public class LLProblemSolving {
         llist.returnKthElementRecursive(llist.head, 2);
         llist.printNodes();
         llist.deleteMiddleNode(llist.head.next.next);
-        //llist.deleteMiddleNodeOnly(llist.head);
+        llist.deleteMiddleNodeOnly(llist.head.next.next);
         llist.printNodes();
     }
 }
