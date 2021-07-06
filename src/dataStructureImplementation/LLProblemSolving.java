@@ -135,7 +135,7 @@ class singlyLinkedListPrograms {
         }
         return index;
     }
-    //3) Delete Middle Node(Given access to only that node)
+    //3) Delete Middle Node(Given access to only that node) Time - O(n), Space- O(1)
     /* 1-> 2-> 3-> 4-> 5 Delete = 3
     1-> 2-> 4-> 5
     Dummy node - Copy next node data to it.
@@ -152,7 +152,7 @@ class singlyLinkedListPrograms {
         middle.next = dummyNode.next;
         return head;
     }
-
+    //3) Delete Middle Node(Given access to only that node) Time - O(n), Space- O(1)
     Nodes deleteMiddleNodeOnly(Nodes middle) {
         if(middle == null || middle.next== null) {
             return null;
