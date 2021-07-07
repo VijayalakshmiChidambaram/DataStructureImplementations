@@ -8,20 +8,20 @@ public class LLProblemSolving {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
         llist.createNodes(1);
         llist.createNodes(10);
-        llist.createNodes(10);
-        llist.createNodes(30);
         llist.createNodes(20);
         llist.createNodes(30);
-        llist.createNodes(15);
-        llist.createNodes(25);
-        //llist.removeDuplicatesUsingHashset();
-        //llist.removeDuplicatesHashTable();
+        llist.createNodes(30);
+        llist.createNodes(10);
+        llist.createNodes(1);
+        /*llist.removeDuplicatesUsingHashset();
+        llist.removeDuplicatesHashTable();
         llist.removeDuplicatesTwoPointer();
         llist.returnKthNodeIterative( 2);
         llist.returnKthElementRecursive(llist.head, 2);
         llist.printNodes();
         llist.deleteMiddleNode(llist.head.next.next);
-        llist.deleteMiddleNodeOnly(llist.head.next.next);
+        llist.deleteMiddleNodeOnly(llist.head.next.next);*/
+        llist.recursivePalindrome(llist.head);
         llist.printNodes();
     }
 }
@@ -162,6 +162,19 @@ class singlyLinkedListPrograms {
         dummyNode.data = dummyNode.next.data;
         dummyNode.next = dummyNode.next.next;
         return head;
+    }
+
+    boolean recursivePalindrome(Nodes mover) {
+        temp = head;
+        if (mover == null){
+            return true;
+        }
+
+        boolean part_ans = recursivePalindrome(mover.next);
+        boolean ans = part_ans & (mover.data == temp.data);
+        temp = temp.next;
+        System.out.println(" ans " + ans);
+        return ans;
     }
 }
 
