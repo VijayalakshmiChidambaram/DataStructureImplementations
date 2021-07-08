@@ -10,9 +10,9 @@ public class LLProblemSolving {
         llist.createNodes(10);
         llist.createNodes(20);
         llist.createNodes(30);
-        llist.createNodes(30);
+        llist.createNodes(250);
         llist.createNodes(10);
-        llist.createNodes(1);
+        llist.createNodes(5);
         /*llist.removeDuplicatesUsingHashset();
         llist.removeDuplicatesHashTable();
         llist.removeDuplicatesTwoPointer();
@@ -21,7 +21,8 @@ public class LLProblemSolving {
         llist.printNodes();
         llist.deleteMiddleNode(llist.head.next.next);
         llist.deleteMiddleNodeOnly(llist.head.next.next);*/
-        llist.recursivePalindrome(llist.head);
+        //llist.recursivePalindrome(llist.head);
+        llist.partitionLLCreatingTwoSeparatelists(20);
         llist.printNodes();
     }
 }
@@ -162,6 +163,35 @@ class singlyLinkedListPrograms {
         dummyNode.data = dummyNode.next.data;
         dummyNode.next = dummyNode.next.next;
         return head;
+    }
+
+    //4) Partition Linked list- Values less than partition element before it. Order not required to maintain
+    // Time Complexity- O(n), Space complexity - O(n) [Extra nodes created to store two separate lists]
+
+    Nodes partitionLLCreatingTwoSeparatelists(int partition) {
+        temp = head;
+        if(head == null) {
+            return null;
+        }
+
+        Nodes smallElements = new Nodes(0);
+        Nodes smallHead = smallElements;
+        Nodes largeElements = new Nodes(0);
+        Nodes largeHead = largeElements;
+        while(temp!=null) {
+            if(temp.data < partition) {
+                smallHead.next = temp;
+                smallHead = smallHead.next;
+            }
+            else {
+                largeHead.next = temp;
+                largeHead = largeHead.next;
+            }
+            temp = temp.next;
+        }
+        largeHead.next = null;
+        smallHead.next = largeElements.next;
+        return smallElements;
     }
 
     boolean recursivePalindrome(Nodes mover) {
