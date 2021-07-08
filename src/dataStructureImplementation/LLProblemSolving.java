@@ -44,12 +44,12 @@ class singlyLinkedListPrograms {
 
     Nodes head;
     Nodes temp;
+
     public void createNodes(int data) {
         Nodes newNode = new Nodes(data);
-        if(head == null) {
+        if (head == null) {
             head = temp = newNode;
-        }
-        else {
+        } else {
             temp.next = newNode;
             temp = newNode;
         }
@@ -59,85 +59,87 @@ class singlyLinkedListPrograms {
         Nodes currentNode;
         currentNode = head;
         System.out.println("LL Data: ");
-        while (currentNode!=null) {
+        while (currentNode != null) {
             System.out.println(currentNode.data);
             currentNode = currentNode.next;
         }
     }
-//1) Removing duplicates using extra space - Hashset, Time complexity - O(n)
-    public void removeDuplicatesUsingHashset() {
-     Nodes prev, curr;
-     prev=head;
-     curr=head;
-     HashSet<Integer> set = new HashSet<>();
 
-     while(curr != null) {
-         if(set.contains(curr.data)) {
-             prev.next = curr.next;
-         }
-         else {
-             set.add(curr.data);
-             prev=curr;
-         }
-         curr=curr.next;
-     }
+    //1) Removing duplicates using extra space - Hashset, Time complexity - O(n)
+    public void removeDuplicatesUsingHashset() {
+        Nodes prev, curr;
+        prev = head;
+        curr = head;
+        HashSet<Integer> set = new HashSet<>();
+
+        while (curr != null) {
+            if (set.contains(curr.data)) {
+                prev.next = curr.next;
+            } else {
+                set.add(curr.data);
+                prev = curr;
+            }
+            curr = curr.next;
+        }
     }
-//1) Removing duplicates using extra space - HashTable, Time complexity - O(n)
+
+    //1) Removing duplicates using extra space - HashTable, Time complexity - O(n)
     public void removeDuplicatesHashTable() {
         Nodes curr, prev;
         curr = head;
         prev = null;
         Hashtable<Integer, Boolean> table = new Hashtable<>();
 
-        while (curr !=null) {
+        while (curr != null) {
             if (table.containsKey(curr.data)) {
                 prev.next = curr.next;
-            }
-            else{
+            } else {
                 table.put(curr.data, true);
                 prev = curr;
             }
             curr = curr.next;
         }
     }
+
     //1) Removing duplicates without extra space - HashTable, Space -O(1), Time complexity - O(n^2)
     public void removeDuplicatesTwoPointer() {
         Nodes p, n;
-        p=head;
-        while(p!=null) {
-            n=p;
-            while (n.next!=null) {
-                if(p.data == n.next.data) {
+        p = head;
+        while (p != null) {
+            n = p;
+            while (n.next != null) {
+                if (p.data == n.next.data) {
                     n.next = n.next.next;
-                }
-                else{
-                    n=n.next;
+                } else {
+                    n = n.next;
                 }
             }
-            p=p.next;
+            p = p.next;
         }
     }
+
     //2) Return kth node from the end - Iterative approach Time - O(n), Space - O(1)
     public int returnKthNodeIterative(int position) {
         Nodes p1 = head;
         Nodes p2 = head;
-        for(int i=0; i<position; i++) {
+        for (int i = 0; i < position; i++) {
             p1 = p1.next;
         }
-        while (p1!=null) {
+        while (p1 != null) {
             p1 = p1.next;
             p2 = p2.next;
         }
         return p2.data;
     }
+
     //2) Return kth node from the end - Recursive approach, Time - O(n)
-   public int returnKthElementRecursive(Nodes head, int position) {
-        if(head==null) {
+    public int returnKthElementRecursive(Nodes head, int position) {
+        if (head == null) {
             return 0;
         }
         int index = returnKthElementRecursive(head.next, position) + 1;
-        if(index == position) {
-            System.out.println(position +" to last element "+ head.data);
+        if (index == position) {
+            System.out.println(position + " to last element " + head.data);
         }
         return index;
     }
@@ -149,7 +151,7 @@ class singlyLinkedListPrograms {
      */
 
     Nodes deleteMiddleNode(Nodes middle) {
-        if(middle == null || middle.next== null) {
+        if (middle == null || middle.next == null) {
             return null;
         }
         Nodes dummyNode;
@@ -158,13 +160,14 @@ class singlyLinkedListPrograms {
         middle.next = dummyNode.next;
         return head;
     }
+
     //3) Delete Middle Node(Given access to only that node) Time - O(n), Space- O(1)
     Nodes deleteMiddleNodeOnly(Nodes middle) {
-        if(middle == null || middle.next== null) {
+        if (middle == null || middle.next == null) {
             return null;
         }
         Nodes dummyNode = middle;
-        dummyNode.data= middle.data;
+        dummyNode.data = middle.data;
         dummyNode.data = dummyNode.next.data;
         dummyNode.next = dummyNode.next.next;
         return head;
@@ -174,7 +177,7 @@ class singlyLinkedListPrograms {
     // Time Complexity- O(n), Space complexity - O(n) [Extra nodes created to store two separate lists]
     Nodes partitionLLCreatingTwoSeparatelists(int partition) {
 
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return null;
         }
         temp = head;
@@ -183,12 +186,11 @@ class singlyLinkedListPrograms {
         Nodes smallHead = smallElements;
         Nodes largeElements = new Nodes(0);
         Nodes largeHead = largeElements;
-        while(temp!=null) {
-            if(temp.data < partition) {
+        while (temp != null) {
+            if (temp.data < partition) {
                 smallHead.next = temp;
                 smallHead = smallHead.next;
-            }
-            else {
+            } else {
                 largeHead.next = temp;
                 largeHead = largeHead.next;
             }
@@ -198,60 +200,59 @@ class singlyLinkedListPrograms {
         smallHead.next = largeElements.next;
         return smallElements;
     }
-/*
-    Nodes partitionUsing4pointers(int partition) {
-        if(head == null || head.next == null) {
-            return head;
-        }
-        temp = head;
-        Nodes smallElements = null;
-        Nodes smallHead = null;
-        Nodes largeElements = null;
-        Nodes largeHead = null;
-        while (temp != null) {
-            if(temp.data < partition) {
-            if (smallElements == null) {
-                smallElements = temp;
-                smallHead = smallElements;
-            } else {
-                smallHead.next = temp;
-                smallHead = smallHead.next;
+
+    /*
+        Nodes partitionUsing4pointers(int partition) {
+            if(head == null || head.next == null) {
+                return head;
             }
-        }
-        else {
-                if (largeElements == null) {
-                    largeElements = temp;
-                    largeHead = largeElements;
+            temp = head;
+            Nodes smallElements = null;
+            Nodes smallHead = null;
+            Nodes largeElements = null;
+            Nodes largeHead = null;
+            while (temp != null) {
+                if(temp.data < partition) {
+                if (smallElements == null) {
+                    smallElements = temp;
+                    smallHead = smallElements;
                 } else {
-                    largeHead.next = temp;
-                    largeHead = largeHead.next;
-                    //largeHead.next = null;
+                    smallHead.next = temp;
+                    smallHead = smallHead.next;
                 }
             }
-            temp = temp.next;
+            else {
+                    if (largeElements == null) {
+                        largeElements = temp;
+                        largeHead = largeElements;
+                    } else {
+                        largeHead.next = temp;
+                        largeHead = largeHead.next;
+                        //largeHead.next = null;
+                    }
+                }
+                temp = temp.next;
+            }
+            smallElements.next = largeElements.next;
+            return smallElements;
         }
-        smallElements.next = largeElements.next;
-        return smallElements;
-    }
-    */
+        */
     //5) Sum lists - Digits stored in reverse order, result in reverse order. Space complexity - O(n), Time complexity - O(n+m)
     Nodes sumlistsReverseOrderIterative(Nodes l1, Nodes l2) {
         Nodes resultsum = new Nodes(0);
         Nodes sumptr = resultsum;
-        int carry = 0, sum , tempsum1 = 0, tempsum2 = 0;
-        while (l1 != null || l2!=null) {
-            if( l1 != null) {
+        int carry = 0, sum, tempsum1 = 0, tempsum2 = 0;
+        while (l1 != null || l2 != null) {
+            if (l1 != null) {
                 tempsum1 = l1.data;
                 l1 = l1.next;
-            }
-            else {
+            } else {
                 tempsum1 = 0;
             }
-            if(l2 != null) {
+            if (l2 != null) {
                 tempsum2 = l2.data;
                 l2 = l2.next;
-            }
-            else {
+            } else {
                 tempsum2 = 0;
             }
             sum = tempsum1 + tempsum2 + carry;
@@ -263,19 +264,79 @@ class singlyLinkedListPrograms {
             sumptr = sumptr.next;
 
         }
-        if(carry != 0) {
+        if (carry != 0) {
             Nodes newNode = new Nodes(carry);
             sumptr.next = newNode;
             sumptr = sumptr.next;
         }
         Nodes s = resultsum;
-        while(s.next!= null) {
+        while (s.next != null) {
             s = s.next;
             System.out.println("Sum" + s.data);
         }
         return resultsum;
     }
 
+    //5) Sum lists - Digits stored in reverse order, result in reverse order. Space complexity - O(n), Time complexity - O(n+m)
+    Nodes sumlistsReverseOrderRecursive(Nodes l1, Nodes l2, int carry) {
+        Nodes resultSum = new Nodes(0);
+        Nodes l1Pointer = l1, l2Pointer = l2;
+        int tempsum1 = 0, tempsum2 = 0;
+        int carryValue = carry;
+        int newlen = 0;
+        int len1 = length(l1);
+        int len2 = length(l2);
+
+        if (len1 != len2) {
+            newlen = Math.abs(len1 - len2);
+            Nodes newlist = (len1 < len2) ? pointerPosition(l1, newlen) : pointerPosition(l2, newlen);
+        }
+
+
+        if (l1 == null && l2 == null & carry == 0) {
+            return null;
+        }
+
+        if (l1 != null) {
+            carryValue = carryValue + l1.data;
+        }
+        if (l2 != null) {
+            carryValue = carryValue + l2.data;
+        }
+        if (l1 != null || l2 != null) {
+            sumlistsReverseOrderRecursive(l1 == null ? null : l1.next, l2 == null ? null : l2.next, carryValue == 0 ? 0 : 1);
+            int tempSum = l1.data + l2.data + carry;
+        }
+    return resultSum;
+}
+
+//6) Palindrome
+
+    //7) Intersection - Point of intersection of two lists. Return intersecting node
+    //8) Loop detection - Return node where loop starts
+
+    int length(Nodes list) {
+        Nodes current = list;
+        int size = 1;
+        while(current.next != null) {
+            size = size+1;
+            current = current.next;
+        }
+        return size;
+    }
+
+    Nodes pointerPosition(Nodes list, int lengthDifference) {
+        Nodes listPointer = list;
+        while (list.next != null) {
+            listPointer = listPointer.next;
+        }
+        while (lengthDifference == 0) {
+            listPointer.next.data = 0;
+            listPointer = listPointer.next;
+            lengthDifference--;
+        }
+        return list;
+    }
 
     boolean recursivePalindrome(Nodes mover) {
         temp = head;
