@@ -12,7 +12,7 @@ public class LLProblemSolving {
         llist.createNodes(30);
         llist.createNodes(250);
         llist.createNodes(10);
-        llist.createNodes(5);
+        //llist.createNodes(5);
         /*llist.removeDuplicatesUsingHashset();
         llist.removeDuplicatesHashTable();
         llist.removeDuplicatesTwoPointer();
@@ -22,7 +22,8 @@ public class LLProblemSolving {
         llist.deleteMiddleNode(llist.head.next.next);
         llist.deleteMiddleNodeOnly(llist.head.next.next);*/
         //llist.recursivePalindrome(llist.head);
-        llist.partitionLLCreatingTwoSeparatelists(20);
+        //llist.partitionLLCreatingTwoSeparatelists(20);
+        //llist.partitionUsing4pointers(10);
         llist.printNodes();
     }
 }
@@ -167,7 +168,6 @@ class singlyLinkedListPrograms {
 
     //4) Partition Linked list- Values less than partition element before it. Order not required to maintain
     // Time Complexity- O(n), Space complexity - O(n) [Extra nodes created to store two separate lists]
-
     Nodes partitionLLCreatingTwoSeparatelists(int partition) {
 
         if(head == null || head.next == null) {
@@ -194,14 +194,42 @@ class singlyLinkedListPrograms {
         smallHead.next = largeElements.next;
         return smallElements;
     }
-
+/*
     Nodes partitionUsing4pointers(int partition) {
         if(head == null || head.next == null) {
             return head;
         }
         temp = head;
-
+        Nodes smallElements = null;
+        Nodes smallHead = null;
+        Nodes largeElements = null;
+        Nodes largeHead = null;
+        while (temp != null) {
+            if(temp.data < partition) {
+            if (smallElements == null) {
+                smallElements = temp;
+                smallHead = smallElements;
+            } else {
+                smallHead.next = temp;
+                smallHead = smallHead.next;
+            }
+        }
+        else {
+                if (largeElements == null) {
+                    largeElements = temp;
+                    largeHead = largeElements;
+                } else {
+                    largeHead.next = temp;
+                    largeHead = largeHead.next;
+                    //largeHead.next = null;
+                }
+            }
+            temp = temp.next;
+        }
+        smallElements.next = largeElements.next;
+        return smallElements;
     }
+    */
     boolean recursivePalindrome(Nodes mover) {
         temp = head;
         if (mover == null){
