@@ -169,10 +169,11 @@ class singlyLinkedListPrograms {
     // Time Complexity- O(n), Space complexity - O(n) [Extra nodes created to store two separate lists]
 
     Nodes partitionLLCreatingTwoSeparatelists(int partition) {
-        temp = head;
-        if(head == null) {
+
+        if(head == null || head.next == null) {
             return null;
         }
+        temp = head;
 
         Nodes smallElements = new Nodes(0);
         Nodes smallHead = smallElements;
@@ -194,6 +195,13 @@ class singlyLinkedListPrograms {
         return smallElements;
     }
 
+    Nodes partitionUsing4pointers(int partition) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        temp = head;
+
+    }
     boolean recursivePalindrome(Nodes mover) {
         temp = head;
         if (mover == null){
