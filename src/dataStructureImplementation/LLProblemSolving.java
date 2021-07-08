@@ -7,11 +7,14 @@ public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
         llist.createNodes(1);
-        llist.createNodes(10);
-        llist.createNodes(20);
-        llist.createNodes(30);
-        llist.createNodes(250);
-        llist.createNodes(10);
+        llist.createNodes(2);
+        llist.createNodes(3);
+        llist.createNodes(4);
+        singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
+        //llist2.createNodes(5);
+        llist2.createNodes(6);
+        llist2.createNodes(7);
+        llist2.createNodes(8);
         //llist.createNodes(5);
         /*llist.removeDuplicatesUsingHashset();
         llist.removeDuplicatesHashTable();
@@ -24,6 +27,7 @@ public class LLProblemSolving {
         //llist.recursivePalindrome(llist.head);
         //llist.partitionLLCreatingTwoSeparatelists(20);
         //llist.partitionUsing4pointers(10);
+        llist.sumlistsReverseOrderIterative(llist.head, llist2.head);
         llist.printNodes();
     }
 }
@@ -230,6 +234,49 @@ class singlyLinkedListPrograms {
         return smallElements;
     }
     */
+    //5) Sum lists - Digits stored in reverse order, result in reverse order. Space complexity - O(n), Time complexity - O(n+m)
+    Nodes sumlistsReverseOrderIterative(Nodes l1, Nodes l2) {
+        Nodes resultsum = new Nodes(0);
+        Nodes sumptr = resultsum;
+        int carry = 0, sum , tempsum1 = 0, tempsum2 = 0;
+        while (l1 != null || l2!=null) {
+            if( l1 != null) {
+                tempsum1 = l1.data;
+                l1 = l1.next;
+            }
+            else {
+                tempsum1 = 0;
+            }
+            if(l2 != null) {
+                tempsum2 = l2.data;
+                l2 = l2.next;
+            }
+            else {
+                tempsum2 = 0;
+            }
+            sum = tempsum1 + tempsum2 + carry;
+            carry = sum / 10;
+            sum = sum % 10;
+
+            Nodes newNode = new Nodes(sum);
+            sumptr.next = newNode;
+            sumptr = sumptr.next;
+
+        }
+        if(carry != 0) {
+            Nodes newNode = new Nodes(carry);
+            sumptr.next = newNode;
+            sumptr = sumptr.next;
+        }
+        Nodes s = resultsum;
+        while(s.next!= null) {
+            s = s.next;
+            System.out.println("Sum" + s.data);
+        }
+        return resultsum;
+    }
+
+
     boolean recursivePalindrome(Nodes mover) {
         temp = head;
         if (mover == null){
