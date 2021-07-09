@@ -34,8 +34,9 @@ public class LLProblemSolving {
         llist.sumlistsReverseOrderIterative(llist.head, llist2.head);
        llist.sumlistsReverseOrderRecursive(llist.head, llist2.head, 0);
         llist.intersectionTwoPointers(llist.head, llist2.head, llist3.head);
-        llist.intersectionTwoListsFindingLengthDiff(llist.head, llist2.head, llist3.head);*/
-        llist.intersectionTwoListsUsingHashing(llist.head, llist2.head, llist3.head);
+        llist.intersectionTwoListsFindingLengthDiff(llist.head, llist2.head, llist3.head);
+        llist.intersectionTwoListsUsingHashing(llist.head, llist2.head, llist3.head);*/
+        llist.loopDetectionTwoPointers(llist.head);
         llist.printNodes();
     }
 }
@@ -449,8 +450,38 @@ boolean recursivePalindrome(Nodes mover) {
         return null;
     }
 
+    //8) Loop detection - Return node where loop starts. Time - Space -
+    Nodes loopDetectionTwoPointers(Nodes list) {
+        if(head == null || head.next == null) {
+            return null;
+        }
+        temp = list;
+        while(temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = head.next;
 
-    //8) Loop detection - Return node where loop starts
+        Nodes shortPointer = head;
+        Nodes longPointer = head;
+        while (longPointer != null || longPointer.next !=null) {
+            if(longPointer == null || longPointer.next == null) {
+                return null;
+            }
+                shortPointer = shortPointer.next;
+                longPointer = longPointer.next.next;
+                if(shortPointer == longPointer) {
+                    break;
+                }
+        }
+        shortPointer = head;
+        while (shortPointer != longPointer) {
+            shortPointer = shortPointer.next;
+            longPointer = longPointer.next;
+        }
+        System.out.println(shortPointer.data);
+        return shortPointer;
+    }
+    //Functions to the above problems
 
     int length(Nodes list) {
         Nodes current = list;
