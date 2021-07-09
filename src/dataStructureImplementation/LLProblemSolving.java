@@ -6,15 +6,19 @@ import java.util.Hashtable;
 public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
-        llist.createNodes(1);
-        llist.createNodes(2);
         llist.createNodes(3);
-        llist.createNodes(4);
+        llist.createNodes(1);
+        llist.createNodes(5);
+        llist.createNodes(9);
+        llist.createNodes(6);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
-        //llist2.createNodes(5);
-        llist2.createNodes(6);
-        llist2.createNodes(7);
+        llist2.createNodes(4);
         llist2.createNodes(8);
+        llist2.createNodes(6);
+        singlyLinkedListPrograms llist3 = new singlyLinkedListPrograms();
+        llist3.createNodes(17);
+        llist3.createNodes(18);
+        llist3.createNodes(19);
         //llist.createNodes(5);
         /*llist.removeDuplicatesUsingHashset();
         llist.removeDuplicatesHashTable();
@@ -27,7 +31,9 @@ public class LLProblemSolving {
         //llist.recursivePalindrome(llist.head);
         //llist.partitionLLCreatingTwoSeparatelists(20);
         //llist.partitionUsing4pointers(10);
-        llist.sumlistsReverseOrderIterative(llist.head, llist2.head);
+        //llist.sumlistsReverseOrderIterative(llist.head, llist2.head);
+        //llist.sumlistsReverseOrderRecursive(llist.head, llist2.head, 0);
+        llist.intersectionTwoPointers(llist.head, llist2.head, llist3.head);
         llist.printNodes();
     }
 }
@@ -280,8 +286,8 @@ class singlyLinkedListPrograms {
     //5) Sum lists - Digits stored in reverse order, result in reverse order. Space complexity - O(n), Time complexity - O(n+m)
     Nodes sumlistsReverseOrderRecursive(Nodes l1, Nodes l2, int carry) {
         Nodes resultSum = new Nodes(0);
-        Nodes l1Pointer = l1, l2Pointer = l2;
-        int tempsum1 = 0, tempsum2 = 0;
+        Nodes resultSumPointer = resultSum;
+        //int tempsum1 = 0, tempsum2 = 0;
         int carryValue = carry;
         int newlen = 0;
         int len1 = length(l1);
@@ -290,6 +296,12 @@ class singlyLinkedListPrograms {
         if (len1 != len2) {
             newlen = Math.abs(len1 - len2);
             Nodes newlist = (len1 < len2) ? pointerPosition(l1, newlen) : pointerPosition(l2, newlen);
+            if (len1 < len2) {
+                l1 = newlist;
+            }
+            else {
+                l2 = newlist;
+            }
         }
 
 
@@ -303,9 +315,12 @@ class singlyLinkedListPrograms {
         if (l2 != null) {
             carryValue = carryValue + l2.data;
         }
+        resultSum.data = carryValue % 10;
         if (l1 != null || l2 != null) {
-            sumlistsReverseOrderRecursive(l1 == null ? null : l1.next, l2 == null ? null : l2.next, carryValue == 0 ? 0 : 1);
-            int tempSum = l1.data + l2.data + carry;
+            Nodes tempResult = sumlistsReverseOrderRecursive(l1 == null ? null : l1.next, l2 == null ? null : l2.next, carryValue >= 10 ? 1 : 0);
+            //int tempSum = l1.data + l2.data + carry;
+            Nodes tempresult1 = new Nodes(0);
+            tempResult = tempresult1;
         }
     return resultSum;
 }
@@ -313,6 +328,41 @@ class singlyLinkedListPrograms {
 //6) Palindrome
 
     //7) Intersection - Point of intersection of two lists. Return intersecting node
+    Nodes intersectionTwoPointers(Nodes list1, Nodes list2, Nodes list3) {
+        Nodes temp1 = list1;
+        Nodes temp2 = list2;
+        while(temp1.next != null) {
+            temp1 = temp1.next;
+        }
+        temp1.next = list3;
+        while (temp2.next !=null) {
+            temp2 = temp2.next;
+        }
+        temp2.next = list3;
+        if(list1 == null || list2 == null) {
+            return null;
+        }
+        Nodes list1pointer = list1;
+        Nodes list2pointer = list2;
+        while (list1pointer != list2pointer) {
+            if(list1pointer == null) {
+                list1pointer = list2;
+            }
+            else {
+                list1pointer = list1pointer.next;
+            }
+
+            if(list2pointer == null) {
+                list2pointer = list1;
+            }
+            else {
+                list2pointer = list2pointer.next;
+            }
+        }
+        System.out.println(list1pointer.data);
+        return list1pointer;
+    }
+
     //8) Loop detection - Return node where loop starts
 
     int length(Nodes list) {
@@ -327,11 +377,12 @@ class singlyLinkedListPrograms {
 
     Nodes pointerPosition(Nodes list, int lengthDifference) {
         Nodes listPointer = list;
-        while (list.next != null) {
+        while (listPointer.next != null) {
             listPointer = listPointer.next;
         }
-        while (lengthDifference == 0) {
-            listPointer.next.data = 0;
+        while (lengthDifference > 0) {
+            Nodes listpointerNode = new Nodes(0);
+            listPointer.next = listpointerNode;
             listPointer = listPointer.next;
             lengthDifference--;
         }
