@@ -33,7 +33,8 @@ public class LLProblemSolving {
         //llist.partitionUsing4pointers(10);
         //llist.sumlistsReverseOrderIterative(llist.head, llist2.head);
         //llist.sumlistsReverseOrderRecursive(llist.head, llist2.head, 0);
-        llist.intersectionTwoPointers(llist.head, llist2.head, llist3.head);
+        //llist.intersectionTwoPointers(llist.head, llist2.head, llist3.head);
+        llist.intersectionTwoListsFindingLengthDiff(llist.head, llist2.head, llist3.head);
         llist.printNodes();
     }
 }
@@ -326,9 +327,24 @@ class singlyLinkedListPrograms {
 }
 
 //6) Palindrome
+boolean recursivePalindrome(Nodes mover) {
+    temp = head;
+    if (mover == null){
+        return true;
+    }
 
-    //7) Intersection - Point of intersection of two lists. Return intersecting node
+    boolean part_ans = recursivePalindrome(mover.next);
+    boolean ans = part_ans & (mover.data == temp.data);
+    temp = temp.next;
+    System.out.println(" ans " + ans);
+    return ans;
+}
+
+    //7) Intersection - Point of intersection of two lists. Return intersecting node. Time - O(n), Space - O(1)
     Nodes intersectionTwoPointers(Nodes list1, Nodes list2, Nodes list3) {
+        if(list1 == null || list1.next == null || list2 == null || list2.next == null) {
+            return null;
+        }
         Nodes temp1 = list1;
         Nodes temp2 = list2;
         while(temp1.next != null) {
@@ -351,7 +367,6 @@ class singlyLinkedListPrograms {
             else {
                 list1pointer = list1pointer.next;
             }
-
             if(list2pointer == null) {
                 list2pointer = list1;
             }
@@ -362,6 +377,76 @@ class singlyLinkedListPrograms {
         System.out.println(list1pointer.data);
         return list1pointer;
     }
+
+    //7) Intersection - Point of intersection of two lists. Return intersecting node. Time - O(n), Space - O(1)
+    Nodes intersectionTwoListsFindingLengthDiff(Nodes list1, Nodes list2, Nodes list3) {
+        if(list1 == null || list1.next == null || list2 == null || list2.next == null) {
+            return null;
+        }
+        Nodes temp1 = list1;
+        Nodes temp2 = list2;
+        while(temp1.next != null) {
+            temp1 = temp1.next;
+        }
+        temp1.next = list3;
+        while (temp2.next !=null) {
+            temp2 = temp2.next;
+        }
+        temp2.next = list3;
+        int size1 = length(list1);
+        int size2 = length(list2);
+        int lengthDiff = Math.abs(size1 - size2);
+        Nodes longer = (size1 < size2) ? pointerMove(list2, lengthDiff) : pointerMove(list1, lengthDiff);
+
+        if(size1 < size2) {
+            list2 = longer;
+        }
+        else {
+            list1 = longer;
+        }
+        temp1 = list1;
+        temp2 = list2;
+        while(temp1 != temp2) {
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+        }
+        System.out.println(temp1.data);
+        return temp1;
+    }
+
+    //7) Intersection - Point of intersection of two lists. Return intersecting node. Time - O(n), Space - O(n)
+    Nodes intersectionTwoListsUsingHashing(Nodes list1, Nodes list2, Nodes list3) {
+        if(list1 == null || list1.next == null || list2 == null || list2.next == null) {
+            return null;
+        }
+        Nodes temp1 = list1;
+        Nodes temp2 = list2;
+        while(temp1.next != null) {
+            temp1 = temp1.next;
+        }
+        temp1.next = list3;
+        while (temp2.next !=null) {
+            temp2 = temp2.next;
+        }
+        temp2.next = list3;
+        HashSet<Integer> visitedNodes = new HashSet<Integer>();
+        temp1 = list1;
+        temp2 = list2;
+        while (temp1 != null) {
+            visitedNodes.add(temp1.data);
+            temp1 = temp1.next;
+        }
+        while (temp2 != null) {
+            if (visitedNodes.contains(temp2.data)) {
+                return temp2;
+            }
+            else {
+                temp2 = temp2.next;
+            }
+        }
+        return null;
+    }
+
 
     //8) Loop detection - Return node where loop starts
 
@@ -389,18 +474,15 @@ class singlyLinkedListPrograms {
         return list;
     }
 
-    boolean recursivePalindrome(Nodes mover) {
-        temp = head;
-        if (mover == null){
-            return true;
+    Nodes pointerMove(Nodes list, int length) {
+        Nodes pointer = list;
+        while (length > 0 && pointer != null) {
+            length --;
+            pointer = pointer.next;
         }
-
-        boolean part_ans = recursivePalindrome(mover.next);
-        boolean ans = part_ans & (mover.data == temp.data);
-        temp = temp.next;
-        System.out.println(" ans " + ans);
-        return ans;
+        return pointer;
     }
+
 }
 
 
