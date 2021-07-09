@@ -35,9 +35,10 @@ public class LLProblemSolving {
        llist.sumlistsReverseOrderRecursive(llist.head, llist2.head, 0);
         llist.intersectionTwoPointers(llist.head, llist2.head, llist3.head);
         llist.intersectionTwoListsFindingLengthDiff(llist.head, llist2.head, llist3.head);
-        llist.intersectionTwoListsUsingHashing(llist.head, llist2.head, llist3.head);*/
-        llist.loopDetectionTwoPointers(llist.head);
-        llist.printNodes();
+        llist.intersectionTwoListsUsingHashing(llist.head, llist2.head, llist3.head);
+        llist.loopDetectionTwoPointers(llist.head);*/
+        llist.circularLoopDetectionHashTable(llist.head);
+        //llist.printNodes();
     }
 }
 
@@ -450,7 +451,7 @@ boolean recursivePalindrome(Nodes mover) {
         return null;
     }
 
-    //8) Loop detection - Return node where loop starts. Time - Space -
+    //8) Loop detection - Return node where loop starts. Time - O(n), Space - O(1)
     Nodes loopDetectionTwoPointers(Nodes list) {
         if(head == null || head.next == null) {
             return null;
@@ -481,6 +482,33 @@ boolean recursivePalindrome(Nodes mover) {
         System.out.println(shortPointer.data);
         return shortPointer;
     }
+
+    //8) Loop detection - Return node where loop starts. Time - O(n), Space - O(n)
+    Nodes circularLoopDetectionHashTable(Nodes list) {
+        if(head == null || head.next == null) {
+            return null;
+        }
+        temp = list;
+        while(temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = head.next;
+
+        HashSet<Nodes> visitedNodes = new HashSet<>();
+
+        temp = head;
+
+        while (temp != null || temp.next != null ) {
+            if(visitedNodes.contains(list)) {
+                break;
+            }
+            visitedNodes.add(temp);
+            temp = temp.next;
+        }
+        System.out.println(temp.data);
+        return temp;
+    }
+
     //Functions to the above problems
 
     int length(Nodes list) {
