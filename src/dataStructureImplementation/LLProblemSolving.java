@@ -27,14 +27,15 @@ public class LLProblemSolving {
         llist.returnKthElementRecursive(llist.head, 2);
         llist.printNodes();
         llist.deleteMiddleNode(llist.head.next.next);
-        llist.deleteMiddleNodeOnly(llist.head.next.next);*/
-        //llist.recursivePalindrome(llist.head);
-        //llist.partitionLLCreatingTwoSeparatelists(20);
-        //llist.partitionUsing4pointers(10);
-        //llist.sumlistsReverseOrderIterative(llist.head, llist2.head);
-        //llist.sumlistsReverseOrderRecursive(llist.head, llist2.head, 0);
-        //llist.intersectionTwoPointers(llist.head, llist2.head, llist3.head);
-        llist.intersectionTwoListsFindingLengthDiff(llist.head, llist2.head, llist3.head);
+        llist.deleteMiddleNodeOnly(llist.head.next.next);
+        llist.recursivePalindrome(llist.head);
+        llist.partitionLLCreatingTwoSeparatelists(20);
+        llist.partitionUsing4pointers(10);
+        llist.sumlistsReverseOrderIterative(llist.head, llist2.head);
+       llist.sumlistsReverseOrderRecursive(llist.head, llist2.head, 0);
+        llist.intersectionTwoPointers(llist.head, llist2.head, llist3.head);
+        llist.intersectionTwoListsFindingLengthDiff(llist.head, llist2.head, llist3.head);*/
+        llist.intersectionTwoListsUsingHashing(llist.head, llist2.head, llist3.head);
         llist.printNodes();
     }
 }
@@ -429,15 +430,16 @@ boolean recursivePalindrome(Nodes mover) {
             temp2 = temp2.next;
         }
         temp2.next = list3;
-        HashSet<Integer> visitedNodes = new HashSet<Integer>();
+        HashSet<Nodes> visitedNodes = new HashSet<>();
         temp1 = list1;
         temp2 = list2;
         while (temp1 != null) {
-            visitedNodes.add(temp1.data);
+            visitedNodes.add(temp1);
             temp1 = temp1.next;
         }
         while (temp2 != null) {
-            if (visitedNodes.contains(temp2.data)) {
+            if (visitedNodes.contains(temp2)) {
+                System.out.println(temp2.data);
                 return temp2;
             }
             else {
