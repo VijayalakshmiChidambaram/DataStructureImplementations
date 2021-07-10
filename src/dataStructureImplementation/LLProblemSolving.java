@@ -8,11 +8,11 @@ public class LLProblemSolving {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
         llist.createNodes(1);
         llist.createNodes(2);
-        llist.createNodes(3);
+        //llist.createNodes(3);
         llist.createNodes(2);
         llist.createNodes(1);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
-        llist2.createNodes(1);
+        llist2.createNodes(11);
         llist2.createNodes(2);
         llist2.createNodes(3);
         llist2.createNodes(2);
@@ -40,8 +40,8 @@ public class LLProblemSolving {
         llist.intersectionTwoListsUsingHashing(llist.head, llist2.head, llist3.head);
         llist.loopDetectionTwoPointers(llist.head);
         llist.circularLoopDetectionHashTable(llist.head);*/
-        llist.palindromeUsingReverseLL(llist.head, llist2.head);
-        //llist.printNodes();
+        llist.palindromeUsingReverseLL(llist.head);
+        llist.printNodes();
     }
 }
 
@@ -332,36 +332,33 @@ class singlyLinkedListPrograms {
     return resultSum;
 }
 //6) Palindrome of linked list. Time - , Space -
-    Boolean palindromeUsingReverseLL(Nodes list, Nodes list1) {
-        Nodes temp1 = list;
-        Nodes reverseList = reverseLinkedList(list1);
-        Nodes temp2 = reverseList;
-        while (temp1!= null && temp2 !=null) {
-            if(temp1.data != temp2.data) {
-                return false;
-            }
+    Boolean palindromeUsingReverseLL(Nodes list) {
+        Nodes slowPointer = head;
+        Nodes fastPointer = head;
+        while(fastPointer != null && fastPointer.next !=null) {
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
         }
-        return true;
-    }
-
-    Nodes reverseLinkedList(Nodes list1) {
+        if (fastPointer !=null) {
+            slowPointer = slowPointer.next;
+        }
+        Nodes current = slowPointer;
+        Nodes nextNode = slowPointer;
         Nodes prev = null;
-        Nodes current = head, nextNode = head;
         while(nextNode != null) {
             nextNode = nextNode.next;
             current.next = prev;
             prev = current;
             current = nextNode;
         }
-        head = prev;
-        Nodes templist1 = new Nodes(head.data);
-        Nodes templist1Pointer = templist1;
-        while(head != null) {
+        while (prev != null) {
+            if(head.data != prev.data) {
+                return false;
+            }
+            prev = prev.next;
             head = head.next;
-            templist1Pointer.next = head;
-            templist1Pointer = templist1Pointer.next;
         }
-        return templist1;
+        return true;
     }
 
 //6) Palindrome recursion . Time - , Space -
