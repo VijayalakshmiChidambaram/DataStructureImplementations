@@ -287,7 +287,7 @@ class singlyLinkedListPrograms {
         return resultsum;
     }
 
-    //5) Sum lists - Digits stored in reverse order, result in reverse order. Space complexity - O(n), Time complexity - O(n+m)
+    //5) Doubt -Sum lists - Digits stored in reverse order, result in reverse order. Space complexity - O(n), Time complexity - O(n+m)
     Nodes sumlistsReverseOrderRecursive(Nodes l1, Nodes l2, int carry) {
         Nodes resultSum = new Nodes(0);
         Nodes resultSumPointer = resultSum;
