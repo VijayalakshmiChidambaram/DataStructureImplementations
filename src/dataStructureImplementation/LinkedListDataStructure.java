@@ -8,7 +8,7 @@ public class LinkedListDataStructure {
         node.createNodesSLL(33);
         node.createNodesSLL(40);
         //node.printValues();
-        node.insertNodeBeginSLL(5);
+        /*node.insertNodeBeginSLL(5);
         //node.printValues();
         node.insertNodeEndSLL(45);
         //node.printValues();
@@ -23,7 +23,8 @@ public class LinkedListDataStructure {
         node.deleteMiddleSLL(3);
         node.countTotalNodesSLL();
         node.printValues();
-        node.reverseSLL();
+        node.reverseSLL();*/
+        node.reverseLLUsingRecursion(node.head);
         node.printValues();
     }
 }
@@ -158,6 +159,21 @@ class singlyLinkedList {
             }
             head = prevNode;
         }
+
+        public Node reverseLLUsingRecursion(Node head) {
+            return reverseLLRecursion(head, null);
+        }
+        private Node reverseLLRecursion(Node head, Node previous) {
+            if (head == null) {
+                return previous;
+            }
+            Node nextNode = head.next;
+            head.next = previous;
+            previous = head;
+            head = nextNode;
+            return reverseLLRecursion(head, previous);
+        }
+
         public void printValues() {
             Node currentNode = head;
             System.out.println("LL");
