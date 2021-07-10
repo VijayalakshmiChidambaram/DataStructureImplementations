@@ -2,6 +2,7 @@ package dataStructureImplementation;
 
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Stack;
 
 public class LLProblemSolving {
     public static void main(String[] args) {
@@ -40,7 +41,8 @@ public class LLProblemSolving {
         llist.intersectionTwoListsUsingHashing(llist.head, llist2.head, llist3.head);
         llist.loopDetectionTwoPointers(llist.head);
         llist.circularLoopDetectionHashTable(llist.head);*/
-        llist.palindromeUsingReverseLL(llist.head);
+        //llist.palindromeUsingReverseLL(llist.head);
+        llist.palindromeIterativeUsingStack(llist.head);
         llist.printNodes();
     }
 }
@@ -361,7 +363,31 @@ class singlyLinkedListPrograms {
         return true;
     }
 
-//6) Palindrome recursion . Time - , Space -
+    //6) Palindrome iterative - Using stack. Time - O(n), space - O(n)
+    Boolean palindromeIterativeUsingStack(Nodes list) {
+        Nodes slowPointer = head;
+        Nodes fastPointer = head;
+        Stack<Integer> stack = new Stack<>();
+        while(fastPointer != null && fastPointer.next!= null) {
+            stack.push(slowPointer.data);
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+        }
+        //Odd number of elements in LL
+        if(fastPointer != null) {
+            slowPointer = slowPointer.next;
+        }
+        while (slowPointer != null) {
+            int top = stack.pop().intValue();
+            if(top != slowPointer.data) {
+                return false;
+            }
+            slowPointer = slowPointer.next;
+        }
+        return true;
+    }
+
+//6) Palindrome recursion . Time - O(n) , Space - O(1)
 boolean recursivePalindrome(Nodes mover) {
     temp = head;
     if (mover == null){
