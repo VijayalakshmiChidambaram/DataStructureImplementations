@@ -331,7 +331,7 @@ class singlyLinkedListPrograms {
         }
     return resultSum;
 }
-//6) Palindrome of linked list. Time - , Space -
+//6) Palindrome of linked list. Time - O(n), Space - O(1)
     Boolean palindromeUsingReverseLL(Nodes list) {
         Nodes slowPointer = head;
         Nodes fastPointer = head;
