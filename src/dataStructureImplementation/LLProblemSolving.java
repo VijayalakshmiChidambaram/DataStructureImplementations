@@ -8,10 +8,10 @@ public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
         llist.createNodes(1);
-        llist.createNodes(2);
+        //llist.createNodes(2);
         //llist.createNodes(3);
-        llist.createNodes(2);
-        llist.createNodes(1);
+        //llist.createNodes(4);
+        //llist.createNodes(5);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(11);
         llist2.createNodes(2);
@@ -42,7 +42,8 @@ public class LLProblemSolving {
         llist.loopDetectionTwoPointers(llist.head);
         llist.circularLoopDetectionHashTable(llist.head);*/
         //llist.palindromeUsingReverseLL(llist.head);
-        llist.palindromeIterativeUsingStack(llist.head);
+        //llist.palindromeIterativeUsingStack(llist.head);
+        llist.oddEvenList(llist.head);
         llist.printNodes();
     }
 }
@@ -565,6 +566,57 @@ boolean recursivePalindrome(Nodes mover) {
         }
         System.out.println(temp.data);
         return temp;
+    }
+
+    // 9) Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
+    //The first node is considered odd, and the second node is even, and so on.
+
+    public Nodes oddEvenList(Nodes head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        Nodes temp = head;
+        Nodes end = head;
+        Nodes oddPointer = head;
+        Nodes evenPointer = head.next;
+        Nodes current = null;
+
+        while(temp.next != null) {
+            temp = temp.next;
+            end = end.next;
+        }
+        while(evenPointer != end && current != end && evenPointer.next !=null) {
+            current = evenPointer.next;
+            temp.next = evenPointer;
+            temp = temp.next;
+            evenPointer = evenPointer.next.next;
+            oddPointer.next = current;
+            oddPointer = oddPointer.next;
+        }
+        if(evenPointer == end) {
+            temp.next = evenPointer;
+            temp = temp.next;
+            oddPointer.next = end.next;
+        }
+        temp.next = null;
+        return head;
+    }
+    //9) Odd Even list - Time- O(n), Space - O(1)
+    Nodes oddEvenListAlternative(Nodes list) {
+        if(head == null) {
+            return null;
+        }
+        Nodes oddPointer = head;
+        Nodes evenPointer = head.next;
+        Nodes evenHead = evenPointer;
+        while (evenPointer!=null && evenPointer.next!=null) {
+            oddPointer.next = evenPointer.next;
+            oddPointer = oddPointer.next;
+            evenPointer.next = oddPointer.next;
+            evenPointer = evenPointer.next;
+        }
+        oddPointer.next = evenHead;
+        return list;
     }
 
     //Functions to the above problems
