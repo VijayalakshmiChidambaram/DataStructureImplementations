@@ -8,10 +8,10 @@ public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
         llist.createNodes(1);
-        //llist.createNodes(2);
-        //llist.createNodes(3);
-        //llist.createNodes(4);
-        //llist.createNodes(5);
+        llist.createNodes(2);
+        llist.createNodes(3);
+        llist.createNodes(4);
+        llist.createNodes(5);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(11);
         llist2.createNodes(2);
@@ -40,10 +40,11 @@ public class LLProblemSolving {
         llist.intersectionTwoListsFindingLengthDiff(llist.head, llist2.head, llist3.head);
         llist.intersectionTwoListsUsingHashing(llist.head, llist2.head, llist3.head);
         llist.loopDetectionTwoPointers(llist.head);
-        llist.circularLoopDetectionHashTable(llist.head);*/
-        //llist.palindromeUsingReverseLL(llist.head);
-        //llist.palindromeIterativeUsingStack(llist.head);
-        llist.oddEvenList(llist.head);
+        llist.circularLoopDetectionHashTable(llist.head);
+        llist.palindromeUsingReverseLL(llist.head);
+        llist.palindromeIterativeUsingStack(llist.head);
+        llist.oddEvenList(llist.head);*/
+        llist.oddEvenListAlternative(llist.head);
         llist.printNodes();
     }
 }
@@ -570,6 +571,7 @@ boolean recursivePalindrome(Nodes mover) {
 
     // 9) Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
     //The first node is considered odd, and the second node is even, and so on.
+    // Time - O(n), Space - O(1)
 
     public Nodes oddEvenList(Nodes head) {
         if(head == null || head.next == null) {
