@@ -11,7 +11,7 @@ public class LLProblemSolving {
         llist.createNodes(2);
         llist.createNodes(3);
         llist.createNodes(4);
-        //llist.createNodes(5);
+        llist.createNodes(5);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(11);
         llist2.createNodes(2);
@@ -629,18 +629,17 @@ public Nodes swapPairs(Nodes head) {
     }
     Nodes evenPointer = head.next;
     Nodes oddPointer = head;
-    Nodes temp = evenPointer.next;
     Nodes dummyhead = head.next;
     while(evenPointer != null || oddPointer != null) {
+        Nodes temp = evenPointer.next;
         evenPointer.next = oddPointer;
         if(temp == null || temp.next == null) {
-            oddPointer.next = null;
+            oddPointer.next = temp;
             break;
         }
         oddPointer.next = temp.next;
         oddPointer = temp;
         evenPointer = oddPointer.next;
-        temp = evenPointer.next;
     }
     return dummyhead;
 }
