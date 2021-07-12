@@ -11,7 +11,7 @@ public class LLProblemSolving {
         llist.createNodes(2);
         llist.createNodes(3);
         llist.createNodes(4);
-        llist.createNodes(5);
+        //llist.createNodes(5);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(11);
         llist2.createNodes(2);
@@ -43,8 +43,9 @@ public class LLProblemSolving {
         llist.circularLoopDetectionHashTable(llist.head);
         llist.palindromeUsingReverseLL(llist.head);
         llist.palindromeIterativeUsingStack(llist.head);
-        llist.oddEvenList(llist.head);*/
-        llist.oddEvenListAlternative(llist.head);
+        llist.oddEvenList(llist.head);
+        llist.oddEvenListAlternative(llist.head);*/
+        llist.swapPairs(llist.head);
         llist.printNodes();
     }
 }
@@ -621,6 +622,28 @@ boolean recursivePalindrome(Nodes mover) {
         return list;
     }
 
+//10) Swap nodes in pair
+public Nodes swapPairs(Nodes head) {
+    if(head == null || head.next == null) {
+        return head;
+    }
+    Nodes evenPointer = head.next;
+    Nodes oddPointer = head;
+    Nodes temp = evenPointer.next;
+    Nodes dummyhead = head.next;
+    while(evenPointer != null || oddPointer != null) {
+        evenPointer.next = oddPointer;
+        if(temp == null || temp.next == null) {
+            oddPointer.next = null;
+            break;
+        }
+        oddPointer.next = temp.next;
+        oddPointer = temp;
+        evenPointer = oddPointer.next;
+        temp = evenPointer.next;
+    }
+    return dummyhead;
+}
     //Functions to the above problems
 
     int length(Nodes list) {
