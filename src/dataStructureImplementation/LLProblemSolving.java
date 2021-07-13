@@ -661,7 +661,41 @@ public Nodes swapPairs(Nodes head) {
         return dummyhead;
     }
 
-//11)
+//11) Rotate Nodes  - Given the head of a linked list, rotate the list to the right by k places. Time - O(n)
+
+    public Nodes rotateRight(Nodes head, int k) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        Nodes iteratePointer = head;
+        Nodes tailPointer = null;
+        Nodes qPointer = head;
+        Nodes newHead = null;
+        int size =1;
+        while(iteratePointer.next!= null) {
+            size++;
+            iteratePointer = iteratePointer.next;
+        }
+        if(k==size) {
+            return head;
+        }
+        if(k>size) {
+            k = k % size;
+        }
+
+        iteratePointer.next = head;
+        int length = size - k;
+        int i = 1;
+
+        while(i < length) {
+            qPointer = qPointer.next;
+            i++;
+        }
+        newHead = qPointer.next;
+        qPointer.next = null;
+
+        return newHead;
+    }
     //Functions to the above problems
 
     int length(Nodes list) {
