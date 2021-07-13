@@ -44,8 +44,9 @@ public class LLProblemSolving {
         llist.palindromeUsingReverseLL(llist.head);
         llist.palindromeIterativeUsingStack(llist.head);
         llist.oddEvenList(llist.head);
-        llist.oddEvenListAlternative(llist.head);*/
-        llist.swapPairs(llist.head);
+        llist.oddEvenListAlternative(llist.head);
+        llist.swapPairs(llist.head);*/
+        llist.swapNodesPairsUSingNewNode(llist.head);
         llist.printNodes();
     }
 }
@@ -622,7 +623,7 @@ boolean recursivePalindrome(Nodes mover) {
         return list;
     }
 
-//10) Swap nodes in pair
+//10) Swap nodes in pairs. Time - O(n), Space - O(1)
 public Nodes swapPairs(Nodes head) {
     if(head == null || head.next == null) {
         return head;
@@ -643,6 +644,24 @@ public Nodes swapPairs(Nodes head) {
     }
     return dummyhead;
 }
+//10) Swap nodes in pair Time - O(n), Space - O(n)
+    public Nodes swapNodesPairsUSingNewNode(Nodes list) {
+        Nodes newlist = new Nodes(0);
+        Nodes newlistPointer = newlist;
+        Nodes oddPointer = head;
+        Nodes evenPointer = head.next;
+        Nodes dummyhead = evenPointer;
+        while(oddPointer != null && evenPointer!= null) {
+            evenPointer.next = oddPointer;
+            newlistPointer.next = dummyhead;
+            newlistPointer = newlistPointer.next;
+            oddPointer = evenPointer.next;
+            evenPointer = oddPointer.next;
+        }
+        return dummyhead;
+    }
+
+//11)
     //Functions to the above problems
 
     int length(Nodes list) {
