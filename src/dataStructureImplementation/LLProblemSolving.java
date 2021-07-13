@@ -661,7 +661,7 @@ public Nodes swapPairs(Nodes head) {
         return dummyhead;
     }
 
-//11) Rotate Nodes  - Given the head of a linked list, rotate the list to the right by k places. Time - O(n)
+//11) Rotate Nodes  - Given the head of a linked list, rotate the list to the right by k places. Time - O(n) , Space - O(1)
 
     public Nodes rotateRight(Nodes head, int k) {
         if(head == null || head.next == null) {
@@ -682,11 +682,9 @@ public Nodes swapPairs(Nodes head) {
         if(k>size) {
             k = k % size;
         }
-
         iteratePointer.next = head;
         int length = size - k;
         int i = 1;
-
         while(i < length) {
             qPointer = qPointer.next;
             i++;
