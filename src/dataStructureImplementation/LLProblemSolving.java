@@ -694,6 +694,34 @@ public Nodes swapPairs(Nodes head) {
 
         return newHead;
     }
+
+    //12) Merge two sorted lists
+    public Nodes mergeTwoLists(Nodes l1, Nodes l2) {
+        Nodes mergedList = new Nodes(0);
+        Nodes mergedListPointer = mergedList;
+        if(l1 == null) {
+            return l2;
+        }
+        if(l2 == null) {
+            return l1;
+        }
+        Nodes temp1 = l1;
+        Nodes temp2 = l2;
+        while(temp1 == null || temp2 == null) {
+            if(temp1.data <= temp2.data) {
+                mergedListPointer.next = temp1;
+                mergedListPointer = mergedListPointer.next;
+                temp1 = temp1.next;
+            }
+            else {
+                mergedListPointer.next = temp2;
+                mergedListPointer = mergedListPointer.next;
+                temp2 = temp2.next;
+            }
+        }
+        mergedListPointer.next = null;
+        return mergedList.next;
+    }
     //Functions to the above problems
 
     int length(Nodes list) {
