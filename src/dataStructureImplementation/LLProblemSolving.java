@@ -13,11 +13,11 @@ public class LLProblemSolving {
         llist.createNodes(4);
         llist.createNodes(5);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
-        llist2.createNodes(11);
+        llist2.createNodes(1);
         llist2.createNodes(2);
         llist2.createNodes(3);
-        llist2.createNodes(2);
-        llist2.createNodes(1);
+        llist2.createNodes(8);
+        llist2.createNodes(9);
         singlyLinkedListPrograms llist3 = new singlyLinkedListPrograms();
         llist3.createNodes(17);
         llist3.createNodes(18);
@@ -45,8 +45,9 @@ public class LLProblemSolving {
         llist.palindromeIterativeUsingStack(llist.head);
         llist.oddEvenList(llist.head);
         llist.oddEvenListAlternative(llist.head);
-        llist.swapPairs(llist.head);*/
-        llist.swapNodesPairsUSingNewNode(llist.head);
+        llist.swapPairs(llist.head);
+        llist.swapNodesPairsUSingNewNode(llist.head);*/
+        llist.mergeTwoLists(llist.head, llist2.head);
         llist.printNodes();
     }
 }
@@ -695,7 +696,7 @@ public Nodes swapPairs(Nodes head) {
         return newHead;
     }
 
-    //12) Merge two sorted lists
+    //12) Merge two sorted lists, Time - O(n), Space - O(n)
     public Nodes mergeTwoLists(Nodes l1, Nodes l2) {
         Nodes mergedList = new Nodes(0);
         Nodes mergedListPointer = mergedList;
@@ -707,19 +708,26 @@ public Nodes swapPairs(Nodes head) {
         }
         Nodes temp1 = l1;
         Nodes temp2 = l2;
-        while(temp1 == null || temp2 == null) {
+        while(temp1 != null || temp2 != null) {
             if(temp1.data <= temp2.data) {
                 mergedListPointer.next = temp1;
                 mergedListPointer = mergedListPointer.next;
                 temp1 = temp1.next;
+                if(temp1 == null) {
+                    mergedListPointer.next = temp2;
+                    break;
+                }
             }
             else {
                 mergedListPointer.next = temp2;
                 mergedListPointer = mergedListPointer.next;
                 temp2 = temp2.next;
+                if(temp2 == null) {
+                    mergedListPointer.next = temp1;
+                    break;
+                }
             }
         }
-        mergedListPointer.next = null;
         return mergedList.next;
     }
     //Functions to the above problems
