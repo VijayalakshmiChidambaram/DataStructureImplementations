@@ -7,10 +7,13 @@ import java.util.Stack;
 public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
-        llist.createNodes(7);
+        llist.createNodes(1);
         llist.createNodes(2);
-        llist.createNodes(4);
         llist.createNodes(3);
+        llist.createNodes(3);
+        llist.createNodes(4);
+        llist.createNodes(4);
+        llist.createNodes(5);
         //llist.createNodes(5);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(5);
@@ -47,8 +50,9 @@ public class LLProblemSolving {
         llist.oddEvenListAlternative(llist.head);
         llist.swapPairs(llist.head);
         llist.swapNodesPairsUSingNewNode(llist.head);
-        llist.mergeTwoLists(llist.head, llist2.head);*/
-        llist.addTwoNumbers(llist.head, llist2.head);
+        llist.mergeTwoLists(llist.head, llist2.head);
+        llist.addTwoNumbers(llist.head, llist2.head);*/
+        llist.deleteDuplicates(llist.head);
         llist.printNodes();
     }
 }
@@ -794,6 +798,29 @@ public Nodes swapPairs(Nodes head) {
             System.out.println("Sum" + s.data);
         }
         return sum.next;
+    }
+    //14) Return only distinct numbers in LL
+    public Nodes deleteDuplicates(Nodes head) {
+        Nodes temp1 = head;
+        Nodes temp2 = head.next;
+        Nodes dummyhead = new Nodes(0);
+        Nodes previous = dummyhead;
+
+        while(temp2 != null) {
+            if(temp1.data == temp2.data) {
+                while(temp1.data == temp2.data && temp2 != null) {
+                    temp1 = temp1.next;
+                    temp2 = temp2.next;
+                }
+                previous.next = temp2;
+            }
+            else {
+                previous = temp1;
+            }
+            temp1 = temp1.next;
+            temp2 = temp2.next;
+        }
+        return dummyhead;
     }
     //Functions to the above problems
 
