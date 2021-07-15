@@ -805,6 +805,7 @@ public Nodes swapPairs(Nodes head) {
         Nodes temp2 = head.next;
         Nodes dummyhead = new Nodes(0);
         Nodes previous = dummyhead;
+        previous.next = head;
 
         while(temp2 != null) {
             if(temp1.data == temp2.data) {
@@ -815,12 +816,12 @@ public Nodes swapPairs(Nodes head) {
                 previous.next = temp2;
             }
             else {
-                previous = temp1;
+                previous = previous.next;
             }
             temp1 = temp1.next;
             temp2 = temp2.next;
         }
-        return dummyhead;
+        return dummyhead.next;
     }
     //Functions to the above problems
 
