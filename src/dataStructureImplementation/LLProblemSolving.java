@@ -7,17 +7,17 @@ import java.util.Stack;
 public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
-        llist.createNodes(1);
+        llist.createNodes(7);
         llist.createNodes(2);
-        llist.createNodes(3);
         llist.createNodes(4);
-        llist.createNodes(5);
+        llist.createNodes(3);
+        //llist.createNodes(5);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
-        llist2.createNodes(1);
-        llist2.createNodes(2);
-        llist2.createNodes(3);
-        llist2.createNodes(8);
-        llist2.createNodes(9);
+        llist2.createNodes(5);
+        llist2.createNodes(6);
+        llist2.createNodes(4);
+        //llist2.createNodes(8);
+        //llist2.createNodes(9);
         singlyLinkedListPrograms llist3 = new singlyLinkedListPrograms();
         llist3.createNodes(17);
         llist3.createNodes(18);
@@ -46,8 +46,9 @@ public class LLProblemSolving {
         llist.oddEvenList(llist.head);
         llist.oddEvenListAlternative(llist.head);
         llist.swapPairs(llist.head);
-        llist.swapNodesPairsUSingNewNode(llist.head);*/
-        llist.mergeTwoLists(llist.head, llist2.head);
+        llist.swapNodesPairsUSingNewNode(llist.head);
+        llist.mergeTwoLists(llist.head, llist2.head);*/
+        llist.addTwoNumbers(llist.head, llist2.head);
         llist.printNodes();
     }
 }
@@ -729,6 +730,70 @@ public Nodes swapPairs(Nodes head) {
             }
         }
         return mergedList.next;
+    }
+
+    //13) Add two number in a LL. Time - O(n), Space - O(n)
+
+    public Nodes addTwoNumbers(Nodes l1, Nodes l2) {
+        Nodes l1New = reverse(l1);
+        Nodes l2New = reverse(l2);
+        return reverse(addition(l1New, l2New));
+    }
+
+    public Nodes reverse(Nodes list) {
+        Nodes previous = null;
+        Nodes current = list;
+        Nodes nextNode = current;
+        while(current != null) {
+            nextNode = current.next;
+            current.next = previous;
+            previous = current;
+            current = nextNode;
+        }
+        return previous;
+    }
+    public Nodes addition(Nodes list1, Nodes list2) {
+        Nodes sum = new Nodes(0);
+        Nodes sumPointer = sum;
+        Nodes list1Pointer = list1;
+        Nodes list2Pointer = list2;
+        int value1 = 0, value2 = 0, carry = 0, sumValue= 0;
+
+        while(list1Pointer != null || list2Pointer != null) {
+
+            if(list1Pointer == null) {
+                value1 = 0;
+            }
+            else {
+                value1 = list1Pointer.data;
+                list1Pointer = list1Pointer.next;
+            }
+            if(list2Pointer == null) {
+                value2 = 0;
+            }
+            else {
+                value2 = list2Pointer.data;
+                list2Pointer = list2Pointer.next;
+            }
+            sumValue = value1 + value2 + carry;
+            carry = sumValue/10;
+            sumValue = sumValue % 10;
+
+            Nodes tempNode = new Nodes(sumValue);
+            sumPointer.next = tempNode;
+            sumPointer = sumPointer.next;
+        }
+        if(carry > 0) {
+            Nodes tempNode = new Nodes(carry);
+            sumPointer.next = tempNode;
+            sumPointer = sumPointer.next;
+        }
+        Nodes s = sum;
+        while (s.next != null) {
+            s = s.next;
+            System.out.println("Sum" + s.data);
+        }
+        return sum.next;
     }
     //Functions to the above problems
 
