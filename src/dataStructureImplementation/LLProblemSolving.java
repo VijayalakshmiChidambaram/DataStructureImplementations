@@ -8,13 +8,13 @@ public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
         llist.createNodes(1);
-        llist.createNodes(2);
-        llist.createNodes(3);
+        llist.createNodes(1);
+        /*llist.createNodes(3);
         llist.createNodes(3);
         llist.createNodes(4);
         llist.createNodes(4);
         llist.createNodes(5);
-        //llist.createNodes(5);
+        llist.createNodes(5);*/
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(5);
         llist2.createNodes(6);
@@ -799,27 +799,27 @@ public Nodes swapPairs(Nodes head) {
         }
         return sum.next;
     }
-    //14) Return only distinct numbers in LL
+    //14) Return only distinct numbers in LL. Time - O(n), Space - O(1)
     public Nodes deleteDuplicates(Nodes head) {
-        Nodes temp1 = head;
-        Nodes temp2 = head.next;
+        if(head == null || head.next == null) {
+            return head;
+        }
+        Nodes tempPointer = head;
         Nodes dummyhead = new Nodes(0);
         Nodes previous = dummyhead;
         previous.next = head;
 
-        while(temp2 != null) {
-            if(temp1.data == temp2.data) {
-                while(temp1.data == temp2.data && temp2 != null) {
-                    temp1 = temp1.next;
-                    temp2 = temp2.next;
+        while(tempPointer!= null && tempPointer.next != null) {
+            if(tempPointer.next != null && tempPointer.data == tempPointer.next.data) {
+                while(tempPointer.next != null && tempPointer.data == tempPointer.next.data) {
+                    tempPointer = tempPointer.next;
                 }
-                previous.next = temp2;
+                previous.next = tempPointer.next;
             }
             else {
                 previous = previous.next;
             }
-            temp1 = temp1.next;
-            temp2 = temp2.next;
+            tempPointer = tempPointer.next;
         }
         return dummyhead.next;
     }
