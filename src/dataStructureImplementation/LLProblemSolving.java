@@ -9,12 +9,11 @@ public class LLProblemSolving {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
         llist.createNodes(1);
         llist.createNodes(1);
-        /*llist.createNodes(3);
+        llist.createNodes(3);
         llist.createNodes(3);
         llist.createNodes(4);
         llist.createNodes(4);
         llist.createNodes(5);
-        llist.createNodes(5);*/
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(5);
         llist2.createNodes(6);
@@ -51,8 +50,9 @@ public class LLProblemSolving {
         llist.swapPairs(llist.head);
         llist.swapNodesPairsUSingNewNode(llist.head);
         llist.mergeTwoLists(llist.head, llist2.head);
-        llist.addTwoNumbers(llist.head, llist2.head);*/
-        llist.deleteDuplicates(llist.head);
+        llist.addTwoNumbers(llist.head, llist2.head);
+        llist.deleteDuplicates(llist.head);*/
+        llist.reorderList(llist.head);
         llist.printNodes();
     }
 }
