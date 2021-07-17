@@ -1,5 +1,6 @@
 package dataStructureImplementation;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Stack;
@@ -52,8 +53,9 @@ public class LLProblemSolving {
         llist.mergeTwoLists(llist.head, llist2.head);
         llist.addTwoNumbers(llist.head, llist2.head);
         llist.deleteDuplicates(llist.head);
-        llist.reorderList(llist.head);*/
-        llist.copyRandomList(llist.head);
+        llist.reorderList(llist.head);
+        llist.copyRandomList(llist.head);*/
+        llist.copyListHashMap(llist.head);
         llist.printNodes();
     }
 }
@@ -921,16 +923,16 @@ public Nodes swapPairs(Nodes head) {
         if (list == null) {
             return null;
         }
-        Hashtable<Nodes, Nodes> table = new Hashtable<>();
+        HashMap<Nodes, Nodes> table = new HashMap<>();
         Nodes current = head;
         while(current != null) {
             table.put(current, new Nodes(current.data));
             current = current.next;
         }
-        for(Nodes keys : table.keySet()) {
-            Nodes newNode = table.get(keys);
-            newNode.next = table.get(keys.next);
-            newNode.random = table.get(keys.random);
+        for(Nodes key : table.keySet()) {
+            Nodes newNode = table.get(key);
+            newNode.next = table.get(key.next);
+            newNode.random = table.get(key.random);
         }
         return table.get(head);
     }
