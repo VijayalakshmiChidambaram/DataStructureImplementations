@@ -916,7 +916,7 @@ public Nodes swapPairs(Nodes head) {
         }
         return clonedList;
     }
-    //16) Copy list with random Pointer - Time -O(n), Space - O(1)
+    //16) Copy list with random Pointer - Time -O(n), Space - O(n)
     public  Nodes copyListHashMap(Nodes list) {
         if (list == null) {
             return null;
