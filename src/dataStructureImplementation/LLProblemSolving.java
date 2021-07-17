@@ -7,11 +7,11 @@ import java.util.Stack;
 public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
+        llist.createNodes(7);
+        llist.createNodes(13);
+        llist.createNodes(11);
+        llist.createNodes(10);
         llist.createNodes(1);
-        llist.createNodes(1);
-        llist.createNodes(3);
-        llist.createNodes(3);
-        llist.createNodes(4);
         llist.createNodes(4);
         llist.createNodes(5);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
@@ -51,8 +51,9 @@ public class LLProblemSolving {
         llist.swapNodesPairsUSingNewNode(llist.head);
         llist.mergeTwoLists(llist.head, llist2.head);
         llist.addTwoNumbers(llist.head, llist2.head);
-        llist.deleteDuplicates(llist.head);*/
-        llist.reorderList(llist.head);
+        llist.deleteDuplicates(llist.head);
+        llist.reorderList(llist.head);*/
+        llist.copyRandomList(llist.head);
         llist.printNodes();
     }
 }
@@ -61,6 +62,7 @@ class singlyLinkedListPrograms {
     class Nodes {
         int data;
         Nodes next;
+        Nodes random;
 
         public Nodes(int data) {
             this.data = data;
@@ -799,6 +801,7 @@ public Nodes swapPairs(Nodes head) {
         }
         return sum.next;
     }
+
     //14) Return only distinct numbers in LL. Time - O(n), Space - O(1)
     public Nodes deleteDuplicates(Nodes head) {
         if(head == null || head.next == null) {
@@ -871,6 +874,49 @@ public Nodes swapPairs(Nodes head) {
         }
     }
 
+    //16) Copy list with random Pointer
+    public Nodes copyRandomList(Nodes head) {
+        if(head == null) {
+            return null;
+        }
+        //Copy the nodes next to each other
+        Nodes tempPointer = head;
+        while(tempPointer != null) {
+            Nodes tempNext = tempPointer.next;
+            Nodes copiedList = new Nodes(tempPointer.data);
+            Nodes copiedListPointer = copiedList;
+            tempPointer.next = copiedListPointer;
+            copiedListPointer.next = tempNext;
+            tempPointer = tempNext;
+        }
+
+        //Update the random pointers
+        tempPointer = head;
+        while(tempPointer != null) {
+            if(tempPointer.random == null) {
+                tempPointer.next.random = null;
+            }
+            else {
+                tempPointer.next.random = tempPointer.random.next;
+            }
+            tempPointer = tempPointer.next.next;
+        }
+        // Separate the copiedList from the original list
+        tempPointer = head;
+        Nodes copiedListPointer = head.next;
+        Nodes clonedList = head.next;
+        while(tempPointer != null) {
+            tempPointer.next = tempPointer.next.next;
+            tempPointer = tempPointer.next;
+            if(tempPointer == null) {
+                break;
+            }
+            copiedListPointer.next = tempPointer.next;
+            copiedListPointer = copiedListPointer.next;
+        }
+        return clonedList;
+    }
+
     //Functions to the above problems
 
     int length(Nodes list) {
@@ -905,6 +951,7 @@ public Nodes swapPairs(Nodes head) {
         }
         return pointer;
     }
+
 
 }
 
