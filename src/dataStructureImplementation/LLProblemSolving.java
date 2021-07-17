@@ -874,7 +874,7 @@ public Nodes swapPairs(Nodes head) {
         }
     }
 
-    //16) Copy list with random Pointer
+    //16) Copy list with random Pointer - Time -O(n), Space - O(1)
     public Nodes copyRandomList(Nodes head) {
         if(head == null) {
             return null;
