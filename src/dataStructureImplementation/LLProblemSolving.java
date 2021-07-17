@@ -916,6 +916,24 @@ public Nodes swapPairs(Nodes head) {
         }
         return clonedList;
     }
+    //16) Copy list with random Pointer - Time -O(n), Space - O(1)
+    public  Nodes copyListHashMap(Nodes list) {
+        if (list == null) {
+            return null;
+        }
+        Hashtable<Nodes, Nodes> table = new Hashtable<>();
+        Nodes current = head;
+        while(current != null) {
+            table.put(current, new Nodes(current.data));
+            current = current.next;
+        }
+        for(Nodes keys : table.keySet()) {
+            Nodes newNode = table.get(keys);
+            newNode.next = table.get(keys.next);
+            newNode.random = table.get(keys.random);
+        }
+        return table.get(head);
+    }
 
     //Functions to the above problems
 
