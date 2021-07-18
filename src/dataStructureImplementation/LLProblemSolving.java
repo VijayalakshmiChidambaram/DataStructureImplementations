@@ -934,7 +934,7 @@ class singlyLinkedListPrograms {
         return table.get(head);
     }
 
-    //17) Merged linkedList Sorting
+    //17) Merged linkedList Sorting . Time - O(n), Space - O(1)
     public Nodes mergeTwoSortedList(Nodes list1, Nodes list2) {
         if(list1 == null) {
             return list2;
