@@ -19,11 +19,11 @@ public class LLProblemSolving {
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(5);
         llist2.createNodes(6);
-        llist2.createNodes(4);
+        llist2.createNodes(14);
         //llist2.createNodes(8);
         //llist2.createNodes(9);
         singlyLinkedListPrograms llist3 = new singlyLinkedListPrograms();
-        llist3.createNodes(17);
+        llist3.createNodes(2);
         llist3.createNodes(18);
         llist3.createNodes(19);
         //llist.createNodes(5);
@@ -57,7 +57,7 @@ public class LLProblemSolving {
         llist.reorderList(llist.head);
         llist.copyRandomList(llist.head);
         llist.copyListHashMap(llist.head);*/
-        llist.mergedListSorting(llist.head);
+        llist.mergeTwoSortedList(llist2.head, llist3.head);
         llist.printNodes();
     }
 }
@@ -933,32 +933,47 @@ class singlyLinkedListPrograms {
         }
         return table.get(head);
     }
+
     //17) Merged linkedList Sorting
-    public Nodes mergedListSorting(Nodes newHead)
-    {
-        Nodes temp1 = newHead;
-        Nodes temp2 = newHead.next;
-        while(temp1 != null)
-        {
-            while (temp2 != null) {
-                if (temp2.data <= temp1.data) {
-                    Nodes tempNode1 = temp1.next;
-                    Nodes tempNode2 = temp2.next;
-                    temp1.next = temp2;
-                    temp2.next = temp1;
-                    temp1.next = tempNode1;
-                    newHead = temp2;
-                    temp2 = tempNode2;
-            }
-                else {
-                    temp2 = temp2.next;
-            }
+    public Nodes mergeTwoSortedList(Nodes list1, Nodes list2) {
+        if(list1 == null) {
+            return list2;
         }
-            temp1 = temp1.next;
-            temp2 = temp1.next;
+        if(list2 == null) {
+            return list1;
+        }
+        Nodes list1Pointer = list1;
+        Nodes list2Pointer = list2;
+        Nodes sortPointer = null;
+
+            if(list1Pointer.data < list2Pointer.data) {
+                sortPointer = list1Pointer;
+                list1Pointer = list1Pointer.next;
+            }
+            else {
+                sortPointer = list2Pointer;
+                list2Pointer = list2Pointer.next;
+            }
+            Nodes newHead = sortPointer;
+            while(list1Pointer != null && list2Pointer !=null) {
+                if (list1Pointer.data < list2Pointer.data) {
+                    sortPointer.next = list1Pointer;
+                    list1Pointer = list1Pointer.next;
+                } else {
+                    sortPointer.next = list2Pointer;
+                    list2Pointer = list2Pointer.next;
+                }
+                sortPointer = sortPointer.next;
+            }
+
+        if(list1Pointer == null) {
+            sortPointer.next = list2Pointer;
+        }
+        if(list2Pointer == null) {
+            sortPointer.next = list1Pointer;
+        }
+        return newHead.next;
     }
-        return newHead;
-}
 
     //Functions to the above problems
 
