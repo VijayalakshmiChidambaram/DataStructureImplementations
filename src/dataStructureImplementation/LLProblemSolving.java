@@ -8,13 +8,14 @@ import java.util.Stack;
 public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
-        llist.createNodes(7);
-        llist.createNodes(13);
-        llist.createNodes(11);
-        llist.createNodes(10);
         llist.createNodes(1);
         llist.createNodes(4);
         llist.createNodes(5);
+        llist.createNodes(1);
+        llist.createNodes(3);
+        llist.createNodes(4);
+        llist.createNodes(2);
+        llist.createNodes(6);
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(5);
         llist2.createNodes(6);
@@ -54,8 +55,9 @@ public class LLProblemSolving {
         llist.addTwoNumbers(llist.head, llist2.head);
         llist.deleteDuplicates(llist.head);
         llist.reorderList(llist.head);
-        llist.copyRandomList(llist.head);*/
-        llist.copyListHashMap(llist.head);
+        llist.copyRandomList(llist.head);
+        llist.copyListHashMap(llist.head);*/
+        llist.mergedListSorting(llist.head);
         llist.printNodes();
     }
 }
@@ -321,8 +323,7 @@ class singlyLinkedListPrograms {
             Nodes newlist = (len1 < len2) ? pointerPosition(l1, newlen) : pointerPosition(l2, newlen);
             if (len1 < len2) {
                 l1 = newlist;
-            }
-            else {
+            } else {
                 l2 = newlist;
             }
         }
@@ -345,30 +346,31 @@ class singlyLinkedListPrograms {
             Nodes tempresult1 = new Nodes(0);
             tempResult = tempresult1;
         }
-    return resultSum;
-}
-//6) Palindrome of linked list. Time - O(n), Space - O(1)
+        return resultSum;
+    }
+
+    //6) Palindrome of linked list. Time - O(n), Space - O(1)
     Boolean palindromeUsingReverseLL(Nodes list) {
         Nodes slowPointer = head;
         Nodes fastPointer = head;
-        while(fastPointer != null && fastPointer.next !=null) {
+        while (fastPointer != null && fastPointer.next != null) {
             slowPointer = slowPointer.next;
             fastPointer = fastPointer.next.next;
         }
-        if (fastPointer !=null) {
+        if (fastPointer != null) {
             slowPointer = slowPointer.next;
         }
         Nodes current = slowPointer;
         Nodes nextNode = slowPointer;
         Nodes prev = null;
-        while(nextNode != null) {
+        while (nextNode != null) {
             nextNode = nextNode.next;
             current.next = prev;
             prev = current;
             current = nextNode;
         }
         while (prev != null) {
-            if(head.data != prev.data) {
+            if (head.data != prev.data) {
                 return false;
             }
             prev = prev.next;
@@ -382,18 +384,18 @@ class singlyLinkedListPrograms {
         Nodes slowPointer = head;
         Nodes fastPointer = head;
         Stack<Integer> stack = new Stack<>();
-        while(fastPointer != null && fastPointer.next!= null) {
+        while (fastPointer != null && fastPointer.next != null) {
             stack.push(slowPointer.data);
             slowPointer = slowPointer.next;
             fastPointer = fastPointer.next.next;
         }
         //Odd number of elements in LL
-        if(fastPointer != null) {
+        if (fastPointer != null) {
             slowPointer = slowPointer.next;
         }
         while (slowPointer != null) {
             int top = stack.pop().intValue();
-            if(top != slowPointer.data) {
+            if (top != slowPointer.data) {
                 return false;
             }
             slowPointer = slowPointer.next;
@@ -401,51 +403,49 @@ class singlyLinkedListPrograms {
         return true;
     }
 
-//6) Palindrome recursion . Time - O(n) , Space - O(1)
-boolean recursivePalindrome(Nodes mover) {
-    temp = head;
-    if (mover == null){
-        return true;
-    }
+    //6) Palindrome recursion . Time - O(n) , Space - O(1)
+    boolean recursivePalindrome(Nodes mover) {
+        temp = head;
+        if (mover == null) {
+            return true;
+        }
 
-    boolean part_ans = recursivePalindrome(mover.next);
-    boolean ans = part_ans & (mover.data == temp.data);
-    temp = temp.next;
-    System.out.println(" ans " + ans);
-    return ans;
-}
+        boolean part_ans = recursivePalindrome(mover.next);
+        boolean ans = part_ans & (mover.data == temp.data);
+        temp = temp.next;
+        System.out.println(" ans " + ans);
+        return ans;
+    }
 
     //7) Intersection - Point of intersection of two lists. Return intersecting node. Time - O(n), Space - O(1)
     Nodes intersectionTwoPointers(Nodes list1, Nodes list2, Nodes list3) {
-        if(list1 == null || list1.next == null || list2 == null || list2.next == null) {
+        if (list1 == null || list1.next == null || list2 == null || list2.next == null) {
             return null;
         }
         Nodes temp1 = list1;
         Nodes temp2 = list2;
-        while(temp1.next != null) {
+        while (temp1.next != null) {
             temp1 = temp1.next;
         }
         temp1.next = list3;
-        while (temp2.next !=null) {
+        while (temp2.next != null) {
             temp2 = temp2.next;
         }
         temp2.next = list3;
-        if(list1 == null || list2 == null) {
+        if (list1 == null || list2 == null) {
             return null;
         }
         Nodes list1pointer = list1;
         Nodes list2pointer = list2;
         while (list1pointer != list2pointer) {
-            if(list1pointer == null) {
+            if (list1pointer == null) {
                 list1pointer = list2;
-            }
-            else {
+            } else {
                 list1pointer = list1pointer.next;
             }
-            if(list2pointer == null) {
+            if (list2pointer == null) {
                 list2pointer = list1;
-            }
-            else {
+            } else {
                 list2pointer = list2pointer.next;
             }
         }
@@ -455,16 +455,16 @@ boolean recursivePalindrome(Nodes mover) {
 
     //7) Intersection - Point of intersection of two lists. Return intersecting node. Time - O(n), Space - O(1)
     Nodes intersectionTwoListsFindingLengthDiff(Nodes list1, Nodes list2, Nodes list3) {
-        if(list1 == null || list1.next == null || list2 == null || list2.next == null) {
+        if (list1 == null || list1.next == null || list2 == null || list2.next == null) {
             return null;
         }
         Nodes temp1 = list1;
         Nodes temp2 = list2;
-        while(temp1.next != null) {
+        while (temp1.next != null) {
             temp1 = temp1.next;
         }
         temp1.next = list3;
-        while (temp2.next !=null) {
+        while (temp2.next != null) {
             temp2 = temp2.next;
         }
         temp2.next = list3;
@@ -473,15 +473,14 @@ boolean recursivePalindrome(Nodes mover) {
         int lengthDiff = Math.abs(size1 - size2);
         Nodes longer = (size1 < size2) ? pointerMove(list2, lengthDiff) : pointerMove(list1, lengthDiff);
 
-        if(size1 < size2) {
+        if (size1 < size2) {
             list2 = longer;
-        }
-        else {
+        } else {
             list1 = longer;
         }
         temp1 = list1;
         temp2 = list2;
-        while(temp1 != temp2) {
+        while (temp1 != temp2) {
             temp1 = temp1.next;
             temp2 = temp2.next;
         }
@@ -491,16 +490,16 @@ boolean recursivePalindrome(Nodes mover) {
 
     //7) Intersection - Point of intersection of two lists. Return intersecting node. Time - O(n), Space - O(n)
     Nodes intersectionTwoListsUsingHashing(Nodes list1, Nodes list2, Nodes list3) {
-        if(list1 == null || list1.next == null || list2 == null || list2.next == null) {
+        if (list1 == null || list1.next == null || list2 == null || list2.next == null) {
             return null;
         }
         Nodes temp1 = list1;
         Nodes temp2 = list2;
-        while(temp1.next != null) {
+        while (temp1.next != null) {
             temp1 = temp1.next;
         }
         temp1.next = list3;
-        while (temp2.next !=null) {
+        while (temp2.next != null) {
             temp2 = temp2.next;
         }
         temp2.next = list3;
@@ -515,8 +514,7 @@ boolean recursivePalindrome(Nodes mover) {
             if (visitedNodes.contains(temp2)) {
                 System.out.println(temp2.data);
                 return temp2;
-            }
-            else {
+            } else {
                 temp2 = temp2.next;
             }
         }
@@ -525,26 +523,26 @@ boolean recursivePalindrome(Nodes mover) {
 
     //8) Loop detection - Return node where loop starts. Time - O(n), Space - O(1)
     Nodes loopDetectionTwoPointers(Nodes list) {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return null;
         }
         temp = list;
-        while(temp.next != null) {
+        while (temp.next != null) {
             temp = temp.next;
         }
         temp.next = head.next;
 
         Nodes shortPointer = head;
         Nodes longPointer = head;
-        while (longPointer != null || longPointer.next !=null) {
-            if(longPointer == null || longPointer.next == null) {
+        while (longPointer != null || longPointer.next != null) {
+            if (longPointer == null || longPointer.next == null) {
                 return null;
             }
-                shortPointer = shortPointer.next;
-                longPointer = longPointer.next.next;
-                if(shortPointer == longPointer) {
-                    break;
-                }
+            shortPointer = shortPointer.next;
+            longPointer = longPointer.next.next;
+            if (shortPointer == longPointer) {
+                break;
+            }
         }
         shortPointer = head;
         while (shortPointer != longPointer) {
@@ -557,11 +555,11 @@ boolean recursivePalindrome(Nodes mover) {
 
     //8) Loop detection - Return node where loop starts. Time - O(n), Space - O(n)
     Nodes circularLoopDetectionHashTable(Nodes list) {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return null;
         }
         temp = list;
-        while(temp.next != null) {
+        while (temp.next != null) {
             temp = temp.next;
         }
         temp.next = head.next;
@@ -570,8 +568,8 @@ boolean recursivePalindrome(Nodes mover) {
 
         temp = head;
 
-        while (temp != null || temp.next != null ) {
-            if(visitedNodes.contains(list)) {
+        while (temp != null || temp.next != null) {
+            if (visitedNodes.contains(list)) {
                 break;
             }
             visitedNodes.add(temp);
@@ -586,7 +584,7 @@ boolean recursivePalindrome(Nodes mover) {
     // Time - O(n), Space - O(1)
 
     public Nodes oddEvenList(Nodes head) {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return head;
         }
         Nodes temp = head;
@@ -595,11 +593,11 @@ boolean recursivePalindrome(Nodes mover) {
         Nodes evenPointer = head.next;
         Nodes current = null;
 
-        while(temp.next != null) {
+        while (temp.next != null) {
             temp = temp.next;
             end = end.next;
         }
-        while(evenPointer != end && current != end && evenPointer.next !=null) {
+        while (evenPointer != end && current != end && evenPointer.next != null) {
             current = evenPointer.next;
             temp.next = evenPointer;
             temp = temp.next;
@@ -607,7 +605,7 @@ boolean recursivePalindrome(Nodes mover) {
             oddPointer.next = current;
             oddPointer = oddPointer.next;
         }
-        if(evenPointer == end) {
+        if (evenPointer == end) {
             temp.next = evenPointer;
             temp = temp.next;
             oddPointer.next = end.next;
@@ -615,15 +613,16 @@ boolean recursivePalindrome(Nodes mover) {
         temp.next = null;
         return head;
     }
+
     //9) Odd Even list - Time- O(n), Space - O(1)
     Nodes oddEvenListAlternative(Nodes list) {
-        if(head == null) {
+        if (head == null) {
             return null;
         }
         Nodes oddPointer = head;
         Nodes evenPointer = head.next;
         Nodes evenHead = evenPointer;
-        while (evenPointer!=null && evenPointer.next!=null) {
+        while (evenPointer != null && evenPointer.next != null) {
             oddPointer.next = evenPointer.next;
             oddPointer = oddPointer.next;
             evenPointer.next = oddPointer.next;
@@ -633,35 +632,36 @@ boolean recursivePalindrome(Nodes mover) {
         return list;
     }
 
-//10) Swap nodes in pairs. Time - O(n), Space - O(1)
-public Nodes swapPairs(Nodes head) {
-    if(head == null || head.next == null) {
-        return head;
-    }
-    Nodes evenPointer = head.next;
-    Nodes oddPointer = head;
-    Nodes dummyhead = head.next;
-    while(evenPointer != null || oddPointer != null) {
-        Nodes temp = evenPointer.next;
-        evenPointer.next = oddPointer;
-        if(temp == null || temp.next == null) {
-            oddPointer.next = temp;
-            break;
+    //10) Swap nodes in pairs. Time - O(n), Space - O(1)
+    public Nodes swapPairs(Nodes head) {
+        if (head == null || head.next == null) {
+            return head;
         }
-        oddPointer.next = temp.next;
-        oddPointer = temp;
-        evenPointer = oddPointer.next;
+        Nodes evenPointer = head.next;
+        Nodes oddPointer = head;
+        Nodes dummyhead = head.next;
+        while (evenPointer != null || oddPointer != null) {
+            Nodes temp = evenPointer.next;
+            evenPointer.next = oddPointer;
+            if (temp == null || temp.next == null) {
+                oddPointer.next = temp;
+                break;
+            }
+            oddPointer.next = temp.next;
+            oddPointer = temp;
+            evenPointer = oddPointer.next;
+        }
+        return dummyhead;
     }
-    return dummyhead;
-}
-//10) Swap nodes in pair Time - O(n), Space - O(n)
+
+    //10) Swap nodes in pair Time - O(n), Space - O(n)
     public Nodes swapNodesPairsUSingNewNode(Nodes list) {
         Nodes newlist = new Nodes(0);
         Nodes newlistPointer = newlist;
         Nodes oddPointer = head;
         Nodes evenPointer = head.next;
         Nodes dummyhead = evenPointer;
-        while(oddPointer != null && evenPointer!= null) {
+        while (oddPointer != null && evenPointer != null) {
             evenPointer.next = oddPointer;
             newlistPointer.next = dummyhead;
             newlistPointer = newlistPointer.next;
@@ -674,28 +674,28 @@ public Nodes swapPairs(Nodes head) {
 //11) Rotate Nodes  - Given the head of a linked list, rotate the list to the right by k places. Time - O(n) , Space - O(1)
 
     public Nodes rotateRight(Nodes head, int k) {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return head;
         }
         Nodes iteratePointer = head;
         Nodes tailPointer = null;
         Nodes qPointer = head;
         Nodes newHead = null;
-        int size =1;
-        while(iteratePointer.next!= null) {
+        int size = 1;
+        while (iteratePointer.next != null) {
             size++;
             iteratePointer = iteratePointer.next;
         }
-        if(k==size) {
+        if (k == size) {
             return head;
         }
-        if(k>size) {
+        if (k > size) {
             k = k % size;
         }
         iteratePointer.next = head;
         int length = size - k;
         int i = 1;
-        while(i < length) {
+        while (i < length) {
             qPointer = qPointer.next;
             i++;
         }
@@ -709,29 +709,28 @@ public Nodes swapPairs(Nodes head) {
     public Nodes mergeTwoLists(Nodes l1, Nodes l2) {
         Nodes mergedList = new Nodes(0);
         Nodes mergedListPointer = mergedList;
-        if(l1 == null) {
+        if (l1 == null) {
             return l2;
         }
-        if(l2 == null) {
+        if (l2 == null) {
             return l1;
         }
         Nodes temp1 = l1;
         Nodes temp2 = l2;
-        while(temp1 != null || temp2 != null) {
-            if(temp1.data <= temp2.data) {
+        while (temp1 != null || temp2 != null) {
+            if (temp1.data <= temp2.data) {
                 mergedListPointer.next = temp1;
                 mergedListPointer = mergedListPointer.next;
                 temp1 = temp1.next;
-                if(temp1 == null) {
+                if (temp1 == null) {
                     mergedListPointer.next = temp2;
                     break;
                 }
-            }
-            else {
+            } else {
                 mergedListPointer.next = temp2;
                 mergedListPointer = mergedListPointer.next;
                 temp2 = temp2.next;
-                if(temp2 == null) {
+                if (temp2 == null) {
                     mergedListPointer.next = temp1;
                     break;
                 }
@@ -752,7 +751,7 @@ public Nodes swapPairs(Nodes head) {
         Nodes previous = null;
         Nodes current = list;
         Nodes nextNode = current;
-        while(current != null) {
+        while (current != null) {
             nextNode = current.next;
             current.next = previous;
             previous = current;
@@ -760,38 +759,37 @@ public Nodes swapPairs(Nodes head) {
         }
         return previous;
     }
+
     public Nodes addition(Nodes list1, Nodes list2) {
         Nodes sum = new Nodes(0);
         Nodes sumPointer = sum;
         Nodes list1Pointer = list1;
         Nodes list2Pointer = list2;
-        int value1 = 0, value2 = 0, carry = 0, sumValue= 0;
+        int value1 = 0, value2 = 0, carry = 0, sumValue = 0;
 
-        while(list1Pointer != null || list2Pointer != null) {
+        while (list1Pointer != null || list2Pointer != null) {
 
-            if(list1Pointer == null) {
+            if (list1Pointer == null) {
                 value1 = 0;
-            }
-            else {
+            } else {
                 value1 = list1Pointer.data;
                 list1Pointer = list1Pointer.next;
             }
-            if(list2Pointer == null) {
+            if (list2Pointer == null) {
                 value2 = 0;
-            }
-            else {
+            } else {
                 value2 = list2Pointer.data;
                 list2Pointer = list2Pointer.next;
             }
             sumValue = value1 + value2 + carry;
-            carry = sumValue/10;
+            carry = sumValue / 10;
             sumValue = sumValue % 10;
 
             Nodes tempNode = new Nodes(sumValue);
             sumPointer.next = tempNode;
             sumPointer = sumPointer.next;
         }
-        if(carry > 0) {
+        if (carry > 0) {
             Nodes tempNode = new Nodes(carry);
             sumPointer.next = tempNode;
             sumPointer = sumPointer.next;
@@ -806,7 +804,7 @@ public Nodes swapPairs(Nodes head) {
 
     //14) Return only distinct numbers in LL. Time - O(n), Space - O(1)
     public Nodes deleteDuplicates(Nodes head) {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return head;
         }
         Nodes tempPointer = head;
@@ -814,14 +812,13 @@ public Nodes swapPairs(Nodes head) {
         Nodes previous = dummyhead;
         previous.next = head;
 
-        while(tempPointer!= null && tempPointer.next != null) {
-            if(tempPointer.next != null && tempPointer.data == tempPointer.next.data) {
-                while(tempPointer.next != null && tempPointer.data == tempPointer.next.data) {
+        while (tempPointer != null && tempPointer.next != null) {
+            if (tempPointer.next != null && tempPointer.data == tempPointer.next.data) {
+                while (tempPointer.next != null && tempPointer.data == tempPointer.next.data) {
                     tempPointer = tempPointer.next;
                 }
                 previous.next = tempPointer.next;
-            }
-            else {
+            } else {
                 previous = previous.next;
             }
             tempPointer = tempPointer.next;
@@ -838,7 +835,7 @@ public Nodes swapPairs(Nodes head) {
     //You may not modify the values in the list's nodes. Only nodes themselves may be changed.
 
     public void reorderList(Nodes head) {
-        if(head == null || head.next == null) {
+        if (head == null || head.next == null) {
             return;
         }
         Nodes list1 = head;
@@ -846,7 +843,7 @@ public Nodes swapPairs(Nodes head) {
         Nodes fast = head;
         Nodes tail1 = head;
 
-        while(fast != null && fast.next != null) {
+        while (fast != null && fast.next != null) {
             tail1 = slow;
             slow = slow.next;
             fast = fast.next.next;
@@ -856,18 +853,18 @@ public Nodes swapPairs(Nodes head) {
         Nodes previous = null;
         Nodes nextNode = slow;
 
-        while(current != null) {
+        while (current != null) {
             nextNode = nextNode.next;
             current.next = previous;
             previous = current;
             current = nextNode;
         }
         Nodes list2 = previous;
-        while(list1 != null) {
+        while (list1 != null) {
             Nodes list1Pointer = list1.next;
             list1.next = list2;
             list1 = list1Pointer;
-            if(list1 == null) {
+            if (list1 == null) {
                 break;
             }
             Nodes list2Pointer = list2.next;
@@ -878,12 +875,12 @@ public Nodes swapPairs(Nodes head) {
 
     //16) Copy list with random Pointer - Time -O(n), Space - O(1)
     public Nodes copyRandomList(Nodes head) {
-        if(head == null) {
+        if (head == null) {
             return null;
         }
         //Copy the nodes next to each other
         Nodes tempPointer = head;
-        while(tempPointer != null) {
+        while (tempPointer != null) {
             Nodes tempNext = tempPointer.next;
             Nodes copiedList = new Nodes(tempPointer.data);
             Nodes copiedListPointer = copiedList;
@@ -894,11 +891,10 @@ public Nodes swapPairs(Nodes head) {
 
         //Update the random pointers
         tempPointer = head;
-        while(tempPointer != null) {
-            if(tempPointer.random == null) {
+        while (tempPointer != null) {
+            if (tempPointer.random == null) {
                 tempPointer.next.random = null;
-            }
-            else {
+            } else {
                 tempPointer.next.random = tempPointer.random.next;
             }
             tempPointer = tempPointer.next.next;
@@ -907,10 +903,10 @@ public Nodes swapPairs(Nodes head) {
         tempPointer = head;
         Nodes copiedListPointer = head.next;
         Nodes clonedList = head.next;
-        while(tempPointer != null) {
+        while (tempPointer != null) {
             tempPointer.next = tempPointer.next.next;
             tempPointer = tempPointer.next;
-            if(tempPointer == null) {
+            if (tempPointer == null) {
                 break;
             }
             copiedListPointer.next = tempPointer.next;
@@ -918,24 +914,51 @@ public Nodes swapPairs(Nodes head) {
         }
         return clonedList;
     }
+
     //16) Copy list with random Pointer - Time -O(n), Space - O(n)
-    public  Nodes copyListHashMap(Nodes list) {
+    public Nodes copyListHashMap(Nodes list) {
         if (list == null) {
             return null;
         }
         HashMap<Nodes, Nodes> table = new HashMap<>();
         Nodes current = head;
-        while(current != null) {
+        while (current != null) {
             table.put(current, new Nodes(current.data));
             current = current.next;
         }
-        for(Nodes key : table.keySet()) {
+        for (Nodes key : table.keySet()) {
             Nodes newNode = table.get(key);
             newNode.next = table.get(key.next);
             newNode.random = table.get(key.random);
         }
         return table.get(head);
     }
+    //17) Merged linkedList Sorting
+    public Nodes mergedListSorting(Nodes newHead)
+    {
+        Nodes temp1 = newHead;
+        Nodes temp2 = newHead.next;
+        while(temp1 != null)
+        {
+            while (temp2 != null) {
+                if (temp2.data <= temp1.data) {
+                    Nodes tempNode1 = temp1.next;
+                    Nodes tempNode2 = temp2.next;
+                    temp1.next = temp2;
+                    temp2.next = temp1;
+                    temp1.next = tempNode1;
+                    newHead = temp2;
+                    temp2 = tempNode2;
+            }
+                else {
+                    temp2 = temp2.next;
+            }
+        }
+            temp1 = temp1.next;
+            temp2 = temp1.next;
+    }
+        return newHead;
+}
 
     //Functions to the above problems
 
