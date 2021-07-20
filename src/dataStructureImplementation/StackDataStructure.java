@@ -6,15 +6,18 @@ public class StackDataStructure {
     public static void main(String[] args) {
         StackDataStructure stackds = new StackDataStructure();
 
-        System.out.println("Enter the array size");
-        Scanner newscanner = new Scanner(System.in);
-        int arraySize = newscanner.nextInt();
-
-        stackds.push(1);
-        stackds.push(2);
+        stackds.pushStack(1);
+        stackds.pushStack(2);
     }
-    int top = -1;
-    public void push(int element) {
 
+    int top = -1;
+    int arraySize = 5;
+    int[] push = new int[arraySize];
+    public void pushStack(int element) {
+        top++;
+        if (top >= arraySize-1) {
+            System.out.println("Overflow Condition");
+        }
+        push[top] = element;
     }
 }
