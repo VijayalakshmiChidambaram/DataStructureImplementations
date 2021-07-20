@@ -11,6 +11,8 @@ public class StackDataStructure {
         stackds.pushStack(3);
         stackds.popStack();
         stackds.peekStack();
+        stackds.isFullStack();
+        stackds.isEmptyStack();
     }
 
     int top = -1;
