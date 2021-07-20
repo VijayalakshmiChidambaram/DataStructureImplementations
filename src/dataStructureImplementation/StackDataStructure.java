@@ -1,6 +1,6 @@
 package dataStructureImplementation;
 
-import java.util.Scanner;
+import java.util.Arrays;
 
 public class StackDataStructure {
     public static void main(String[] args) {
@@ -9,10 +9,11 @@ public class StackDataStructure {
         stackds.pushStack(1);
         stackds.pushStack(2);
         stackds.pushStack(3);
-        stackds.popStack();
-        stackds.peekStack();
-        stackds.isFullStack();
-        stackds.isEmptyStack();
+        //stackds.popStack();
+        //stackds.peekStack();
+        //stackds.isFullStack();
+        //stackds.isEmptyStack();
+        System.out.println(Arrays.toString(stackds.displayStack()));
     }
 
     int top = -1;
@@ -37,6 +38,9 @@ public class StackDataStructure {
     }
 
     public int peekStack() {
+        if(top == -1) {
+            isEmptyStack();
+        }
         int topValue = stackElement[top];
         System.out.println(topValue);
         return topValue;
@@ -46,5 +50,12 @@ public class StackDataStructure {
     }
     public boolean isFullStack() {
         return (top == arraySize-1);
+    }
+    public int[] displayStack() {
+        int[] element = new int[arraySize];
+        for(int i = top; i >= 0; i--) {
+            element[i] = stackElement[i];
+        }
+        return element;
     }
 }
