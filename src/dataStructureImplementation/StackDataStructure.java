@@ -10,6 +10,7 @@ public class StackDataStructure {
         stackds.pushStack(2);
         stackds.pushStack(3);
         stackds.popStack();
+        stackds.peekStack();
     }
 
     int top = -1;
@@ -29,5 +30,11 @@ public class StackDataStructure {
             System.out.println("Underflow confition");
         }
         return item;
+    }
+
+    public int peekStack() {
+        int topValue = stackElement[top];
+        System.out.println(topValue);
+        return topValue;
     }
 }
