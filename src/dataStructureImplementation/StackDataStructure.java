@@ -19,6 +19,7 @@ public class StackDataStructure {
     public void pushStack(int element) {
         top++;
         if (top >= arraySize-1) {
+            isFullStack();
             System.out.println("Overflow Condition");
         }
         stackElement[top] = element;
@@ -27,6 +28,7 @@ public class StackDataStructure {
         int item = stackElement[top];
         top--;
         if(top == -1) {
+            isEmptyStack();
             System.out.println("Underflow confition");
         }
         return item;
@@ -36,5 +38,11 @@ public class StackDataStructure {
         int topValue = stackElement[top];
         System.out.println(topValue);
         return topValue;
+    }
+    public boolean isEmptyStack() {
+        return (top == -1);
+    }
+    public boolean isFullStack() {
+        return (top == arraySize-1);
     }
 }
