@@ -19,7 +19,7 @@ public class StackDataStructure {
         stackll.pushStackLL(1);
         stackll.pushStackLL(2);
         stackll.pushStackLL(3);
-        stackll.display();
+        stackll.displayStackLL();
     }
 
     int top = -1;
@@ -83,10 +83,10 @@ class StackLL {
         topStackLL = newNode;
     }
 
-    public void display() {
+    public void displayStackLL() {
         Node temp = topStackLL;
         if(temp == null) {
-            System.out.println("Stack is empty");
+            System.out.println("Stack is empty or underflow condition");
         }
         while (temp != null) {
             System.out.println(temp.data);
