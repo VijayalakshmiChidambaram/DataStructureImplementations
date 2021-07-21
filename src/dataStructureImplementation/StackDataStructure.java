@@ -20,6 +20,7 @@ public class StackDataStructure {
         stackll.pushStackLL(2);
         stackll.pushStackLL(3);
         stackll.displayStackLL();
+        stackll.popStackLL();
     }
 
     int top = -1;
@@ -92,5 +93,13 @@ class StackLL {
             System.out.println(temp.data);
             temp = temp.next;
         }
+    }
+
+    public void popStackLL() {
+        if(topStackLL == null) {
+        System.out.println("Stack is empty or underflow condition");
+    }
+        System.out.println("Poped element is : " + topStackLL.data);
+        topStackLL = topStackLL.next;
     }
 }
