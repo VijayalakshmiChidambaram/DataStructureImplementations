@@ -8,6 +8,9 @@ public class StackDSProblems {
         ThreeStacksUsingSingleArrayFixedDivision stackArray = new ThreeStacksUsingSingleArrayFixedDivision(2);
         stackArray.push(0,7);
         stackArray.push(0,8);
+        stackArray.pop(0);
+        stackArray.peek(0);
+        stackArray.pop(1);
     }
 }
     //1)Use Single array to implement three stacks
@@ -48,6 +51,7 @@ class ThreeStacksUsingSingleArrayFixedDivision {
         if(isStackEmpty(stackNum)) {
             throw new EmptyStackException();
         }
+        System.out.println("Peek" + arrayValues[topindex(stackNum)]);
         return arrayValues[topindex(stackNum)];
     }
     public boolean isStackEmpty(int stackNum) {
