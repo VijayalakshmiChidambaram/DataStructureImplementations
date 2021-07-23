@@ -121,27 +121,36 @@ class ThreeStacksUsingSingleArrayFixedDivision {
 //2) Min Stack - In addition to push and stack design a stack to have min value to return the minimum value . Time - O(1), Space - O(1)
 class MinStack {
     Stack<Integer> stackmain = new Stack<>();
-    int min = Integer.MAX_VALUE;
+    int min;
 
     public void push(int value) {
-        if(value <= getMin()) {
+        if(stackmain.isEmpty()) {
+            stackmain.push(value);
             min = value;
         }
-        stackmain.push(value);
+        else if (value > getMin()) {
+            stackmain.push(value);
+        }
+        else {
+            min = value;
+            int pushValue = (2*value) - min;
+            stackmain.push(pushValue);
+        }
     }
 
-    public void pop() {
+    public int pop() {
+        int poppedValue;
         if(stackmain.size() < 0) {
             throw new EmptyStackException();
         }
-        if(stackmain.size() == 0) {
-            stackmain.pop();
-            min = Integer.MAX_VALUE;
+        else if (stackmain.peek() < getMin()) {
+            poppedValue = stackmain.pop();
+            min = (2*min) - poppedValue;
         }
-        int popedValue = stackmain.pop();
-        if(popedValue == getMin()){
-            min = stackmain.pop();
+        else {
+            poppedValue = stackmain.pop();
         }
+        return poppedValue;
     }
 
     public int getMin() {
