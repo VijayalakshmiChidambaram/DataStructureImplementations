@@ -11,7 +11,7 @@ public class StackDSProblems {
         stackArray.push(0,8);
         stackArray.pop(0);
         stackArray.peek(0);
-        stackArray.pop(1);*/
+        stackArray.pop(1);
 
         StackMin stackmin = new StackMin();
         stackmin.push(3);
@@ -20,7 +20,17 @@ public class StackDSProblems {
         stackmin.pop();
         stackmin.pop();
         stackmin.pop();
-        stackmin.pop();
+        stackmin.pop();*/
+
+        MinStack minStack = new MinStack();
+        minStack.push(5);
+        minStack.push(13);
+        minStack.push(6);
+        minStack.push(23);
+        minStack.pop();
+        minStack.pop();
+        minStack.pop();
+
     }
 }
     //1)Use Single array to implement three stacks
@@ -108,4 +118,34 @@ class ThreeStacksUsingSingleArrayFixedDivision {
             return minStack.peek();
         }
     }
+//2) Min Stack - In addition to push and stack design a stack to have min value to return the minimum value . Time - O(1), Space - O(1)
+class MinStack {
+    Stack<Integer> stackmain = new Stack<>();
+    int min = Integer.MAX_VALUE;
+
+    public void push(int value) {
+        if(value <= getMin()) {
+            min = value;
+        }
+        stackmain.push(value);
+    }
+
+    public void pop() {
+        if(stackmain.size() < 0) {
+            throw new EmptyStackException();
+        }
+        if(stackmain.size() == 0) {
+            stackmain.pop();
+            min = Integer.MAX_VALUE;
+        }
+        int popedValue = stackmain.pop();
+        if(popedValue == getMin()){
+            min = stackmain.pop();
+        }
+    }
+
+    public int getMin() {
+        return min;
+    }
+}
 
