@@ -23,10 +23,14 @@ public class StackDSProblems {
         stackmin.pop();*/
 
         MinStack minStack = new MinStack();
-        minStack.push(5);
-        minStack.push(13);
+        minStack.push(8);
+        minStack.push(11);
         minStack.push(6);
-        minStack.push(23);
+        minStack.push(2);
+        minStack.push(5);
+        minStack.pop();
+        minStack.pop();
+        minStack.pop();
         minStack.pop();
         minStack.pop();
         minStack.pop();
@@ -128,22 +132,22 @@ class MinStack {
             stackmain.push(value);
             min = value;
         }
-        else if (value > getMin()) {
+        else if (value >= getMin()) {
             stackmain.push(value);
         }
         else {
-            min = value;
             int pushValue = (2*value) - min;
             stackmain.push(pushValue);
+            min = value;
         }
     }
 
     public int pop() {
         int poppedValue;
-        if(stackmain.size() < 0) {
+        if(stackmain.size() <= 0) {
             throw new EmptyStackException();
         }
-        else if (stackmain.peek() < getMin()) {
+        else if (stackmain.peek() <= getMin()) {
             poppedValue = stackmain.pop();
             min = (2*min) - poppedValue;
         }
