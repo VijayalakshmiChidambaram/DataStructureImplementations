@@ -12,6 +12,7 @@ public class QueueDataStructure<size> {
         queueds.dequeueArray();
         queueds.dequeueArray();
         queueds.displayQueue();
+        queueds.peekQueue();
     }
     int size = 4;
     int enqueueArr[] = new int[size];
@@ -48,14 +49,19 @@ public class QueueDataStructure<size> {
     }
     //Display - O(n)
     public void displayQueue() {
-        if(front == -1 && rear == -1) {
+        if (front == -1 && rear == -1) {
             throw new EmptyStackException();
-        }
-        else {
-            for(int i=front; i<=rear; i++) {
+        } else {
+            for (int i = front; i <= rear; i++) {
                 System.out.println(enqueueArr[i]);
             }
         }
-
+    }
+    //Peek - O(1)
+    public int peekQueue() {
+        if (front == -1 && rear == -1) {
+            throw new EmptyStackException();
+        }
+        return enqueueArr[front];
     }
 }
