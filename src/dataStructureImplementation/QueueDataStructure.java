@@ -15,6 +15,7 @@ public class QueueDataStructure<size> {
     int enqueueArr[] = new int[size];
     int front =-1, rear = -1;
 
+    //Time - O(1)
     public void enqueueArray(int value) {
         if(rear == size-1) {
             throw new EmptyStackException();
