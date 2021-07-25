@@ -11,10 +11,7 @@ public class QueueDataStructure<size> {
         queueds.enqueueArray(13);
         queueds.dequeueArray();
         queueds.dequeueArray();
-        queueds.dequeueArray();
-        queueds.dequeueArray();
-        queueds.dequeueArray();
-        queueds.dequeueArray();
+        queueds.displayQueue();
     }
     int size = 4;
     int enqueueArr[] = new int[size];
@@ -48,5 +45,17 @@ public class QueueDataStructure<size> {
             front++;
         }
         return dequeuedElement;
+    }
+    //Display - O(n)
+    public void displayQueue() {
+        if(front == -1 && rear == -1) {
+            throw new EmptyStackException();
+        }
+        else {
+            for(int i=front; i<=rear; i++) {
+                System.out.println(enqueueArr[i]);
+            }
+        }
+
     }
 }
