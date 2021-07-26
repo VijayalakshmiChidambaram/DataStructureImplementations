@@ -36,13 +36,14 @@ public class StackQueueDSProblems {
         minStack.pop();*/
 
         QueueStack queueStack = new QueueStack();
-        queueStack.enqueue(4);
+        /*queueStack.enqueue(4);
         queueStack.enqueue(5);
         queueStack.enqueue(6);
-        queueStack.deQueue();
-        queueStack.deQueue();
-        queueStack.deQueue();
-
+        queueStack.deQueue();*/
+        queueStack.enqueueStack(1);
+        queueStack.dequeueStack();
+        queueStack.dequeueStack();
+        queueStack.peekStack();
     }
 }
     //1)Use Single array to implement three stacks
@@ -203,12 +204,18 @@ class QueueStack {
         newStack.push(element);
     }
 
-    public int pop() {
+    public int dequeueStack() {
+        if(newStack.isEmpty() && oldStack.isEmpty()) {
+            throw new EmptyStackException();
+        }
         shiftStack();
         return oldStack.pop();
     }
 
-    public int peek() {
+    public int peekStack() {
+        if(oldStack.isEmpty() && newStack.isEmpty()) {
+            throw new EmptyStackException();
+        }
         shiftStack();
         return oldStack.peek();
     }
