@@ -41,6 +41,8 @@ public class StackQueueDSProblems {
         queueStack.enqueue(6);
         queueStack.deQueue();
         queueStack.deQueue();
+        queueStack.deQueue();
+        queueStack.deQueue();
 
     }
 }
@@ -178,6 +180,9 @@ class QueueStack {
         count++;
     }
     public void deQueue() {
+        if(mainStack.isEmpty()) {
+            throw new EmptyStackException();
+        }
         int poppedMainStack;
         for(int i=0; i<count; i++) {
             poppedMainStack = mainStack.pop();
