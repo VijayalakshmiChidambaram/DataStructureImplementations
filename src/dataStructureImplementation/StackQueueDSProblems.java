@@ -1,10 +1,21 @@
 package dataStructureImplementation;
 
 import java.util.EmptyStackException;
+import java.util.ListIterator;
 import java.util.Stack;
 
 public class StackQueueDSProblems {
     public static void main(String[] args) {
+        Stack<Integer> s = new Stack<>();
+        s.push(30);
+        s.push(-5);
+        s.push(18);
+        s.push(14);
+        s.push(-3);
+
+        Test test = new Test();
+        test.sortStack(s);
+
         /*StackDSProblems stack = new StackDSProblems();
         ThreeStacksUsingSingleArrayFixedDivision stackArray = new ThreeStacksUsingSingleArrayFixedDivision(2);
         stackArray.push(0,7);
@@ -35,15 +46,49 @@ public class StackQueueDSProblems {
         minStack.pop();
         minStack.pop();*/
 
-        QueueStack queueStack = new QueueStack();
-        /*queueStack.enqueue(4);
+        /*QueueStack queueStack = new QueueStack();
+        queueStack.enqueue(4);
         queueStack.enqueue(5);
         queueStack.enqueue(6);
-        queueStack.deQueue();*/
+        queueStack.deQueue();
         queueStack.enqueueStack(1);
         queueStack.dequeueStack();
         queueStack.dequeueStack();
-        queueStack.peekStack();
+        queueStack.peekStack();*/
+    }
+}
+class Test {
+    // Recursive Method to insert an item x in sorted way
+    void sortedInsert(Stack<Integer> s, int x) {
+        // Base case: Either stack is empty or newly
+        // inserted item is greater than top (more than all
+        // existing)
+        if (s.isEmpty() || x > s.peek()) {
+            s.push(x);
+            return;
+        }
+
+        // If top is greater, remove the top item and recur
+        int temp = s.pop();
+        sortedInsert(s, x);
+
+        // Put back the top item removed earlier
+        s.push(temp);
+    }
+
+    // Method to sort stack
+    void sortStack(Stack<Integer> s) {
+        // If stack is not empty
+        if (!s.isEmpty()) {
+            // Remove the top item
+            int x = s.pop();
+
+            // Sort remaining stack
+            sortStack(s);
+
+            // Push the top item back in sorted stack
+            sortedInsert(s, x);
+        }
     }
 }
     //1)Use Single array to implement three stacks
