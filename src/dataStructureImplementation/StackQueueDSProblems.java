@@ -3,7 +3,7 @@ package dataStructureImplementation;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-public class StackDSProblems {
+public class StackQueueDSProblems {
     public static void main(String[] args) {
         /*StackDSProblems stack = new StackDSProblems();
         ThreeStacksUsingSingleArrayFixedDivision stackArray = new ThreeStacksUsingSingleArrayFixedDivision(2);
@@ -20,7 +20,7 @@ public class StackDSProblems {
         stackmin.pop();
         stackmin.pop();
         stackmin.pop();
-        stackmin.pop();*/
+        stackmin.pop();
 
         MinStack minStack = new MinStack();
         minStack.push(8);
@@ -33,7 +33,14 @@ public class StackDSProblems {
         minStack.pop();
         minStack.pop();
         minStack.pop();
-        minStack.pop();
+        minStack.pop();*/
+
+        QueueStack queueStack = new QueueStack();
+        queueStack.enqueue(4);
+        queueStack.enqueue(5);
+        queueStack.enqueue(6);
+        queueStack.deQueue();
+        queueStack.deQueue();
 
     }
 }
@@ -160,5 +167,31 @@ class MinStack {
     public int getMin() {
         return min;
     }
+}
+//4) Implement Queue via stack. Time - O(n), Space - O(n)
+class QueueStack {
+    Stack<Integer> mainStack = new Stack<>();
+    Stack<Integer> subStack = new Stack<>();
+    int count = 0;
+    public void enqueue(int value) {
+        mainStack.push(value);
+        count++;
+    }
+    public void deQueue() {
+        int poppedMainStack;
+        for(int i=0; i<count; i++) {
+            poppedMainStack = mainStack.pop();
+            subStack.push(poppedMainStack);
+        }
+        subStack.pop();
+        count--;
+        int poppedSub;
+        for(int i=0; i<count; i++) {
+            poppedSub = subStack.pop();
+            mainStack.push(poppedSub);
+        }
+    }
+
+
 }
 
