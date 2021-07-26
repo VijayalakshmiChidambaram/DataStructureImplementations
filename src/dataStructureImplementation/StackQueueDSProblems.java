@@ -42,7 +42,6 @@ public class StackQueueDSProblems {
         queueStack.deQueue();
         queueStack.deQueue();
         queueStack.deQueue();
-        queueStack.deQueue();
 
     }
 }
@@ -196,7 +195,31 @@ class QueueStack {
             mainStack.push(poppedSub);
         }
     }
+//4) Implement Queue via stack. Time - O(1), Space - O(n)
+    Stack<Integer> newStack = new Stack<>();
+    Stack<Integer> oldStack = new Stack<>();
 
+    public void enqueueStack(int element) {
+        newStack.push(element);
+    }
+
+    public int pop() {
+        shiftStack();
+        return oldStack.pop();
+    }
+
+    public int peek() {
+        shiftStack();
+        return oldStack.peek();
+    }
+
+    public void shiftStack() {
+        if(oldStack.isEmpty()) {
+            while(!(newStack.isEmpty())) {
+                oldStack.push(newStack.pop());
+            }
+        }
+    }
 
 }
 
