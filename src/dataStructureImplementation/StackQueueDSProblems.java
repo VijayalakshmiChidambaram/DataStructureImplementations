@@ -6,7 +6,7 @@ import java.util.Stack;
 
 public class StackQueueDSProblems {
     public static void main(String[] args) {
-        Stack<Integer> s = new Stack<>();
+        /*Stack<Integer> s = new Stack<>();
         s.push(30);
         s.push(-5);
         s.push(18);
@@ -16,7 +16,7 @@ public class StackQueueDSProblems {
         Test test = new Test();
         test.sortStack(s);
 
-        /*StackDSProblems stack = new StackDSProblems();
+        StackDSProblems stack = new StackDSProblems();
         ThreeStacksUsingSingleArrayFixedDivision stackArray = new ThreeStacksUsingSingleArrayFixedDivision(2);
         stackArray.push(0,7);
         stackArray.push(0,8);
@@ -46,8 +46,8 @@ public class StackQueueDSProblems {
         minStack.pop();
         minStack.pop();*/
 
-        /*QueueStack queueStack = new QueueStack();
-        queueStack.enqueue(4);
+        QueueStack queueStack = new QueueStack();
+        /*queueStack.enqueue(4);
         queueStack.enqueue(5);
         queueStack.enqueue(6);
         queueStack.deQueue();
@@ -55,6 +55,13 @@ public class StackQueueDSProblems {
         queueStack.dequeueStack();
         queueStack.dequeueStack();
         queueStack.peekStack();*/
+        Stack<Integer> oneStack = new Stack<>();
+        oneStack.push(5);
+        oneStack.push(15);
+        oneStack.push(3);
+        oneStack.push(18);
+        oneStack.push(1);
+        queueStack.sortStack(oneStack);
     }
 }
 class Test {
@@ -270,6 +277,22 @@ class QueueStack {
             while(!(newStack.isEmpty())) {
                 oldStack.push(newStack.pop());
             }
+        }
+    }
+
+    //5) SortStack - Time - O(n^2), Space - O(n)
+    public void sortStack(Stack<Integer> oneStack) {
+        Stack<Integer> twoStack = new Stack<>();
+        while(!(oneStack.isEmpty())) {
+            int temp = oneStack.pop();
+            while ((!(twoStack.isEmpty()) && temp < twoStack.peek())) {
+                oneStack.push(twoStack.pop());
+            }
+            twoStack.push(temp);
+        }
+
+        while (!(twoStack.isEmpty())) {
+            oneStack.push(twoStack.pop());
         }
     }
 
