@@ -314,7 +314,7 @@ class QueueStack {
         }
     }
 }
-    //6) Animal Shelter Problem
+    //6) Animal Shelter Problem. Time - O(1), Space - O(n)
 class AnimalShelter {
         LinkedList<Cat> catQueue = new LinkedList<Cat>();
         LinkedList<Dog> dogQueue = new LinkedList<Dog>();
