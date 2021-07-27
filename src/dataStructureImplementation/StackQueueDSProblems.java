@@ -1,7 +1,9 @@
 package dataStructureImplementation;
 
+import javax.lang.model.element.AnnotationMirror;
 import java.util.EmptyStackException;
-import java.util.ListIterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class StackQueueDSProblems {
@@ -44,24 +46,37 @@ public class StackQueueDSProblems {
         minStack.pop();
         minStack.pop();
         minStack.pop();
-        minStack.pop();*/
+        minStack.pop();
 
         QueueStack queueStack = new QueueStack();
-        /*queueStack.enqueue(4);
+        queueStack.enqueue(4);
         queueStack.enqueue(5);
         queueStack.enqueue(6);
         queueStack.deQueue();
         queueStack.enqueueStack(1);
         queueStack.dequeueStack();
         queueStack.dequeueStack();
-        queueStack.peekStack();*/
+        queueStack.peekStack();
         Stack<Integer> oneStack = new Stack<>();
         oneStack.push(5);
         oneStack.push(15);
         oneStack.push(3);
         oneStack.push(18);
         oneStack.push(1);
-        queueStack.sortStack(oneStack);
+        queueStack.sortStack(oneStack);*/
+
+        AnimalShelter animalShelter = new AnimalShelter();
+        Animal cat1 = new Cat();
+        Animal dog1 = new Dog();
+        Animal dog2 = new Dog();
+        Animal dog3 = new Dog();
+        animalShelter.enqueue(cat1);
+        animalShelter.enqueue(dog1);
+        animalShelter.enqueue(dog2);
+        animalShelter.enqueue(dog3);
+        animalShelter.dequeueAny();
+        animalShelter.dequeueDog();
+        animalShelter.dequeueCat();
     }
 }
 class Test {
@@ -227,28 +242,31 @@ class QueueStack {
     Stack<Integer> mainStack = new Stack<>();
     Stack<Integer> subStack = new Stack<>();
     int count = 0;
+
     public void enqueue(int value) {
         mainStack.push(value);
         count++;
     }
+
     public void deQueue() {
-        if(mainStack.isEmpty()) {
+        if (mainStack.isEmpty()) {
             throw new EmptyStackException();
         }
         int poppedMainStack;
-        for(int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             poppedMainStack = mainStack.pop();
             subStack.push(poppedMainStack);
         }
         subStack.pop();
         count--;
         int poppedSub;
-        for(int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             poppedSub = subStack.pop();
             mainStack.push(poppedSub);
         }
     }
-//4) Implement Queue via stack. Time - O(1), Space - O(n)
+
+    //4) Implement Queue via stack. Time - O(1), Space - O(n)
     Stack<Integer> newStack = new Stack<>();
     Stack<Integer> oldStack = new Stack<>();
 
@@ -257,7 +275,7 @@ class QueueStack {
     }
 
     public int dequeueStack() {
-        if(newStack.isEmpty() && oldStack.isEmpty()) {
+        if (newStack.isEmpty() && oldStack.isEmpty()) {
             throw new EmptyStackException();
         }
         shiftStack();
@@ -265,7 +283,7 @@ class QueueStack {
     }
 
     public int peekStack() {
-        if(oldStack.isEmpty() && newStack.isEmpty()) {
+        if (oldStack.isEmpty() && newStack.isEmpty()) {
             throw new EmptyStackException();
         }
         shiftStack();
@@ -273,8 +291,8 @@ class QueueStack {
     }
 
     public void shiftStack() {
-        if(oldStack.isEmpty()) {
-            while(!(newStack.isEmpty())) {
+        if (oldStack.isEmpty()) {
+            while (!(newStack.isEmpty())) {
                 oldStack.push(newStack.pop());
             }
         }
@@ -283,7 +301,7 @@ class QueueStack {
     //5) SortStack - Time - O(n^2), Space - O(n)
     public void sortStack(Stack<Integer> oneStack) {
         Stack<Integer> twoStack = new Stack<>();
-        while(!(oneStack.isEmpty())) {
+        while (!(oneStack.isEmpty())) {
             int temp = oneStack.pop();
             while ((!(twoStack.isEmpty()) && temp < twoStack.peek())) {
                 oneStack.push(twoStack.pop());
@@ -295,6 +313,57 @@ class QueueStack {
             oneStack.push(twoStack.pop());
         }
     }
-
 }
+    //6) Animal Shelter Problem
+class AnimalShelter {
+        LinkedList<Cat> catQueue = new LinkedList<Cat>();
+        LinkedList<Dog> dogQueue = new LinkedList<Dog>();
 
+        //long timestamp = System.currentTimeMillis();
+
+        public void enqueue(Animal animal) {
+            if (animal instanceof Cat) {
+                catQueue.offer((Cat) animal);
+            } else {
+                dogQueue.offer((Dog) animal);
+            }
+        }
+
+        public Dog dequeueDog() {
+            if(dogQueue.isEmpty()) {
+                throw new EmptyStackException();
+            }
+            return dogQueue.poll();
+        }
+
+        public Cat dequeueCat() {
+            if(catQueue.isEmpty()) {
+                throw new EmptyStackException();
+            }
+            return catQueue.poll();
+        }
+
+        public void dequeueAny() {
+            if (catQueue.isEmpty() && dogQueue.isEmpty()) {
+                throw new EmptyStackException();
+            } else if (catQueue.isEmpty()) {
+                dequeueDog();
+            } else if (dogQueue.isEmpty()) {
+                dequeueCat();
+            } else {
+                if (dogQueue.peek().timestamp < catQueue.peek().timestamp) {
+                    dequeueDog();
+                } else {
+                    dequeueCat();
+                }
+            }
+        }
+    }
+
+    class Animal {
+    long timestamp = System.currentTimeMillis();
+    }
+    class Dog extends Animal{
+    }
+    class Cat extends Animal {
+    }
