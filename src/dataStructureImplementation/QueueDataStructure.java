@@ -21,6 +21,11 @@ public class QueueDataStructure<size> {
         qLL.displayQueueLL();
         qLL.peekLL();
         qLL.dequeueLL();
+        qLL.dequeueLL();
+        qLL.displayQueueLL();
+        qLL.peekLL();
+        qLL.dequeueLL();
+        qLL.peekLL();
 
     }
 
@@ -118,7 +123,9 @@ public class QueueDataStructure<size> {
                 front = null;
                 rear = null;
             }
-            front = front.next;
+            else {
+                front = front.next;
+            }
             return front.data;
         }
         //Time - O(1)
