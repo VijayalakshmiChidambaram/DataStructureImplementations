@@ -109,6 +109,7 @@ public class QueueDataStructure<size> {
                 temp = temp.next;
             }
         }
+        //Time - O(1)
         public int dequeueLL() {
             if(front == null) {
                 throw new NullPointerException();
