@@ -14,39 +14,38 @@ public class QueueDataStructure<size> {
         queueds.displayQueue();
         queueds.peekQueue();
     }
+
     int size = 4;
     int enqueueArr[] = new int[size];
-    int front =-1, rear = -1;
+    int front = -1, rear = -1;
 
     //Time - O(1)
     public void enqueueArray(int value) {
-        if(rear == size-1) {
+        if (rear == size - 1) {
             throw new EmptyStackException();
-        }
-        else if(front == -1 && rear == -1) {
+        } else if (front == -1 && rear == -1) {
             front = rear = 0;
             enqueueArr[rear] = value;
-        }
-        else {
+        } else {
             rear++;
             enqueueArr[rear] = value;
         }
     }
+
     //Time - O(1)
     public int dequeueArray() {
         int dequeuedElement = -1;
-        if (front ==-1 && rear == -1) {
+        if (front == -1 && rear == -1) {
             throw new EmptyStackException();
-        }
-        else if(front == rear) {
+        } else if (front == rear) {
             front = rear = -1;
-        }
-        else{
+        } else {
             dequeuedElement = enqueueArr[front];
             front++;
         }
         return dequeuedElement;
     }
+
     //Display - O(n)
     public void displayQueue() {
         if (front == -1 && rear == -1) {
@@ -57,6 +56,7 @@ public class QueueDataStructure<size> {
             }
         }
     }
+
     //Peek - O(1)
     public int peekQueue() {
         if (front == -1 && rear == -1) {
@@ -64,4 +64,33 @@ public class QueueDataStructure<size> {
         }
         return enqueueArr[front];
     }
+
 }
+    //Queue using Linked list
+/*  r
+    1-2-3
+    f    r
+*/
+    class queueLL {
+        class Node {
+            Node next;
+            int data;
+
+            public Node(int data) {
+                this.data = data;
+            }
+        }
+        Node front, rear;
+        public void enqueueLL(int  number) {
+            Node newNode = new Node(number);
+            if(front == null && rear == null) {
+                front = rear = newNode;
+            }
+            else {
+                rear.next = newNode;
+                rear = rear.next;
+            }
+        }
+
+    }
+

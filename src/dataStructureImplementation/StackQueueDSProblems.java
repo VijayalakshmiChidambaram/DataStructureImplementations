@@ -1,9 +1,7 @@
 package dataStructureImplementation;
 
-import javax.lang.model.element.AnnotationMirror;
 import java.util.EmptyStackException;
 import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 
 public class StackQueueDSProblems {
@@ -114,7 +112,7 @@ class Test {
     }
 }
     //1)Use Single array to implement three stacks
-    //Approach 1 : Fixed Division of arrays( Stacks elements size is known use this)
+    //Approach 1 : Fixed Division of arrays( Stacks elements size is known use this). Space - O(n), Time - O(1)
 
 class ThreeStacksUsingSingleArrayFixedDivision {
     public int StackNumbers = 3;
@@ -169,6 +167,84 @@ class ThreeStacksUsingSingleArrayFixedDivision {
         return offset + sizeValue - 1;
     }
 }
+
+//1)Use Single array to implement three stacks
+//Approach 2 : Flexible Division of arrays( Stacks elements size is known use this). Space - O(n), Time - O(1)
+/* s1 = 1,2,3
+    s2 = 10,20,30
+    s3 = 11, 22
+    push(s1, 4);
+
+    s1=1,2,3
+    s2 = 10,20
+    s3 = 11,22, 33
+    push(s3,44)
+
+    s1=
+    s2=10, 20
+    s3 = 11
+    push(s1, 1)
+    push(s1, 2)
+    push(s1, 3)
+    push(s1, 4)
+
+    PLAN :
+    No.stack - 0 1 2 (3)
+    CapacityOfEachStack - 3
+    Array - 0 1 2 | 3 4 5 | 6 7 8 (9)
+
+
+class threeSlacksUsingArrayFlexibleDivision {
+    int capacity;
+    int stackNum;
+    int[] noOfStacks;
+    int[] arraySize;
+    public threeSlacksUsingArrayFlexibleDivision(int noStacks, int capacity) {
+        noOfStacks = new int[noStacks]; // 3
+        arraySize = new int[noStacks * capacity]; // 9
+    }
+    public void push(int stackNum, int value) {
+        if(isFullStack(stackNum)) {
+            int newstackNum = stackAvailability(stackNum);
+            noOfStacks[stackNum]++;
+            int oldIndex = indexOfArray(stackNum);
+            int shiftIndex = indexOfArray(newstackNum);
+            while (stackNum != -1 && arraySize[oldIndex+1])   {
+
+
+
+            }
+        }
+    }
+    public int pop(int stackNum) {
+
+    }
+
+    public boolean isFullStack(int stackNum) {
+        return (noOfStacks[stackNum] == capacity);
+    }
+    public boolean isEmptyStack(int stackNum) {
+        return (noOfStacks[stackNum] == 0);
+    }
+
+    public int stackAvailability(int stackNum) {
+        for(int i=stackNum ; i<noOfStacks.length; i++) {
+            if(noOfStacks[i+1] < capacity) {
+                return i+1;
+            }
+            if(i+1 == noOfStacks.length-1 && noOfStacks[i+1] == capacity) {
+                i = 0;
+            }
+        }
+        return -1;
+    }
+
+    public int indexOfArray(int stackNum) {
+        int offset = stackNum * capacity;
+        int size = noOfStacks[stackNum];
+        return offset + size -1;
+    }
+}*/
 
     //2) Min Stack - In addition to push and stack design a stack to have min value to return the minimum value . Time - O(1), Space - O(n)
 
