@@ -121,6 +121,7 @@ public class QueueDataStructure<size> {
             front = front.next;
             return front.data;
         }
+        //Time - O(1)
         public int peekLL() {
             if(front == null) {
                 System.out.println("Queue is empty or throw exception");
