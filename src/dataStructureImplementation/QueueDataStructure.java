@@ -4,7 +4,7 @@ import java.util.EmptyStackException;
 
 public class QueueDataStructure<size> {
     public static void main(String[] args) {
-        QueueDataStructure queueds = new QueueDataStructure();
+        /*QueueDataStructure queueds = new QueueDataStructure();
         queueds.enqueueArray(5);
         queueds.enqueueArray(3);
         queueds.enqueueArray(15);
@@ -12,7 +12,16 @@ public class QueueDataStructure<size> {
         queueds.dequeueArray();
         queueds.dequeueArray();
         queueds.displayQueue();
-        queueds.peekQueue();
+        queueds.peekQueue(); */
+
+        queueLL qLL = new queueLL();
+        qLL.enqueueLL(1);
+        qLL.enqueueLL(2);
+        qLL.enqueueLL(3);
+        qLL.displayQueueLL();
+        qLL.peekLL();
+        qLL.dequeueLL();
+
     }
 
     int size = 4;
@@ -69,7 +78,7 @@ public class QueueDataStructure<size> {
     //Queue using Linked list
 /*  r
     1-2-3
-    f    r
+      f  r
 */
     class queueLL {
         class Node {
@@ -80,7 +89,8 @@ public class QueueDataStructure<size> {
                 this.data = data;
             }
         }
-        Node front, rear;
+        Node front = null, rear = null;
+        //Time - O(1)
         public void enqueueLL(int  number) {
             Node newNode = new Node(number);
             if(front == null && rear == null) {
@@ -90,6 +100,31 @@ public class QueueDataStructure<size> {
                 rear.next = newNode;
                 rear = rear.next;
             }
+        }
+        //Time - O(n)
+        public void displayQueueLL() {
+            Node temp = front;
+            while(temp != null) {
+                System.out.println(temp.data);
+                temp = temp.next;
+            }
+        }
+        public int dequeueLL() {
+            if(front == null) {
+                throw new NullPointerException();
+            }
+            else if(front == rear) {
+                front = null;
+                rear = null;
+            }
+            front = front.next;
+            return front.data;
+        }
+        public int peekLL() {
+            if(front == null) {
+                System.out.println("Queue is empty or throw exception");
+            }
+            return front.data;
         }
 
     }
