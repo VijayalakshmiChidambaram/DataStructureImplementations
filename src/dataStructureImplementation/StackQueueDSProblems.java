@@ -77,12 +77,14 @@ public class StackQueueDSProblems {
         Solution solution = new Solution();
         /*solution.isIsomorphic("cat","dog");
         solution.isIsomorphic("egg", "add");
-        solution.isIsomorphic("ade", "egg");*/
+        solution.isIsomorphic("ade", "egg");
         solution.isomorphicString("table", "title");
         solution.isomorphicString("egg", "add");
         solution.isomorphicString("ade", "egg");
         solution.isomorphicString("egg", "adf");
-        solution.isomorphicString("ad", "egg");
+        solution.isomorphicString("ad", "egg");*/
+        solution.numJewelsInStones("aA", "aAAbBBb");
+        solution.numJewelsInStones("z","zZZ");
     }
 }
 class Test {
@@ -493,7 +495,7 @@ class Solution {
         }
         return true;
     }
-
+    //8) Find count of characters in a string(Letters are case sensitive, so "a" is considered a different type of stone from "A") :(Egg / Add - ismorphic, foo /bar - Not isomorphic). Time - O(n), Space - O(n)
     public int numJewelsInStones(String jewels, String stones) {
         if(jewels.length() == 0 || stones.length() == 0) {
             return 0;
