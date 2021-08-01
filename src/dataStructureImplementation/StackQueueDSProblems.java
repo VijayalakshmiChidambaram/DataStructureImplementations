@@ -82,9 +82,10 @@ public class StackQueueDSProblems {
         solution.isomorphicString("egg", "add");
         solution.isomorphicString("ade", "egg");
         solution.isomorphicString("egg", "adf");
-        solution.isomorphicString("ad", "egg");*/
+        solution.isomorphicString("ad", "egg");
         solution.numJewelsInStones("aA", "aAAbBBb");
-        solution.numJewelsInStones("z","zZZ");
+        solution.numJewelsInStones("z","zZZ");*/
+        solution.jewelsAndStones("aA", "aBBbAbA");
     }
 }
 class Test {
@@ -495,7 +496,7 @@ class Solution {
         }
         return true;
     }
-    //8) Find count of characters in a string(Letters are case sensitive, so "a" is considered a different type of stone from "A") :(Egg / Add - ismorphic, foo /bar - Not isomorphic). Time - O(n), Space - O(n)
+    //8) Find count of characters in a string(Letters are case sensitive, so "a" is considered a different type of stone from "A") :(Egg / Add - ismorphic, foo /bar - Not isomorphic). Time - O(s+j), Space - O(j)
     public int numJewelsInStones(String jewels, String stones) {
         if(jewels.length() == 0 || stones.length() == 0) {
             return 0;
@@ -510,8 +511,20 @@ class Solution {
                 count++;
             }
         }
-
         return count;
-
 }
+//aA aAbBBA
+    //8) Find count of characters in a string(Letters are case sensitive, so "a" is considered a different type of stone from "A") :(Egg / Add - ismorphic, foo /bar - Not isomorphic). Time - O(s*j), Space - O(1)
+    public int jewelsAndStones(String jewels, String stones) {
+        if(jewels.length() == 0 || stones.length() == 0) {
+            return 0;
+        }
+        int count = 0;
+        for(int i =0; i <stones.length(); i++) {
+            if(jewels.indexOf(stones.charAt(i)) > -1) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
