@@ -77,6 +77,7 @@ public class StackQueueDSProblems {
         Solution solution = new Solution();
         //solution.isIsomorphic("cat","dog");
         solution.isIsomorphic("egg", "add");
+        solution.isIsomorphic("ade", "egg");
     }
 }
 class Test {
