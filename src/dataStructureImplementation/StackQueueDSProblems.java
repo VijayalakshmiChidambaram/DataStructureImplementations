@@ -75,9 +75,14 @@ public class StackQueueDSProblems {
         animalShelter.dequeueCat();*/
 
         Solution solution = new Solution();
-        //solution.isIsomorphic("cat","dog");
+        /*solution.isIsomorphic("cat","dog");
         solution.isIsomorphic("egg", "add");
-        solution.isIsomorphic("ade", "egg");
+        solution.isIsomorphic("ade", "egg");*/
+        solution.isomorphicString("table", "title");
+        solution.isomorphicString("egg", "add");
+        solution.isomorphicString("ade", "egg");
+        solution.isomorphicString("egg", "adf");
+        solution.isomorphicString("ad", "egg");
     }
 }
 class Test {
