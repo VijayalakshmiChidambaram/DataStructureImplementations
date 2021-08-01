@@ -1,8 +1,6 @@
 package dataStructureImplementation;
 
-import java.util.EmptyStackException;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 public class StackQueueDSProblems {
     public static void main(String[] args) {
@@ -61,7 +59,7 @@ public class StackQueueDSProblems {
         oneStack.push(3);
         oneStack.push(18);
         oneStack.push(1);
-        queueStack.sortStack(oneStack);*/
+        queueStack.sortStack(oneStack);
 
         AnimalShelter animalShelter = new AnimalShelter();
         Animal cat1 = new Cat();
@@ -74,7 +72,11 @@ public class StackQueueDSProblems {
         animalShelter.enqueue(dog3);
         animalShelter.dequeueAny();
         animalShelter.dequeueDog();
-        animalShelter.dequeueCat();
+        animalShelter.dequeueCat();*/
+
+        Solution solution = new Solution();
+        //solution.isIsomorphic("cat","dog");
+        solution.isIsomorphic("egg", "add");
     }
 }
 class Test {
@@ -443,3 +445,65 @@ class AnimalShelter {
     }
     class Cat extends Animal {
     }
+
+class Solution {
+//7) Find string are isomorphic or not :(Egg / Add - ismorphic, foo /bar - Not isomorphic). Time - O(n), Space - O(n)
+    public boolean isIsomorphic(String s, String t) {
+        //Map<Character,Character> map = new HashMap<>();
+        Hashtable<Character,Character> table = new Hashtable<>();
+
+        for(int i=0;i<s.length();i++) {
+            if (table.containsKey(s.charAt(i))) {
+                if(table.get(s.charAt(i)) != t.charAt(i)) {
+                    return false;
+                }
+            }
+            else {
+                if(table.containsValue(t.charAt(i))) {
+                    return false;
+                }
+                table.put(s.charAt(i), t.charAt(i));
+
+            }
+        }
+        return true;
+    }
+
+    //7) Find string are isomorphic or not :(Egg / Add - ismorphic, foo /bar - Not isomorphic). Time - O(n), Space - O(1)
+    public boolean isomorphicString(String s, String t) {
+        if(s.length() != t.length()) {
+            return false;
+        }
+        int SIZE = 256;
+        int[] stringS = new int[SIZE];
+        int[] stringT = new int[SIZE];
+        for(int i=0; i<s.length(); i++) {
+            stringS[s.charAt(i)]++;
+            stringT[t.charAt(i)]++;
+
+            if(stringS[s.charAt(i)] != stringT[t.charAt(i)]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public int numJewelsInStones(String jewels, String stones) {
+        if(jewels.length() == 0 || stones.length() == 0) {
+            return 0;
+        }
+        int count = 0;
+        HashSet<Character> jewelsMap = new HashSet<>();
+        for(int i=0; i<jewels.length(); i++) {
+            jewelsMap.add(jewels.charAt(i));
+        }
+        for(int i =0; i<stones.length(); i++) {
+            if(jewelsMap.contains(stones.charAt(i))) {
+                count++;
+            }
+        }
+
+        return count;
+
+}
+}
