@@ -84,8 +84,9 @@ public class StackQueueDSProblems {
         solution.isomorphicString("egg", "adf");
         solution.isomorphicString("ad", "egg");
         solution.numJewelsInStones("aA", "aAAbBBb");
-        solution.numJewelsInStones("z","zZZ");*/
-        solution.jewelsAndStones("aA", "aBBbAbA");
+        solution.numJewelsInStones("z","zZZ");
+        solution.jewelsAndStones("aA", "aBBbAbA");*/
+        solution.isHappy(19);
     }
 }
 class Test {
@@ -526,5 +527,34 @@ class Solution {
             }
         }
         return count;
+    }
+
+    //9) Find the happy number. Time - O(n^2), Space = O(n)Input: n = 19
+    //Output: true
+    //Explanation:
+    //12 + 92 = 82
+    //82 + 22 = 68
+    //62 + 82 = 100
+    //12 + 02 + 02 = 1
+
+    public boolean isHappy(int n) {
+        if(n == 0) {
+            return false;
+        }
+        HashSet<Integer> set = new HashSet<>();
+        int count =0;
+        while(!set.contains(n) && n>1) {
+            set.add(n);
+            while(n>0) {
+                count = (count + (n%10)*(n%10));
+                n = n/10;
+            }
+            n = count;
+            count = 0;
+        }
+        if(n!=1) {
+            return false;
+        }
+        return true;
     }
 }
