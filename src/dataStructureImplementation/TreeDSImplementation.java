@@ -13,7 +13,8 @@ public class TreeDSImplementation {
         root.left.left = treeDS.createTreeNode(7);
         root.left.right = treeDS.createTreeNode(8);
         root.right.right = treeDS.createTreeNode(1);
-        treeDS.preorder(root);
+        //treeDS.preorder(root);
+        treeDS.inorderTraversal(root);
     }
 
 }
@@ -41,5 +42,14 @@ class binarayTreeDS {
         System.out.println(root.data);
         preorder(root.left);
         preorder(root.right);
+    }
+
+    public void inorderTraversal(TreeNode root) {
+        if(root == null) {
+            return;
+        }
+        inorderTraversal(root.left);
+        System.out.println(root.data);
+        inorderTraversal(root.right);
     }
 }
