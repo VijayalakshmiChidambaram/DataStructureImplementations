@@ -23,6 +23,7 @@ public class TreeDSImplementation {
         treeDS.binarySearchTreeInsertion(17);
         treeDS.binarySearchTreeInsertion(1);
         treeDS.binarySearchTreeInsertion(4);
+        treeDS.binarySearchTreeSearch(treeDS.root, 4);
     }
 
 }
@@ -82,7 +83,7 @@ class binarayTreeDS {
             if (newNodeBST.data < newroot.data) {
                 if (newroot.left == null) {
                     newroot.left = newNodeBST;
-                    break;
+                    newNodeBST = null;
                 } else {
                     newroot = newroot.left;
                 }
@@ -90,7 +91,7 @@ class binarayTreeDS {
             else if(newNodeBST.data > newroot.data) {
                 if(newroot.right == null) {
                     newroot.right = newNodeBST;
-                    break;
+                    newNodeBST = null;
                 }
                 else {
                     newroot = newroot.right;
@@ -102,4 +103,17 @@ class binarayTreeDS {
         return root;
     }
 
+    public TreeNode binarySearchTreeSearch(TreeNode root, int key) {
+        if (root == null || root.data == key) {
+            return root;
+        }
+        else {
+            if(key < root.data) {
+                return binarySearchTreeSearch(root.left, key);
+            }
+            else {
+                return binarySearchTreeSearch(root.right, key);
+            }
+        }
+    }
 }
