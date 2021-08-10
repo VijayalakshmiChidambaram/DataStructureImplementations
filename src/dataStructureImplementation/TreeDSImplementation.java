@@ -73,23 +73,23 @@ class binarayTreeDS {
     TreeNode root;
 
     public TreeNode binarySearchTreeInsertion(int data) {
-        TreeNode newNode = createTreeNode(data);
+        TreeNode newNodeBST = createTreeNode(data);
         if (root == null) {
-            root = newNode;
+            root = newNodeBST;
         } else {
             TreeNode newroot = root;
-            while(newNode!=null) {
-            if (newNode.data < newroot.data) {
+            while(newNodeBST!=null) {
+            if (newNodeBST.data < newroot.data) {
                 if (newroot.left == null) {
-                    newroot.left = newNode;
+                    newroot.left = newNodeBST;
                     break;
                 } else {
                     newroot = newroot.left;
                 }
             }
-            else if(newNode.data > newroot.data) {
+            else if(newNodeBST.data > newroot.data) {
                 if(newroot.right == null) {
-                    newroot.right = newNode;
+                    newroot.right = newNodeBST;
                     break;
                 }
                 else {
