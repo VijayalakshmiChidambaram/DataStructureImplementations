@@ -23,7 +23,8 @@ public class TreeDSImplementation {
         treeDS.binarySearchTreeInsertion(17);
         treeDS.binarySearchTreeInsertion(1);
         treeDS.binarySearchTreeInsertion(4);
-        treeDS.binarySearchTreeSearch(treeDS.root, 4);
+        //treeDS.binarySearchTreeSearch(treeDS.root, 4);
+        treeDS.binarySearchTreeDeletion(treeDS.root, 5);
     }
 
 }
@@ -114,6 +115,44 @@ class binarayTreeDS {
             else {
                 return binarySearchTreeSearch(root.right, key);
             }
+        }
+    }
+
+    public TreeNode binarySearchTreeDeletion(TreeNode root, int key) {
+        if(root == null) {
+            return null;
+        }
+        else if(key < root.data) {
+            root.left = binarySearchTreeDeletion(root.left, key);
+        }
+        else if(key > root.data) {
+            root.right = binarySearchTreeDeletion(root.right, key);
+        }
+        else {
+            if(root.left != null && root.right!= null) {
+                TreeNode temp = root;
+                TreeNode min = minimumValue(temp.right);
+                root.data = min.data;
+                root.right = binarySearchTreeDeletion(root.right, min.data);
+            }
+            else if(root.left != null) {
+                root = root.left;
+            }
+            else if(root.right != null) {
+                root = root.right;
+            }
+            else {
+                root = null;
+            }
+        }
+        return root;
+    }
+    public TreeNode minimumValue(TreeNode node) {
+        if(node.left == null) {
+            return node;
+        }
+        else {
+            return minimumValue(node.left);
         }
     }
 }
