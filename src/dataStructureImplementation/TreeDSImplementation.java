@@ -24,7 +24,8 @@ public class TreeDSImplementation {
         treeDS.binarySearchTreeInsertion(1);
         treeDS.binarySearchTreeInsertion(4);
         //treeDS.binarySearchTreeSearch(treeDS.root, 4);
-        treeDS.binarySearchTreeDeletion(treeDS.root, 5);
+        //treeDS.binarySearchTreeDeletion(treeDS.root, 5);
+        treeDS.isBalanced(treeDS.root);
     }
 
 }
@@ -133,7 +134,7 @@ class binarayTreeDS {
                 TreeNode temp = root;
                 TreeNode min = minimumValue(temp.right);
                 root.data = min.data;
-                root.right = binarySearchTreeDeletion(root.right, min.data);
+                root.right = binarySearchTreeDeletion(root.right,min.data);
             }
             else if(root.left != null) {
                 root = root.left;
@@ -154,5 +155,22 @@ class binarayTreeDS {
         else {
             return minimumValue(node.left);
         }
+    }
+
+    public boolean isBalanced(TreeNode n) {
+        if (balancedHeight(n) > -1) return true;
+        return false;
+    }
+
+    public int balancedHeight(TreeNode n) {
+        if (n == null) return 0;
+        int leftHeight = balancedHeight(n.left);
+        int rightHeight = balancedHeight(n.right);
+
+
+        if (leftHeight == -1 || rightHeight == -1) return -1;
+        if (Math.abs(leftHeight - rightHeight) > 1) return -1;
+        if (leftHeight > rightHeight) return leftHeight + 1;
+        return rightHeight + 1;
     }
 }
