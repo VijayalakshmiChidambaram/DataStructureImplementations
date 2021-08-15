@@ -13,6 +13,7 @@ public class TreeDSProblems {
         root.left.right.left = tree.createNode(4);
         root.left.right.right = tree.createNode(7);
         tree.isBalancedBTCheck(root);
+        tree.BSTCheck(root);
     }
 }
 
@@ -54,7 +55,7 @@ class TreeNodeImplementation {
     return root;
     }
 
-    //2) Check if a binary tree is balanced
+    //2) Check if a binary tree is balanced. Time - O(n), Space - O(n)
     public boolean isBalancedBTCheck(TreeNode root ) {
         if(isbalancedBT(root)!= -1) {
             System.out.println("T");
@@ -78,4 +79,28 @@ class TreeNodeImplementation {
         }
         return Math.max(leftHeight, rightHeight) + 1;
     }
+
+    //3)Validate BST
+    //a)Using Array. Disadvantage - Does not compare the current node with root
+    int i =0;
+    int[] arr = new int[7];
+    public void validateBST(TreeNode root, int[] array) {
+        if(root == null) {
+            return;
+        }
+        validateBST(root.left, arr);
+        arr[i] = root.data;
+        i++;
+        validateBST(root.right, arr);
+    }
+    public boolean BSTCheck(TreeNode root) {
+        validateBST(root, arr);
+        for(int i=1; i<arr.length; i++) {
+            if(arr[i] <= arr[i-1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
