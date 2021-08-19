@@ -9,11 +9,13 @@ public class TreeDSProblems {
         root.left = tree.createNode(3);
         root.right = tree.createNode(10);
         root.left.left = tree.createNode(1);
-        root.left.right = tree.createNode(6);
-        root.left.right.left = tree.createNode(4);
-        root.left.right.right = tree.createNode(7);
-        tree.isBalancedBTCheck(root);
+        root.left.right = tree.createNode(9);
+        //root.left.right.left = tree.createNode(4);
+        //root.left.right.right = tree.createNode(9);
+        /*tree.isBalancedBTCheck(root);
         tree.BSTCheck(root);
+        tree.BSTCheckUsingVariable(root);*/
+        tree.BSTValid(root);
     }
 }
 
@@ -81,7 +83,7 @@ class TreeNodeImplementation {
     }
 
     //3)Validate BST
-    //a)Using Array. Disadvantage - Does not compare the current node with root
+    //a)Using Array. Disadvantage - Does not compare the current node with root. Time - O(n), Space - O(n)
     int i =0;
     int[] arr = new int[7];
     public void validateBST(TreeNode root, int[] array) {
@@ -102,5 +104,37 @@ class TreeNodeImplementation {
         }
         return true;
     }
+
+    //b)Using variable. Disadvantage - Does not compare the current node with root. Time - O(n), Space - O(1)
+    int last_visited = 0;
+    public boolean BSTCheckUsingVariable(TreeNode root) {
+        if(root == null) {
+            return true;
+        }
+        if(!(BSTCheckUsingVariable(root.left))) {
+            return false;
+        }
+        if(last_visited !=0 && last_visited > root.data) {
+            return false;
+        }
+        last_visited = root.data;
+        if(!BSTCheckUsingVariable(root.right)) {
+            return false;
+        }
+        return true;
+    }
+    //c)Using recursion. min,max. Each time compares the root with the subtrees. Time - O(n), Space - O(log n)
+    public boolean BSTValid(TreeNode root) {
+        return BSTValidation(root, 0, 0);
+    }
+     boolean BSTValidation(TreeNode n, int min, int max) {
+        if(n == null) {
+            return true;
+        }
+        else if(min !=0 && n.data <= min || max != 0 && n.data > max) {
+            return false;
+        }
+        return BSTValidation(n.left, min, n.data) && BSTValidation(n.right, n.data, max);
+     }
 
 }
