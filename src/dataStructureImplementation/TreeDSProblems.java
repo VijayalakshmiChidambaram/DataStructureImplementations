@@ -6,16 +6,20 @@ public class TreeDSProblems {
        /* int[] arr = {1, 2, 3, 4, 5};
         tree.createBST(arr);*/
         TreeNodeImplementation.TreeNode root = tree.createNode(8);
-        root.left = tree.createNode(3);
+        //root.left = tree.createNode(3);
         root.right = tree.createNode(10);
-        root.left.left = tree.createNode(1);
-        root.left.right = tree.createNode(9);
+        //root.left.left = tree.createNode(1);
+        //root.left.right = tree.createNode(9);
         //root.left.right.left = tree.createNode(4);
         //root.left.right.right = tree.createNode(9);
+        root.right.left = tree.createNode(9);
+        root.right.right = tree.createNode(14);
+        root.right.right.left = tree.createNode(13);
         /*tree.isBalancedBTCheck(root);
         tree.BSTCheck(root);
-        tree.BSTCheckUsingVariable(root);*/
-        tree.BSTValid(root);
+        tree.BSTCheckUsingVariable(root);
+        tree.BSTValid(root);*/
+        tree.sumLeft(root);
     }
 }
 
@@ -136,5 +140,25 @@ class TreeNodeImplementation {
         }
         return BSTValidation(n.left, min, n.data) && BSTValidation(n.right, n.data, max);
      }
-
+//Sum of left leaves of a tree
+    public int sumLeft(TreeNode node) {
+        if(node == null) {
+            return 0;
+        }
+        int sum = 0;
+        if(node.left != null) {
+            if(node.left.left == null && node.left.right == null) {
+                sum = sum + node.left.data;
+            }
+            else {
+                sum = sum + sumLeft(node.left);
+            }
+        }
+        if(node.right != null) {
+            if(node.right.left != null || node.right.right != null) {
+                sum = sum + sumLeft(node.right);
+            }
+        }
+        return sum;
+    }
 }

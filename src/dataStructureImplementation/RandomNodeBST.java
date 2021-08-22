@@ -30,6 +30,7 @@ public class RandomNodeBST {
         System.out.println("Passed all tests");
     }
 }
+
 class RandomTree {
     // Individual node of the tree
     private class Node {

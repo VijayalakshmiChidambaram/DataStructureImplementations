@@ -16,23 +16,32 @@ public class TreeDSImplementation {
         root.right.right = treeDS.createTreeNode(1);
         treeDS.preorder(root);
         treeDS.inorderTraversal(root);
-        treeDS.postOrderTraversal(root);*/
+        treeDS.postOrderTraversal(root);
         treeDS.binarySearchTreeInsertion(8);
         treeDS.binarySearchTreeInsertion(5);
         treeDS.binarySearchTreeInsertion(7);
         treeDS.binarySearchTreeInsertion(10);
         treeDS.binarySearchTreeInsertion(17);
-        treeDS.binarySearchTreeInsertion(1);
+        treeDS.binarySearchTreeInsertion(1);*/
         /*treeDS.binarySearchTreeInsertion(4);
         treeDS.binarySearchTreeSearch(treeDS.root, 4);
         treeDS.binarySearchTreeDeletion(treeDS.root, 5);
-        treeDS.isBalanced(treeDS.root);*/
+        treeDS.isBalanced(treeDS.root);
         Question question = new Question();
         //question.allSequences(treeDS.root);
         treeDS1.binarySearchTreeInsertion(5);
         treeDS1.binarySearchTreeInsertion(7);
         treeDS1.binarySearchTreeInsertion(1);
-        question.checkSubtree(treeDS.root, treeDS1.root);
+        question.checkSubtree(treeDS.root, treeDS1.root);*/
+        TreeNodes t = new TreeNodes(10);
+        t.insertinOrder(5);
+        t.insertinOrder(7);
+        t.insertinOrder(3);
+        t.insertinOrder(15);
+        t.insertinOrder(17);
+        t.getRandomNode();
+        t.getRandomNode();
+        t.getRandomNode();
     }
 
 }
@@ -262,40 +271,45 @@ class Question {
         return true;
     }
 }
-class TreeNode {
+class TreeNodes {
     private int data;
-    public TreeNode left;
-    public TreeNode right;
+    public TreeNodes left;
+    public TreeNodes right;
     private int size = 0;
 
-    public TreeNode(int d) {
+    public TreeNodes(int d) {
         data = d;
         size = 1;
     }
 
-    public TreeNode getRandomNode() {
-        int leftSize =left == null ? 0 : left.size();
+    public TreeNodes getRandomNode() {
+        //int leftSize =left == null ? 0 : left.size();
+        if(size == 0) {
+            return null;
+        }
         Random random = new Random();
         int index = random.nextInt(size);
-        if (index < leftSize) {
+        /*if (index < leftSize) {
             return left.getRandomNode();
         } else if (index == leftSize) {
+            System.out.println(index + "" + this.data);
             return this;
         } else {
             return right.getRandomNode();
-        }
+        }*/
+        return getIthNode(index);
     }
 
     public void insertinOrder(int d) {
         if (d <= data) {
             if (left == null) {
-                left = new TreeNode(d);
+                left = new TreeNodes(d);
             } else {
                 left.insertinOrder(d);
             }
         } else {
             if (right == null) {
-                right = new TreeNode(d);
+                right = new TreeNodes(d);
             } else {
                 right.insertinOrder(d);
             }
@@ -304,13 +318,24 @@ class TreeNode {
     }
 
     public int size() {
-        return size;
+            return size;
     }
     public int data() {
         return data;
     }
 
-    public TreeNode find(int d) {
+    public TreeNodes getIthNode(int i) {
+        int leftSize =left == null ? 0 : left.size();
+        if (i < leftSize) {
+            return left.getIthNode(i);
+        } else if (i == leftSize) {
+            System.out.println(i + "" + this.data);
+            return this;
+        } else {
+            return right.getIthNode(i -(leftSize + 1));
+        }
+    }
+    public TreeNodes find(int d) {
         if (d == data) {
             return this;
         } else if (d <= data) {
