@@ -171,7 +171,7 @@ class TreeNodeImplementation {
     Return the root of that node as its suc
     Last left turn
      */
-
+//In order successor of a BST.. Time - O(h), h- height of tree(Worst case have to travel deep down the BST). Space - O(1) (No extra DS used)
     public TreeNode successor(TreeNode root, TreeNode node) {
         if(root == null || node == null) {
             return null;
