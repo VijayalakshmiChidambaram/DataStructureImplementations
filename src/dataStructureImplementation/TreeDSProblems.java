@@ -6,20 +6,21 @@ public class TreeDSProblems {
        /* int[] arr = {1, 2, 3, 4, 5};
         tree.createBST(arr);*/
         TreeNodeImplementation.TreeNode root = tree.createNode(8);
-        //root.left = tree.createNode(3);
+        root.left = tree.createNode(3);
         root.right = tree.createNode(10);
-        //root.left.left = tree.createNode(1);
-        //root.left.right = tree.createNode(9);
+        root.left.left = tree.createNode(1);
+        root.left.right = tree.createNode(5);
         //root.left.right.left = tree.createNode(4);
         //root.left.right.right = tree.createNode(9);
         root.right.left = tree.createNode(9);
         root.right.right = tree.createNode(14);
-        root.right.right.left = tree.createNode(13);
+        //root.right.left.right = tree.createNode(13);
         /*tree.isBalancedBTCheck(root);
         tree.BSTCheck(root);
         tree.BSTCheckUsingVariable(root);
-        tree.BSTValid(root);*/
-        tree.sumLeft(root);
+        tree.BSTValid(root);
+        tree.sumLeft(root);*/
+        tree.successor(root, root.right.right);
     }
 }
 
@@ -135,6 +136,7 @@ class TreeNodeImplementation {
         if(n == null) {
             return true;
         }
+        //Vimal ask max update
         else if(min !=0 && n.data <= min || max != 0 && n.data > max) {
             return false;
         }
@@ -150,6 +152,7 @@ class TreeNodeImplementation {
             if(node.left.left == null && node.left.right == null) {
                 sum = sum + node.left.data;
             }
+
             else {
                 sum = sum + sumLeft(node.left);
             }
@@ -160,5 +163,39 @@ class TreeNodeImplementation {
             }
         }
         return sum;
+    }
+    /*
+    if node.ri != null:
+    min value in right subtree -> traverse left side of right subtree
+    else (Both no/ right no subtree) :
+    Return the root of that node as its suc
+    Last left turn
+     */
+
+    public TreeNode successor(TreeNode root, TreeNode node) {
+        if(root == null || node == null) {
+            return null;
+        }
+        else if(node.right != null) {
+            TreeNode temp = node.right;
+            while(temp.left != null) {
+                temp = temp.left;
+            }
+            return temp;
+        }
+        else {
+            TreeNode r = root;
+            TreeNode newRoot = null;
+            while(r != null && r.data != node.data) {
+                if(node.data <= r.data) {
+                    newRoot = r;
+                    r = r.left;
+                }
+                else {
+                    r = r.right;
+                }
+            }
+            return newRoot;
+        }
     }
 }
