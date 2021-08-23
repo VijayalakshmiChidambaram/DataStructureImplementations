@@ -19,8 +19,9 @@ public class TreeDSProblems {
         tree.BSTCheck(root);
         tree.BSTCheckUsingVariable(root);
         tree.BSTValid(root);
-        tree.sumLeft(root);*/
-        tree.successor(root, root.right.right);
+        tree.sumLeft(root);
+        tree.successor(root, root.right.right);*/
+        tree.lcaWithoutParentLink(root, root.left.left, root.left.right);
     }
 }
 
@@ -198,4 +199,63 @@ class TreeNodeImplementation {
             return newRoot;
         }
     }
-}
+    /*
+    Search if both nodes available:
+    Set F1, F2
+    return F1 && F2
+    If T :
+    Look for LCA:
+    r == N -> ret N, r==p, r==q -> ret r
+    l = recur
+    r = recur
+    if(l != N && r != N) -> ret r
+    else if( l=N && r = N) -> ret N
+    else l != N ? l : R
+     */
+    // Find Lowest Common ancestor - Without link to parent node. Time - O(n) , Space - O(1)
+    public TreeNode lcaWithoutParentLink(TreeNode root, TreeNode n1, TreeNode n2) {
+        TreeNode lca = null;
+        if (lcaSearchNodes(root, n1, n2)) {
+            lca = lcaWithoutParent(root, n1, n2);
+        }
+        return lca;
+    }
+    boolean node2Flag;
+    boolean node1Flag;
+    public boolean lcaSearchNodes(TreeNode root, TreeNode n1, TreeNode n2) {
+        while ((node1Flag && node2Flag) == false) {
+            if (root == null) {
+                return true;
+            }
+            if (root == n1) {
+                node1Flag = true;
+            }
+            if (root == n2) {
+                node2Flag = true;
+            }
+            lcaSearchNodes(root.left, n1, n2);
+            lcaSearchNodes(root.right, n1, n2);
+            if (node1Flag != true || node2Flag != true) {
+                return false;
+            }
+        }
+        return true;
+    }
+        public TreeNode lcaWithoutParent(TreeNode root, TreeNode n1, TreeNode n2) {
+            if (root == null) {
+                return null;
+            }
+            if (root == n1 || root == n2) {
+                return root;
+            }
+            TreeNode left = lcaWithoutParent(root.left, n1, n2);
+            TreeNode right = lcaWithoutParent(root.right, n1, n2);
+            if (left != null && right != null) {
+                return root;
+            } else if (left == null && right == null) {
+                return null;
+            } else {
+                return left != null ? left : right;
+            }
+        }
+    }
