@@ -6,6 +6,7 @@ public class TreeDSProblems {
        /* int[] arr = {1, 2, 3, 4, 5};
         tree.createBST(arr);*/
         TreeNodeImplementation.TreeNode root = tree.createNode(8);
+        root.parent = root;
         root.left = tree.createNode(3);
         root.right = tree.createNode(10);
         root.left.left = tree.createNode(1);
@@ -21,7 +22,7 @@ public class TreeDSProblems {
         tree.BSTValid(root);
         tree.sumLeft(root);
         tree.successor(root, root.right.right);*/
-        tree.lcaWithoutParentLink(root, root.left.left, root.left.right);
+        tree.lcaWithoutParentLink(root, root.left.left, root.left.right.left);
     }
 }
 
@@ -30,6 +31,7 @@ class TreeNodeImplementation {
         int data;
         TreeNode left;
         TreeNode right;
+        TreeNode parent;
 
         public TreeNode(int dataValue) {
             data = dataValue;
@@ -225,7 +227,7 @@ class TreeNodeImplementation {
     public boolean lcaSearchNodes(TreeNode root, TreeNode n1, TreeNode n2) {
         while ((node1Flag && node2Flag) == false) {
             if (root == null) {
-                return true;
+                return false;
             }
             if (root == n1) {
                 node1Flag = true;
@@ -258,4 +260,8 @@ class TreeNodeImplementation {
                 return left != null ? left : right;
             }
         }
+
+       /* public TreeNode lcaWithParentLink(TreeNode root, TreeNode n1, TreeNode n2) {
+
+        }*/
     }
