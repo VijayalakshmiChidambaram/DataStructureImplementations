@@ -6,7 +6,6 @@ public class TreeDSProblems {
        /* int[] arr = {1, 2, 3, 4, 5};
         tree.createBST(arr);*/
         TreeNodeImplementation.TreeNode root = tree.createNode(8);
-        root.parent = root;
         root.left = tree.createNode(3);
         root.right = tree.createNode(10);
         root.left.left = tree.createNode(1);
@@ -21,8 +20,19 @@ public class TreeDSProblems {
         tree.BSTCheckUsingVariable(root);
         tree.BSTValid(root);
         tree.sumLeft(root);
-        tree.successor(root, root.right.right);*/
-        tree.lcaWithoutParentLink(root, root.left.left, root.left.right.left);
+        tree.successor(root, root.right.right);
+        tree.lcaWithoutParentLink(root, root.left.left, root.left.right.left);*/
+        lca lcaWithParent = new lca();
+        Node n = new Node(8);
+        //lcaWithParent.insertBS(n, 8);
+        lcaWithParent.insertBS(n, 5);
+        lcaWithParent.insertBS(n, 10);
+        lcaWithParent.insertBS(n, 9);
+        lcaWithParent.insertBS(n, 1);
+        lcaWithParent.insertBS(n, 12);
+        Node n1 = n.left;
+        Node n2 = n.left.left;
+        lcaWithParent.findLcaWithParent(n1, n2);
     }
 }
 
@@ -31,60 +41,58 @@ class TreeNodeImplementation {
         int data;
         TreeNode left;
         TreeNode right;
-        TreeNode parent;
 
         public TreeNode(int dataValue) {
             data = dataValue;
         }
     }
 
-    public TreeNode createNode(int data)
-    {
+    public TreeNode createNode(int data) {
         TreeNode newNode = new TreeNode(data);
         return newNode;
     }
 
-    public TreeNode createBST(int[] array)
-    {
-        if(array==null) {
+    public TreeNode createBST(int[] array) {
+        if (array == null) {
             return null;
         }
-        return minimalTreeBST(array, 0, array.length -1);
+        return minimalTreeBST(array, 0, array.length - 1);
     }
 
     //1)Give array, create BST with minimal height. Time - O(n). [Time for array of size 'n' - n, C   -->  Constant (Finding middle of array and linking root to left
     //                      and right subtrees take constant time), T(n) = 2T(n/2) +C. Space - O(n) [Due to recursion, stack is used]
     public TreeNode minimalTreeBST(int[] array, int start, int end) {
-    if(end < start) {
-        return null;
-    }
-    int mid = (start + end)/2;
-    TreeNode root = new TreeNode(array[mid]);
-    root.left = minimalTreeBST(array, start, mid-1);
-    root.right = minimalTreeBST(array, mid+1, end);
-    return root;
+        if (end < start) {
+            return null;
+        }
+        int mid = (start + end) / 2;
+        TreeNode root = new TreeNode(array[mid]);
+        root.left = minimalTreeBST(array, start, mid - 1);
+        root.right = minimalTreeBST(array, mid + 1, end);
+        return root;
     }
 
     //2) Check if a binary tree is balanced. Time - O(n), Space - O(n)
-    public boolean isBalancedBTCheck(TreeNode root ) {
-        if(isbalancedBT(root)!= -1) {
+    public boolean isBalancedBTCheck(TreeNode root) {
+        if (isbalancedBT(root) != -1) {
             System.out.println("T");
             return true;
         }
         System.out.println("F");
         return false;
     }
-    public int isbalancedBT(TreeNode node){
-        if(node == null) {
+
+    public int isbalancedBT(TreeNode node) {
+        if (node == null) {
             return 0;
         }
         int leftHeight = isbalancedBT(node.left);
         int rightHeight = isbalancedBT(node.right);
-        if(leftHeight == -1 || rightHeight == -1) {
+        if (leftHeight == -1 || rightHeight == -1) {
             return -1;
         }
-        int height = (Math.abs(leftHeight-rightHeight));
-        if(height > 1) {
+        int height = (Math.abs(leftHeight - rightHeight));
+        if (height > 1) {
             return -1;
         }
         return Math.max(leftHeight, rightHeight) + 1;
@@ -92,10 +100,11 @@ class TreeNodeImplementation {
 
     //3)Validate BST
     //a)Using Array. Disadvantage - Does not compare the current node with root. Time - O(n), Space - O(n)
-    int i =0;
+    int i = 0;
     int[] arr = new int[7];
+
     public void validateBST(TreeNode root, int[] array) {
-        if(root == null) {
+        if (root == null) {
             return;
         }
         validateBST(root.left, arr);
@@ -103,10 +112,11 @@ class TreeNodeImplementation {
         i++;
         validateBST(root.right, arr);
     }
+
     public boolean BSTCheck(TreeNode root) {
         validateBST(root, arr);
-        for(int i=1; i<arr.length; i++) {
-            if(arr[i] <= arr[i-1]) {
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] <= arr[i - 1]) {
                 return false;
             }
         }
@@ -115,58 +125,59 @@ class TreeNodeImplementation {
 
     //b)Using variable. Disadvantage - Does not compare the current node with root. Time - O(n), Space - O(1)
     int last_visited = 0;
+
     public boolean BSTCheckUsingVariable(TreeNode root) {
-        if(root == null) {
+        if (root == null) {
             return true;
         }
-        if(!(BSTCheckUsingVariable(root.left))) {
+        if (!(BSTCheckUsingVariable(root.left))) {
             return false;
         }
-        if(last_visited !=0 && last_visited > root.data) {
+        if (last_visited != 0 && last_visited > root.data) {
             return false;
         }
         last_visited = root.data;
-        if(!BSTCheckUsingVariable(root.right)) {
+        if (!BSTCheckUsingVariable(root.right)) {
             return false;
         }
         return true;
     }
+
     //c)Using recursion. min,max. Each time compares the root with the subtrees. Time - O(n), Space - O(log n)
     public boolean BSTValid(TreeNode root) {
         return BSTValidation(root, 0, 0);
     }
-     boolean BSTValidation(TreeNode n, int min, int max) {
-        if(n == null) {
+
+    boolean BSTValidation(TreeNode n, int min, int max) {
+        if (n == null) {
             return true;
-        }
-        //Vimal ask max update
-        else if(min !=0 && n.data <= min || max != 0 && n.data > max) {
+        } else if (min != 0 && n.data <= min || max != 0 && n.data > max) {
             return false;
         }
         return BSTValidation(n.left, min, n.data) && BSTValidation(n.right, n.data, max);
-     }
-//Sum of left leaves of a tree
+    }
+
+    //Sum of left leaves of a tree
     public int sumLeft(TreeNode node) {
-        if(node == null) {
+        if (node == null) {
             return 0;
         }
         int sum = 0;
-        if(node.left != null) {
-            if(node.left.left == null && node.left.right == null) {
+        if (node.left != null) {
+            if (node.left.left == null && node.left.right == null) {
                 sum = sum + node.left.data;
-            }
-
-            else {
+            } else {
                 sum = sum + sumLeft(node.left);
             }
         }
-        if(node.right != null) {
-            if(node.right.left != null || node.right.right != null) {
+        if (node.right != null) {
+            if (node.right.left != null || node.right.right != null) {
                 sum = sum + sumLeft(node.right);
             }
         }
         return sum;
     }
+
     /*
     if node.ri != null:
     min value in right subtree -> traverse left side of right subtree
@@ -176,31 +187,29 @@ class TreeNodeImplementation {
      */
 //In order successor of a BST.. Time - O(h), h- height of tree(Worst case have to travel deep down the BST). Space - O(1) (No extra DS used)
     public TreeNode successor(TreeNode root, TreeNode node) {
-        if(root == null || node == null) {
+        if (root == null || node == null) {
             return null;
-        }
-        else if(node.right != null) {
+        } else if (node.right != null) {
             TreeNode temp = node.right;
-            while(temp.left != null) {
+            while (temp.left != null) {
                 temp = temp.left;
             }
             return temp;
-        }
-        else {
+        } else {
             TreeNode r = root;
             TreeNode newRoot = null;
-            while(r != null && r.data != node.data) {
-                if(node.data <= r.data) {
+            while (r != null && r.data != node.data) {
+                if (node.data <= r.data) {
                     newRoot = r;
                     r = r.left;
-                }
-                else {
+                } else {
                     r = r.right;
                 }
             }
             return newRoot;
         }
     }
+
     /*
     Search if both nodes available:
     Set F1, F2
@@ -214,7 +223,7 @@ class TreeNodeImplementation {
     else if( l=N && r = N) -> ret N
     else l != N ? l : R
      */
-    // Find Lowest Common ancestor - Without link to parent node. Time - O(n) , Space - O(1)
+    // Find Lowest Common ancestor - Without link to parent node. Time - O(n) , Space - O(n)
     public TreeNode lcaWithoutParentLink(TreeNode root, TreeNode n1, TreeNode n2) {
         TreeNode lca = null;
         if (lcaSearchNodes(root, n1, n2)) {
@@ -222,8 +231,10 @@ class TreeNodeImplementation {
         }
         return lca;
     }
+
     boolean node2Flag;
     boolean node1Flag;
+
     public boolean lcaSearchNodes(TreeNode root, TreeNode n1, TreeNode n2) {
         while ((node1Flag && node2Flag) == false) {
             if (root == null) {
@@ -243,25 +254,82 @@ class TreeNodeImplementation {
         }
         return true;
     }
-        public TreeNode lcaWithoutParent(TreeNode root, TreeNode n1, TreeNode n2) {
-            if (root == null) {
-                return null;
-            }
-            if (root == n1 || root == n2) {
-                return root;
-            }
-            TreeNode left = lcaWithoutParent(root.left, n1, n2);
-            TreeNode right = lcaWithoutParent(root.right, n1, n2);
-            if (left != null && right != null) {
-                return root;
-            } else if (left == null && right == null) {
-                return null;
-            } else {
-                return left != null ? left : right;
-            }
+
+    public TreeNode lcaWithoutParent(TreeNode root, TreeNode n1, TreeNode n2) {
+        if (root == null) {
+            return null;
         }
+        if (root == n1 || root == n2) {
+            return root;
+        }
+        TreeNode left = lcaWithoutParent(root.left, n1, n2);
+        TreeNode right = lcaWithoutParent(root.right, n1, n2);
+        if (left != null && right != null) {
+            return root;
+        } else if (left == null && right == null) {
+            return null;
+        } else {
+            return left != null ? left : right;
+        }
+    }
+}
 
-       /* public TreeNode lcaWithParentLink(TreeNode root, TreeNode n1, TreeNode n2) {
+/* Find Lowest Common ancestor - With link to parent node. Time - O(n) n - no. of nodes in tree, Space - O(1)
+        */
 
-        }*/
+    class Node {
+        int data;
+        Node left;
+        Node right;
+        Node parent;
+
+        public Node(int data) {
+            this.data = data;
+        }
+    }
+class lca {
+    public Node insertBS(Node n, int key) {
+        if(n == null) {
+        return new Node(key);
+        }
+        else if(key <= n.data) {
+            n.left = insertBS(n.left, key);
+            n.left.parent = n;
+        }
+        else {
+            n.right = insertBS(n.right, key);
+            n.right.parent = n;
+        }
+        return n;
+    }
+/*
+n1,n2 = len
+diff = n1-n2
+> in n1,n2 move up to it parent to value in diff
+Move n1, n2 together, till their address are same
+ */
+    public Node findLcaWithParent(Node n1, Node n2) {
+        int len1 = length(n1);
+        int len2 = length(n2);
+        int difference = Math.abs(len1 - len2);
+        Node shallow = len1 < len2 ? n1 : n2;
+        Node deep = len1 > len2 ? n1 : n2;
+        while (difference != 0) {
+            deep = deep.parent;
+            difference--;
+        }
+        while (shallow != deep && shallow!=null && deep != null) {
+            shallow = shallow.parent;
+            deep = deep.parent;
+        }
+        return deep;
+    }
+    public int length(Node n) {
+        int l=0;
+        while(n.parent != null) {
+            l++;
+            n = n.parent;
+        }
+        return l;
+    }
     }
