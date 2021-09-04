@@ -7,14 +7,15 @@ import java.util.Random;
 public class TreeDSImplementation {
     public static void main(String[] args) {
         binarayTreeDS treeDS = new binarayTreeDS();
-        binarayTreeDS treeDS1 = new binarayTreeDS();
-        /*binarayTreeDS.TreeNode root = treeDS.createTreeNode(4);
-        root.left = treeDS.createTreeNode(5);
-        root.right = treeDS.createTreeNode(10);
-        root.left.left = treeDS.createTreeNode(7);
-        root.left.right = treeDS.createTreeNode(8);
-        root.right.right = treeDS.createTreeNode(1);
-        treeDS.preorder(root);
+        //binarayTreeDS treeDS1 = new binarayTreeDS();
+        binarayTreeDS.TreeNode root = treeDS.createTreeNode(5);
+        root.left = treeDS.createTreeNode(3);
+        root.right = treeDS.createTreeNode(7);
+        root.left.left = treeDS.createTreeNode(1);
+        root.left.right = treeDS.createTreeNode(4);
+        root.right.left = treeDS.createTreeNode(6);
+        root.right.right = treeDS.createTreeNode(9);
+        /*treeDS.preorder(root);
         treeDS.inorderTraversal(root);
         treeDS.postOrderTraversal(root);
         treeDS.binarySearchTreeInsertion(8);
@@ -26,13 +27,13 @@ public class TreeDSImplementation {
         /*treeDS.binarySearchTreeInsertion(4);
         treeDS.binarySearchTreeSearch(treeDS.root, 4);
         treeDS.binarySearchTreeDeletion(treeDS.root, 5);
-        treeDS.isBalanced(treeDS.root);
+        treeDS.isBalanced(treeDS.root);*/
         Question question = new Question();
-        //question.allSequences(treeDS.root);
-        treeDS1.binarySearchTreeInsertion(5);
+        question.allSequences(root);
+        /*treeDS1.binarySearchTreeInsertion(5);
         treeDS1.binarySearchTreeInsertion(7);
         treeDS1.binarySearchTreeInsertion(1);
-        question.checkSubtree(treeDS.root, treeDS1.root);*/
+        question.checkSubtree(treeDS.root, treeDS1.root);
         TreeNodes t = new TreeNodes(10);
         t.insertinOrder(5);
         t.insertinOrder(7);
@@ -41,7 +42,7 @@ public class TreeDSImplementation {
         t.insertinOrder(17);
         t.getRandomNode();
         t.getRandomNode();
-        t.getRandomNode();
+        t.getRandomNode();*/
     }
 
 }

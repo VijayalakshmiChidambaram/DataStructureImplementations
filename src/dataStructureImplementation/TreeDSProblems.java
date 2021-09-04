@@ -1,27 +1,37 @@
 package dataStructureImplementation;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+
 public class TreeDSProblems {
     public static void main(String[] args) {
         TreeNodeImplementation tree = new TreeNodeImplementation();
+        TreeNodeImplementation tree1 = new TreeNodeImplementation();
+        TreeNodeImplementation.TreeNode root1 = tree.createNode(7);
        /* int[] arr = {1, 2, 3, 4, 5};
         tree.createBST(arr);*/
-        TreeNodeImplementation.TreeNode root = tree.createNode(8);
+        TreeNodeImplementation.TreeNode root = tree.createNode(5);
         root.left = tree.createNode(3);
-        root.right = tree.createNode(10);
+        root.right = tree.createNode(7);
         root.left.left = tree.createNode(1);
-        root.left.right = tree.createNode(5);
+        root.left.right = tree.createNode(4);
         //root.left.right.left = tree.createNode(4);
         //root.left.right.right = tree.createNode(9);
-        root.right.left = tree.createNode(9);
-        root.right.right = tree.createNode(14);
-        //root.right.left.right = tree.createNode(13);
-        /*tree.isBalancedBTCheck(root);
+        root.right.left = tree.createNode(6);
+        root.right.right = tree.createNode(9);
+        root1.left = tree1.createNode(6);
+        root1.right = tree1.createNode(9);
+        tree.isSubString(root, root1);
+        /*tree.bstSequences(root);
+        root.right.left.right = tree.createNode(13);
+        tree.isBalancedBTCheck(root);
         tree.BSTCheck(root);
         tree.BSTCheckUsingVariable(root);
         tree.BSTValid(root);
         tree.sumLeft(root);
         tree.successor(root, root.right.right);
-        tree.lcaWithoutParentLink(root, root.left.left, root.left.right.left);*/
+        tree.lcaWithoutParentLink(root, root.left.left, root.left.right.left);
         lca lcaWithParent = new lca();
         Node n = new Node(8);
         //lcaWithParent.insertBS(n, 8);
@@ -32,7 +42,7 @@ public class TreeDSProblems {
         lcaWithParent.insertBS(n, 12);
         Node n1 = n.left;
         Node n2 = n.left.left;
-        lcaWithParent.findLcaWithParent(n1, n2);
+        lcaWithParent.findLcaWithParent(n1, n2);*/
     }
 }
 
@@ -272,7 +282,81 @@ class TreeNodeImplementation {
             return left != null ? left : right;
         }
     }
+
+//BST Sequences - Print all possible arrays that could have led to this tree. Time - O(n^2), Space - O(n)
+    public ArrayList<LinkedList<Integer>> bstSequences(TreeNode n) {
+        ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>();
+        if(n == null) {
+            result.add(new LinkedList<>());
+            return result;
+        }
+        LinkedList<Integer> prefix = new LinkedList<>();
+        prefix.add(n.data);
+        ArrayList<LinkedList<Integer>> leftLL = bstSequences(n.left);
+        ArrayList<LinkedList<Integer>> rightLL = bstSequences(n.right);
+        for(LinkedList<Integer> l : leftLL) {
+            for(LinkedList<Integer> r : rightLL) {
+                ArrayList<LinkedList<Integer>> weaved = new ArrayList<LinkedList<Integer>>();
+                weaveList(l, r, weaved, prefix);
+                result.addAll(weaved);
+            }
+        }
+        return result;
+    }
+    public void weaveList(LinkedList<Integer> l, LinkedList<Integer> r, ArrayList<LinkedList<Integer>> weave, LinkedList<Integer> pre) {
+        if(l.size() == 0 || r.size() ==0) {
+            LinkedList<Integer> copy = new LinkedList<>();
+            copy = (LinkedList<Integer>) pre.clone();
+            copy.addAll(l);
+            copy.addAll(r);
+            weave.add(copy);
+            return;
+        }
+        int leftFirst = l.removeFirst();
+        pre.addLast(leftFirst);
+        weaveList(l, r, weave, pre);
+        pre.removeLast();
+        l.addFirst(leftFirst);
+
+        int rightFirst = r.removeFirst();
+        pre.addLast(rightFirst);
+        weaveList(l, r, weave, pre);
+        pre.removeLast();
+        r.addFirst(rightFirst);
+    }
+
+    //Find a tree is a subtree of another tree
+    //1) Using stringbuilder. Time - O(s1+s2). Space - O(s1+s2)
+    /* StringBuilder s1,s2
+    if(s1.contains(s2) || s2.contains(s1)) -> T
+    rec(t1,t2) {
+     t1 || t2 == null : append x
+     s1.append(nodes) || s2.append(nodes)
+    }
+     */
+    public boolean isSubString(TreeNode t1, TreeNode t2) {
+        StringBuilder s1 = new StringBuilder();
+        StringBuilder s2 = new StringBuilder();
+        s1 = checkSubstring(t1, s1);
+        s2 = checkSubstring(t2, s2);
+        return (s1.indexOf(s2.toString())) != -1;
+
+    }
+    public StringBuilder checkSubstring(TreeNode t, StringBuilder s) {
+        if(t == null) {
+            s.append('x');
+            return null;
+        }
+        s.append(t.data);
+        checkSubstring(t.left, s);
+        checkSubstring(t.right, s);
+        return s;
+    }
+    //2. Using recursion
 }
+
+
+
 
 /* Find Lowest Common ancestor - With link to parent node. Time - O(n) n - no. of nodes in tree, Space - O(1)
         */
