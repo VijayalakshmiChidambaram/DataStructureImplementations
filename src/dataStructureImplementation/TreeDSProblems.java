@@ -22,8 +22,9 @@ public class TreeDSProblems {
         root.right.right = tree.createNode(9);
         root1.left = tree1.createNode(6);
         root1.right = tree1.createNode(9);
-        tree.isSubString(root, root1);
-        /*tree.bstSequences(root);
+        tree.isSubTree(root, root1);
+        /*tree.isSubString(root, root1);
+        tree.bstSequences(root);
         root.right.left.right = tree.createNode(13);
         tree.isBalancedBTCheck(root);
         tree.BSTCheck(root);
@@ -352,7 +353,45 @@ class TreeNodeImplementation {
         checkSubstring(t.right, s);
         return s;
     }
-    //2. Using recursion
+    //2. Using recursion. Time - O(n1*n2), Space(log n1 +log n2)
+    /*
+    t2 - is subtree of t1
+    t2 == null -> T
+    rec(t1,t2) :
+    if(t1 == null) -> F
+    else if((t1.data == t2.data) && match(t1,t2)) -> T
+    else rec(t1.left,t2) || rec(t1.right,t2) -> F
+    match(n1,n2)
+    if(n1 = N && n2 = N) -> T
+    n1= N || n2 = N -> F
+    match(n1.left, n2.left) && match(n1.right, n2.right)
+     */
+    public boolean isSubTree(TreeNode n1, TreeNode n2) {
+        if(n2 == null) {
+            return true;
+        }
+        return subTreeCheck(n1,n2);
+    }
+    public boolean subTreeCheck(TreeNode t1, TreeNode t2) {
+        if(t1 == null) {
+            return false;
+        }
+        else if((t1.data == t2.data) && matchTree(t1,t2)) {
+            return true;
+        }
+        else {
+            return subTreeCheck(t1.left,t2) || subTreeCheck(t1.right,t2);
+        }
+    }
+    public boolean matchTree(TreeNode t1, TreeNode t2) {
+        if(t1 == null && t2 == null) {
+            return true;
+        }
+        if(t1 == null || t2 == null) {
+            return false;
+        }
+        return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
+    }
 }
 
 
