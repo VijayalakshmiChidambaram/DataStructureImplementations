@@ -622,4 +622,49 @@ class randomNode {
              return right.getithNode(i -(leftSize+1));
          }
      }
+
+     /* pathSum(Node n, int s):
+     if(r == N) -> N
+     int pathRoot = totalPath(Node n, int targetS => , int currS =>0)
+     int leftPath = pathSum(Node n, int s)
+     int rightPath = pathSum(n, s)
+     ret path + lP + rP
+     totalPath(Node n, int targetS => , int currS =>0):
+     if(n = N)  ret 0;
+     currS = cS + n.data;
+     int totPath = 0;
+     if(cS == tS) {
+     totP++;
+     }
+     totP = totP + totPath(n.left,,)
+     totP = totP + totPath(n.r,,)
+     ret totP;
+      */
+    //Calculate paths with given sum. Time - O(n^2), Space - O(n)
+     public int pathSum(randomNode r, int sum) {
+         if(r == null) {
+             return 0;
+         }
+         int rootPath = pathCalculation(r, sum, 0);
+         int leftPath = pathSum(r.left, sum);
+         int rightPath = pathSum(r.right, sum);
+         return rootPath+leftPath+rightPath;
+
+     }
+     public int pathCalculation(randomNode r, int targetSum, int currSum) {
+         if(r == null) {
+             return 0;
+         }
+         currSum = currSum+ r.data;
+         int totalPath = 0;
+         if(currSum <= targetSum) {
+             if(currSum == targetSum) {
+                 totalPath++;
+             }
+             totalPath = totalPath + pathCalculation(r.left, targetSum, currSum);
+             totalPath = totalPath + pathCalculation(r.right, targetSum, currSum);
+         }
+         return totalPath;
+     }
+     //PathSum usin HashTable
 }
