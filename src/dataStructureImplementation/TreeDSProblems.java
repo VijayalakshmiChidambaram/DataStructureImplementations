@@ -1,8 +1,8 @@
 package dataStructureImplementation;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class TreeDSProblems {
     public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class TreeDSProblems {
         root.right.right = tree.createNode(9);
         root1.left = tree1.createNode(6);
         root1.right = tree1.createNode(9);
-        tree.isSubTree(root, root1);
+        //tree.isSubTree(root, root1);
         /*tree.isSubString(root, root1);
         tree.bstSequences(root);
         root.right.left.right = tree.createNode(13);
@@ -44,6 +44,17 @@ public class TreeDSProblems {
         Node n1 = n.left;
         Node n2 = n.left.left;
         lcaWithParent.findLcaWithParent(n1, n2);*/
+        randomNode randomnode = new randomNode(10);
+        randomnode.insertNode(5);
+        randomnode.insertNode(7);
+        randomnode.insertNode(3);
+        randomnode.insertNode(15);
+        randomnode.insertNode(17);
+        randomnode.random();
+        randomnode.find(randomnode.left.left);
+        randomnode.random();
+        randomnode.deleteNode(randomnode.left.left);
+        randomnode.random();
     }
 }
 
@@ -395,9 +406,6 @@ class TreeNodeImplementation {
 
 }
 
-
-
-
 /* Find Lowest Common ancestor - With link to parent node. Time - O(n) n - no. of nodes in tree, Space - O(1)
         */
 
@@ -457,3 +465,161 @@ Move n1, n2 together, till their address are same
         return l;
     }
     }
+/*
+ClassNode : data,L,R,size
+Ins(element) :
+element <= data:
+    L = Null :
+        L = element -> classNode
+    L.Ins(element)
+else :
+same -> R
+
+Find(element) :
+if(N) : return N
+element == data:
+return this
+element <= data :
+    L.find(element)
+elem > data :
+    R.find(element)
+
+Del(element) :
+element <= data :
+    L.del(element)
+element > data :
+    R.del(element)
+element == data :
+    1)data.L == N && data.R == Null
+        data == N
+    2) data.L !=N
+        data = data.L
+    3) data.R !=N
+        data = data.R
+    4) data.L != N && data.R !=N
+        Node nd = Min(data.R)
+        data = nd;
+        R.del(nd);
+
+Min(Node r) {
+r.left == N :
+  return this;
+ret Min(r.l)
+}
+
+randomNode() :
+int index : rand.nextInt(size)
+getNode(index);
+
+getNode(int i) :
+int ls = L == N ? 0 : L.size();
+if(i<=ls) :
+ret L.getNode(i);
+i == ls :
+ret this;
+i > ls
+ret getNode(i-(ls+1))
+ */
+// Random Node - In addition to insert, del, find we will have getRandomNode which returns random node from tree. Time - O(log n) - if tree is balanced, O(n)- n is depth of the tree. Space - O(n) - space for storing stack calls
+class randomNode {
+        int data;
+        randomNode left;
+        randomNode right;
+        private int size = 0;
+        public randomNode(int d) {
+            data = d;
+            size = 1;
+        }
+    public void insertNode(int d) {
+        if(d <= data) {
+            if (left == null) {
+                left = new randomNode(d);
+            } else {
+                left.insertNode(d);
+            }
+        }
+        else {
+            if(right == null) {
+                right = new randomNode(d);
+            }
+            else {
+                right.insertNode(d);
+            }
+        }
+        size++;
+    }
+    public int getSize()
+     {
+         return size;
+     }
+     public int data() {
+         return data;
+     }
+     public randomNode find(randomNode d) {
+         if(d == null) {
+             return null;
+         }
+         if(data == d.data) {
+             return this;
+         }
+         else if(d.data < data) {
+             return left.find(d);
+         }
+         else {
+             return right.find(d);
+         }
+     }
+     public randomNode deleteNode(randomNode d) {
+         if(d == null) {
+             return null;
+         }
+         else if(d.data < data) {
+             return left.deleteNode(d);
+         }
+         else if(d.data > data) {
+             return right.deleteNode(d);
+         }
+         else {
+             if (d.left == null && d.right == null) {
+                 d = null;
+             }
+             else if(d.left != null && d.right == null) {
+                 d = d.left;
+             }
+             else if(d.right != null && d.left == null) {
+                 d = d.right;
+             }
+             else {
+                 randomNode rd = minimumValue(d.right);
+                 d = rd;
+                 right.deleteNode(rd);
+             }
+             return d;
+         }
+     }
+
+     public randomNode minimumValue(randomNode d) {
+         if(d.left == null) {
+             return d;
+            }
+         return left.minimumValue(d);
+     }
+
+     public randomNode random() {
+         Random rand = new Random();
+         int index = rand.nextInt(getSize());
+         return getithNode(index);
+     }
+     public randomNode getithNode(int i){
+         int leftSize = left == null ? 0 : left.getSize();
+         if (i < leftSize) {
+             return left.getithNode(i);
+         }
+         else if (i == leftSize) {
+             return this;
+         }
+         else {
+             return right.getithNode(i -(leftSize+1));
+         }
+     }
+}

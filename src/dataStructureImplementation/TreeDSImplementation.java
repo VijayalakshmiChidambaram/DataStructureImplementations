@@ -27,13 +27,13 @@ public class TreeDSImplementation {
         /*treeDS.binarySearchTreeInsertion(4);
         treeDS.binarySearchTreeSearch(treeDS.root, 4);
         treeDS.binarySearchTreeDeletion(treeDS.root, 5);
-        treeDS.isBalanced(treeDS.root);*/
+        treeDS.isBalanced(treeDS.root);
         Question question = new Question();
         question.allSequences(root);
-        /*treeDS1.binarySearchTreeInsertion(5);
+        treeDS1.binarySearchTreeInsertion(5);
         treeDS1.binarySearchTreeInsertion(7);
         treeDS1.binarySearchTreeInsertion(1);
-        question.checkSubtree(treeDS.root, treeDS1.root);
+        question.checkSubtree(treeDS.root, treeDS1.root);*/
         TreeNodes t = new TreeNodes(10);
         t.insertinOrder(5);
         t.insertinOrder(7);
@@ -42,7 +42,7 @@ public class TreeDSImplementation {
         t.insertinOrder(17);
         t.getRandomNode();
         t.getRandomNode();
-        t.getRandomNode();*/
+        t.getRandomNode();
     }
 
 }
@@ -317,7 +317,14 @@ class TreeNodes {
         }
         size++;
     }
+    /*
+                10
+               /  \
+             5     15
+           /  \       \
+          3    7       17
 
+*/
     public int size() {
             return size;
     }
