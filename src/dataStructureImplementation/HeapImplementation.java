@@ -156,6 +156,9 @@ public class HeapImplementation {
      heapify(a[], i-1, 0)
      */
     //Heap sort implementation. Max heap used here for sorting in ascending order. Time - O(n logn)
+    //Step1 : Running across the height of tree(Creation) - log n time * heapify is called for all n elements => O(n logn)
+    //Step 2: Deletion of elements - log n time * running across each n elements => O(n logn)
+    // n logn + nlogn = 2 n logn => O(n logn)
     public void heapSort(int[] arr) {
         int n = arr.length;
         for(int i = (n/2)-1; i>=0 ; i--) {
@@ -163,6 +166,7 @@ public class HeapImplementation {
         }
         sortHeapify(arr, n);
     }
+    //Heapify - Time - O(n)
     public void maxHeapify(int[] arr, int n, int i) {
         int parent = i;
         int leftChild = (2*i)+1;
@@ -180,8 +184,9 @@ public class HeapImplementation {
         }
     }
 
+    //Sort - O(log n)
     public void sortHeapify(int arr[], int n) {
-        for(int i = n-1; i>=0; i--) {
+        for(int i = n-1; i>0; i--) {
             swap(arr[0], arr[i]);
             maxHeapify(arr, i-1,0);
         }
