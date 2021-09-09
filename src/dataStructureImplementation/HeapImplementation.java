@@ -5,6 +5,8 @@ import java.util.Arrays;
 public class HeapImplementation {
     public static void main(String[] args) {
         HeapImplementation heapImp = new HeapImplementation();
+        int arr[] = {15, 17, 20, 1, 5, 10, 30};
+        heapImp.heapSort(arr);
     }
 
     /*
@@ -129,5 +131,59 @@ public class HeapImplementation {
             throw new NullPointerException();
         }
         return elements[0];
+    }
+    /*
+    1) Heapify :
+    n = arr.size
+    i = n/2; i>=0; i--
+        heapify(arr[], n, i) :
+        parent = i
+        l = 2*i +1
+        r = 2*i +2
+        a[l] > a[p] && l<=n
+            p = l;
+        a[r] > a[p] && r<=n
+            p = r;
+        if(l !=i)
+            swap(a[i], a[p])
+        heapify(arr[], n, p)
+     2) Deleting priority(root) element:
+     int sort = a[0]
+     a[0] = a[n-1]
+     a[n-1] = sort
+     i = n-1; i >=0; i--
+     swap(a[0], a[n-1])
+     heapify(a[], i-1, 0)
+     */
+    //Heap sort implementation. Max heap used here for sorting in ascending order. Time - O(n logn)
+    public void heapSort(int[] arr) {
+        int n = arr.length;
+        for(int i = (n/2)-1; i>=0 ; i--) {
+            maxHeapify(arr, n, i);
+        }
+        sortHeapify(arr, n);
+    }
+    public void maxHeapify(int[] arr, int n, int i) {
+        int parent = i;
+        int leftChild = (2*i)+1;
+        int rightChild = (2*i)+2;
+
+        if(arr[leftChild] > arr[parent] && leftChild <= n-1) {
+            parent = leftChild;
+        }
+        if(arr[rightChild] > arr[parent] && rightChild <= n-1) {
+            parent = rightChild;
+        }
+        if(parent != i) {
+            swap(arr[i], arr[parent]);
+            maxHeapify(arr, n, parent);
+        }
+    }
+
+    public void sortHeapify(int arr[], int n) {
+        for(int i = n-1; i>=0; i--) {
+            swap(arr[0], arr[i]);
+            maxHeapify(arr, i-1,0);
+        }
     }
 }
