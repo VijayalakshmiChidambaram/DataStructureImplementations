@@ -666,5 +666,5 @@ class randomNode {
          }
          return totalPath;
      }
-     //PathSum usin HashTable
+     //PathSum using HashTable
 }
