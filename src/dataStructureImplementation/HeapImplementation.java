@@ -76,12 +76,14 @@ public class HeapImplementation {
         }
     }
 
+    //Same max heap - change to >
     public void heapifyUp(int elem) {
         while(elem < elements[size/2] && elements[size/2] >=0) {
             swap(elem, elements[size/2]);
             elem = elements[size/2];
         }
     }
+    //Same maz heap change to < for while loop and if condition >
     public void heapifyDown() {
         int i = 0;
         int left = (2*i) +1;
