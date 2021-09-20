@@ -1,5 +1,10 @@
 package dataStructureImplementation;
 
+import javax.sound.sampled.Control;
+import javax.sound.sampled.Line;
+import javax.sound.sampled.LineListener;
+import javax.sound.sampled.LineUnavailableException;
+import java.awt.geom.Line2D;
 import java.util.Arrays;
 
 public class HeapImplementation {

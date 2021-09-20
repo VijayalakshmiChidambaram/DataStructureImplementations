@@ -9,13 +9,10 @@ public class LLProblemSolving {
     public static void main(String[] args) {
         singlyLinkedListPrograms llist = new singlyLinkedListPrograms();
         llist.createNodes(1);
-        llist.createNodes(4);
-        llist.createNodes(5);
-        llist.createNodes(1);
+        llist.createNodes(2);
         llist.createNodes(3);
         llist.createNodes(4);
-        llist.createNodes(2);
-        llist.createNodes(6);
+
         singlyLinkedListPrograms llist2 = new singlyLinkedListPrograms();
         llist2.createNodes(5);
         llist2.createNodes(6);
@@ -56,9 +53,11 @@ public class LLProblemSolving {
         llist.deleteDuplicates(llist.head);
         llist.reorderList(llist.head);
         llist.copyRandomList(llist.head);
-        llist.copyListHashMap(llist.head);*/
+        llist.copyListHashMap(llist.head);
         llist.mergeTwoSortedList(llist2.head, llist3.head);
-        llist.printNodes();
+        llist.printNodes();*/
+
+        llist.sample(llist.head);
     }
 }
 
@@ -587,7 +586,7 @@ class singlyLinkedListPrograms {
         if (head == null || head.next == null) {
             return head;
         }
-        Nodes temp = head;
+       Nodes temp = head;
         Nodes end = head;
         Nodes oddPointer = head;
         Nodes evenPointer = head.next;
@@ -619,14 +618,14 @@ class singlyLinkedListPrograms {
         if (head == null) {
             return null;
         }
-        Nodes oddPointer = head;
-        Nodes evenPointer = head.next;
-        Nodes evenHead = evenPointer;
+        Nodes oddPointer = head; // 1 2 3 4 5
+        Nodes evenPointer = head.next; // 2 3 4 5
+        Nodes evenHead = evenPointer; // 2 3 4 5
         while (evenPointer != null && evenPointer.next != null) {
-            oddPointer.next = evenPointer.next;
-            oddPointer = oddPointer.next;
-            evenPointer.next = oddPointer.next;
-            evenPointer = evenPointer.next;
+            oddPointer.next = evenPointer.next; //1 3 4 5 , 345 -> 3 5
+            oddPointer = oddPointer.next;// 3 4 5 , 5
+            evenPointer.next = oddPointer.next; // 2 4 5, 45-> 4 Null
+            evenPointer = evenPointer.next; // 4 5 Null&
         }
         oddPointer.next = evenHead;
         return list;
@@ -1010,7 +1009,28 @@ class singlyLinkedListPrograms {
         return pointer;
     }
 
+    public void sample(Nodes head) { //1-2-3-4-5-6
+        Nodes temp = head; //1
+        Nodes temp1 = temp.next; //2-3-4-5-6N
 
+        while (temp1 != null) {
+            Nodes end = head;
+            Nodes tempEnd = null;
+            while (end.next != null) {
+                tempEnd = end;
+                end = end.next;
+            }
+            Nodes endNode = new Nodes(end.data); //6 , 5 , 4
+            tempEnd.next = tempEnd.next.next; //5-N , 4-N
+            temp.next = endNode; //1-6, 162-5
+            temp.next.next = temp1; //16-2345N , 1625-34N
+            temp1 = temp1.next;//3, 4N,
+            if (temp1.next == null) {
+                return;
+            }
+            temp = temp.next.next; // 2, 3
+        }
+    }
 }
 
 
