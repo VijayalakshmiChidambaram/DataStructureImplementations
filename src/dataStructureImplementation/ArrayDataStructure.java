@@ -1,5 +1,6 @@
 package dataStructureImplementation;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class ArrayDataStructure {
@@ -12,8 +13,10 @@ public class ArrayDataStructure {
         System.out.println(Arrays.toString(arr.unSortedArrayInsert()));
         System.out.println(Arrays.toString(arr.sortedArrayDeletemid()));
         System.out.println(Arrays.toString(arr.sortArray()));
-        System.out.println(arr.searchElement());*/
+        System.out.println(arr.searchElement());
         System.out.println(arr.searchElementInString());
+        arr.isIsomorphic("bbbaaaba", "aaabbbba");*/
+        arr.isHappy(68);
     }
 
     //Array Traversal
@@ -167,5 +170,54 @@ public class ArrayDataStructure {
             }
         }
         return finalVal;
+    }
+
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) { // egg, add
+            return false;
+        } else {
+            HashMap<Character, Character> map = new HashMap<Character, Character>();
+            char[] Strings = s.toCharArray();
+            char[] Stringt = t.toCharArray();
+            for (int i = 0; i < Strings.length; i++) { //0, 1, 2
+                if (map.containsKey(Strings[i])) {
+                    if (map.get(Strings[i]) != Stringt[i]) {
+                        return false;
+                    }
+                } else if (map.containsValue(Stringt[i])) {
+                    return false;
+                }
+                map.put(Strings[i], Stringt[i]);
+            }
+        }
+            return true;
+    }
+
+    // Time - O(n), Space - O(n)
+    public boolean isHappy(int n) {
+        if(n == 1) {
+            return true;
+        }
+        else {
+            while(n != 1) {
+                int carry = 0, temp = 0;
+                while(n>=10) { // 68
+                    carry = n % 10; // 8
+                    n = n/10; // 6
+                    temp += (carry*carry); // 64
+                }
+                if(n == 1 && carry == 0) {
+                    break;
+                }
+                if(n<10) {
+                    temp += (n*n); //36+64 = 100 , 1
+                    n = temp; // n = 100 , 1
+                }
+
+
+            }
+
+        }
+        return true;
     }
 }
