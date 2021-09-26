@@ -1,7 +1,6 @@
 package dataStructureImplementation;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class ArrayDataStructure {
     public static void main(String[] args) {
@@ -15,8 +14,10 @@ public class ArrayDataStructure {
         System.out.println(Arrays.toString(arr.sortArray()));
         System.out.println(arr.searchElement());
         System.out.println(arr.searchElementInString());
-        arr.isIsomorphic("bbbaaaba", "aaabbbba");*/
-        arr.isHappy(68);
+        arr.isIsomorphic("bbbaaaba", "aaabbbba");
+        arr.isHappy(68);*/
+        String[] topK = {"ab", "ab", "bc", "cd"};
+        arr.topKFrequent(topK, 2);
     }
 
     //Array Traversal
@@ -219,5 +220,32 @@ public class ArrayDataStructure {
 
         }
         return true;
+    }
+    //Time - O(n)->Hashing + O(n) -> Build heap, O(k logn)-> k elements going to pop from n elements. So -> O(k logn)
+    //Space - O(n) -> Map + O(n) -> heap = O(n)
+
+    public List<String> topKFrequent(String[] words, int k) {
+        List<String> result = new ArrayList<>(k);
+        HashMap<String,Integer> map = new HashMap<>();
+        for(int i = 0; i < words.length; i++) {
+                map.put(words[i],map.getOrDefault(words[i], 0)+1);
+            }
+
+        PriorityQueue<String> priorityQueue = new PriorityQueue<>( (a,b) -> {
+            if (map.get(a).equals(map.get(b))) {
+                return a.compareTo(b);
+            }
+            else {
+                return (map.get(b)-map.get(a) );
+            }
+        });
+        System.out.println("abc");
+        priorityQueue.addAll(map.keySet()); // Higher top
+        System.out.println("bcd");
+
+        for(int i=0; i<k ;i++) {
+            result.add(priorityQueue.poll());
+        }
+        return result;
     }
 }
