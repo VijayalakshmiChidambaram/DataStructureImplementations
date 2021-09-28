@@ -15,9 +15,10 @@ public class ArrayDataStructure {
         System.out.println(arr.searchElement());
         System.out.println(arr.searchElementInString());
         arr.isIsomorphic("bbbaaaba", "aaabbbba");
-        arr.isHappy(68);*/
+        arr.isHappy(68);
         String[] topK = {"ab", "ab", "bc", "cd"};
-        arr.topKFrequent(topK, 2);
+        arr.topKFrequent(topK, 2);*/
+        arr.isValid("()");
     }
 
     //Array Traversal
@@ -247,5 +248,28 @@ public class ArrayDataStructure {
             result.add(priorityQueue.poll());
         }
         return result;
+    }
+
+    public boolean isValid(String s) {
+        HashMap<Character, Character> map = new HashMap<Character, Character>();
+        map.put('(', ')');
+        map.put('[', ']');
+        map.put('{', '}');
+
+        Stack<Character> stack = new Stack<Character>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char curr = s.charAt(i);
+            if(!stack.empty() && map.get(stack.peek()) == curr) {
+                stack.pop();
+            }
+            else if (map.keySet().contains(curr)) {
+                stack.push(curr);
+            } else if ((stack.empty()) || (stack.peek()!= curr)) {
+                return false;
+            }
+        }
+
+        return stack.empty();
     }
 }
