@@ -1,6 +1,7 @@
 package dataStructureImplementation;
 
 import java.util.*;
+import java.util.List;
 
 public class ArrayDataStructure {
     public static void main(String[] args) {
@@ -17,8 +18,11 @@ public class ArrayDataStructure {
         arr.isIsomorphic("bbbaaaba", "aaabbbba");
         arr.isHappy(68);
         String[] topK = {"ab", "ab", "bc", "cd"};
-        arr.topKFrequent(topK, 2);*/
-        arr.isValid("()");
+        arr.topKFrequent(topK, 2);
+        arr.isValid("()");*/
+        int[] nums1 = {11,22,88,90};
+        int[] nums2 = {22,30,55,77};
+        arr.kSmallestPairs(nums1, nums2, 2);
     }
 
     //Array Traversal
@@ -271,5 +275,28 @@ public class ArrayDataStructure {
         }
 
         return stack.empty();
+    }
+
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> pairs = new ArrayList<> ();
+        if (nums1.length == 0 || nums2.length == 0 || k == 0) {
+            return pairs;
+        }
+
+        PriorityQueue<int[]> minHeap = new PriorityQueue<> ((arr1, arr2) -> arr1[0] + arr1[1] - arr2[0] - arr2[1]);
+
+        for (int i = 0; i < nums1.length && i < k; i++) {
+            minHeap.offer (new int[] {nums1[i], nums2[0], 0});
+        }
+
+        while (k-- != 0 && !minHeap.isEmpty ()) {
+            int[] curr = minHeap.poll ();
+            pairs.add (List.of (curr[0], curr[1]));
+            if (curr[2] + 1 < nums2.length) {
+                minHeap.offer (new int[] {curr[0], nums2[curr[2] + 1], curr[2] + 1});
+            }
+        }
+
+        return pairs;
     }
 }
