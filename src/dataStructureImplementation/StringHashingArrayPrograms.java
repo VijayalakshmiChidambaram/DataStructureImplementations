@@ -50,10 +50,15 @@ public class StringHashingArrayPrograms {
         n2.add(4);
         n2.add(5);
         n2.add(6);
-        sha.mergeSortedList(n1, n2);*/
+        sha.mergeSortedList(n1, n2);
 
         int[] n = {1, 2, 1, 3, 2};
-        sha.findShortestSubArray(n);
+        sha.findShortestSubArray(n);*/
+
+        String[] input = {"practice","makes","perfect","coding","makes"};
+        String s1 = "coding";
+        String s2 = "practice";
+        sha.shortestDistance(input, s1,s2);
     }
         //Time - O(n^2)
         public boolean UniqueCharactersArray (String s){
@@ -763,9 +768,33 @@ public class StringHashingArrayPrograms {
                     degree = num_counts.get(num[i]);
                     min_length = i - first_seen.get(num[i]) + 1;
                 } else if (num_counts.get(num[i]) == degree) {
-                    min_length = Math.min(min_length, i - first_seen.get(num[i]));
+                    min_length = Math.min(min_length, i - first_seen.get(num[i]) +1);
                 }
             }
             return min_length;
         }
+
+    public int shortestDistance(String[] words, String word1, String word2) {
+        // Write your code here
+        int count = Integer.MAX_VALUE;
+        int c1 = 0;
+        int c2 = 0;
+        HashMap<String,Integer> map = new HashMap<String,Integer>();
+        for(int i =0; i< words.length; i++) {
+
+            if(words[i] == word1) {
+                map.put(word1, i);
+                c1 = map.get(word1);
+            }
+            if(words[i] == word2) {
+                map.put(word2, i);
+                c2 = map.get(word2);
+            }
+            if(map.containsKey(word1) && map.containsKey(word2)) {
+                count = Math.min(count, Math.abs(c1-c2));
+            }
+
+        }
+        return count;
+    }
 }
