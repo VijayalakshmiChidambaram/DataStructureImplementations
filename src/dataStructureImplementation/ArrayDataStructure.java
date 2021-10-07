@@ -19,10 +19,12 @@ public class ArrayDataStructure {
         arr.isHappy(68);
         String[] topK = {"ab", "ab", "bc", "cd"};
         arr.topKFrequent(topK, 2);
-        arr.isValid("()");*/
+        arr.isValid("()");
         int[] nums1 = {11,22,88,90};
         int[] nums2 = {22,30,55,77};
-        arr.kSmallestPairs(nums1, nums2, 2);
+        arr.kSmallestPairs(nums1, nums2, 2);*/
+        int[] sampleArr = {1,2,3};
+        arr.subArraySum(sampleArr, 3);
     }
 
     //Array Traversal
@@ -298,5 +300,28 @@ public class ArrayDataStructure {
         }
 
         return pairs;
+    }
+
+    //Time - O(n^3)
+    /*[1,2,3]
+    [1] [1,2] [1,2,3]
+    [2] [2,3]
+    [3]
+    for i=0,1,2
+    for j= i , <=n 0,1, 2,3
+    for k =i 0,1,2, k< j //0,1
+    res +=a[0], a[0]+a[1], a[0]+a[1]+a[2]
+    */
+    public int subArraySum( int arr[] , int n )
+    {
+        int result = 0;
+        for(int i =0; i<n; i++) {
+            for(int j=i; j<n; j++) { //j=0, 1, 2
+                for(int k=i; k<=j; k++) { //k=0,1
+                    result +=arr[k]; //a[0], a[0]+a[1], a[0]+a[1]+a[2]
+                }
+            }
+        }
+        return result;
     }
 }
