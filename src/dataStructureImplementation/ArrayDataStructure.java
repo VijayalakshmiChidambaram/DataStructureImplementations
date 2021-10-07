@@ -24,7 +24,7 @@ public class ArrayDataStructure {
         int[] nums2 = {22,30,55,77};
         arr.kSmallestPairs(nums1, nums2, 2);*/
         int[] sampleArr = {1,2,3};
-        arr.subArraySum(sampleArr, 3);
+        arr.subArraySumBetterTime(sampleArr, 3);
     }
 
     //Array Traversal
@@ -321,6 +321,23 @@ public class ArrayDataStructure {
                     result +=arr[k]; //a[0], a[0]+a[1], a[0]+a[1]+a[2]
                 }
             }
+        }
+        return result;
+    }
+    /*
+    [1,2,3]
+    [1], [1,2], [1,2,3] => 3 *1 =3 (n-i)=>(3-0 =>3) *1 =>3    res = 1 * 3 + 2*4 + 3*3 = 20
+    [2], [2,3] =>2 *2 = 4 (3-1=>2) * 2 =>4
+    [3] =>1 * 3 = 3 (3-2+>1) * 3 = 3
+    for(i=0; <n)
+    res = a[i] * ( (n-i) * (i+1)
+     */
+    //Time -O(n)
+    public long subArraySumBetterTime( int arr[] , int n )
+    {
+        long result = 0;
+        for(int i =0; i<n; i++) {
+            result += arr[i] *((n-i) *(i+1));
         }
         return result;
     }
