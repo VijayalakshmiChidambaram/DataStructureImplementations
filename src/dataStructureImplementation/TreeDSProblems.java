@@ -11,17 +11,18 @@ public class TreeDSProblems {
         TreeNodeImplementation.TreeNode root1 = tree.createNode(7);
        /* int[] arr = {1, 2, 3, 4, 5};
         tree.createBST(arr);*/
-        TreeNodeImplementation.TreeNode root = tree.createNode(5);
-        root.left = tree.createNode(3);
-        root.right = tree.createNode(7);
+        TreeNodeImplementation.TreeNode root = tree.createNode(3);
+        root.left = tree.createNode(2);
+        //root.right = tree.createNode(5);
         root.left.left = tree.createNode(1);
-        root.left.right = tree.createNode(4);
-        //root.left.right.left = tree.createNode(4);
-        //root.left.right.right = tree.createNode(9);
-        root.right.left = tree.createNode(6);
+        root.left.right = tree.createNode(6);
+        root.left.left.left = tree.createNode(2);
+        root.left.right.left = tree.createNode(4);
+        /*root.right.left = tree.createNode(6);
         root.right.right = tree.createNode(9);
         root1.left = tree1.createNode(6);
-        root1.right = tree1.createNode(9);
+        root1.right = tree1.createNode(9);*/
+        tree.leftLeavesSum(root);
         //tree.isSubTree(root, root1);
         /*tree.isSubString(root, root1);
         tree.bstSequences(root);
@@ -43,7 +44,7 @@ public class TreeDSProblems {
         lcaWithParent.insertBS(n, 12);
         Node n1 = n.left;
         Node n2 = n.left.left;
-        lcaWithParent.findLcaWithParent(n1, n2);*/
+        lcaWithParent.findLcaWithParent(n1, n2);
         randomNode randomnode = new randomNode(10);
         randomnode.insertNode(5);
         randomnode.insertNode(7);
@@ -54,7 +55,7 @@ public class TreeDSProblems {
         randomnode.find(randomnode.left.left);
         randomnode.random();
         randomnode.deleteNode(randomnode.left.left);
-        randomnode.random();
+        randomnode.random();*/
     }
 }
 
@@ -404,6 +405,35 @@ class TreeNodeImplementation {
         return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
     }
 
+
+    public int leftLeavesSum(TreeNode node) {
+        int sum = 0;
+        if(node == null) {
+            return 0;
+        }
+        if(node.left != null) {
+            /*if(node.left.left == null && node.left.right == null) {
+                sum += node.left.data;
+            }
+            else {
+                sum += leftLeavesSum(node.left);
+            }*/
+            if(node.left.left != null || node.left.right !=null) {
+                sum = sum + leftLeavesSum(node.left);
+            }
+            else {
+                sum = sum + node.left.data;
+            }
+        }
+        if(node.right != null) {
+            if(node.right.left != null || node.right.right != null) {
+                sum += leftLeavesSum(node.right);
+            }
+        }
+        return sum;
+
+    }
+
 }
 
 /* Find Lowest Common ancestor - With link to parent node. Time - O(n) n - no. of nodes in tree, Space - O(1)
@@ -666,5 +696,20 @@ class randomNode {
          }
          return totalPath;
      }
+
      //PathSum using HashTable
+
+    /*int getBinaryTreeHeight(TreeNode node) {
+        if (node == null) {
+            return -1;
+        }
+
+        int leftHeight = getBinaryTreeHeight(node.left);
+        int rightHeight = getBinaryTreeHeight(node.right);
+
+        if (leftHeight > rightHeight) {
+            return leftHeight + 1;
+        } else {
+            return rightHeight + 1;
+        }*/
 }
