@@ -22,9 +22,12 @@ public class ArrayDataStructure {
         arr.isValid("()");
         int[] nums1 = {11,22,88,90};
         int[] nums2 = {22,30,55,77};
-        arr.kSmallestPairs(nums1, nums2, 2);*/
+        arr.kSmallestPairs(nums1, nums2, 2);
         int[] sampleArr = {1,2,3};
-        arr.subArraySumBetterTime(sampleArr, 3);
+        arr.subArraySumBetterTime(sampleArr, 3);*/
+        List<Integer> aa = Arrays.asList(7,6,5);
+        List<Integer> bb = Arrays.asList(7,6,2);
+        arr.comparatorValueTwoArrays(aa, bb, 1);
     }
 
     //Array Traversal
@@ -340,5 +343,64 @@ public class ArrayDataStructure {
             result += arr[i] *((n-i) *(i+1));
         }
         return result;
+    }
+    /*
+    a->[7,5,9] b->[13,1,14] diff = 3
+    res[a.len], count = 0
+    for(i=0; <a.len)
+    for(j=0; j<b.le)
+    if(Math.abs(a[i]-b[i])>diff)
+    res[i] = count++
+
+    int max = res[0];
+    int maxind = 0;
+    for(int i=1; i<res.len)
+    {if (re[i] > max)
+        max = res[i];
+        maxind = i;
+        }
+        return a[maxind]
+     */
+    //Time - O(a*b), Space - O(1)
+    public int comparatorValueTwoArrays(List<Integer>a, List<Integer>b, int diff) {
+        //ArrayList<Integer> result = new ArrayList<>(a.size());
+        int resultCount = 0;
+        int comparatorValue = a.size();
+        for (int i = 0; i < a.size(); i++) {
+            int count = 0;
+            for (int j = 0; j < b.size(); j++) {
+                if ((Math.abs(a.get(i) - b.get(j))) <= diff) {
+                    count = 1;
+                }
+            }
+            resultCount += count;
+        }
+        comparatorValue = comparatorValue - resultCount;
+        System.out.println("ans" + comparatorValue);
+        return comparatorValue;
+    }
+    //Time - O(a), Space - O(b)-> Tree set
+        public int comparatorValueUsingTreeSet(List<Integer>a, List<Integer>b, int diff) {
+        int res = 0;
+        TreeSet<Integer> ts = new TreeSet<>();
+        for(int n : b)
+            ts.add(n);
+
+        for(int n : a){
+            Integer higher = ts.ceiling(n);
+            Integer lower = ts.floor(n);
+            int difference = 0;
+            if(higher == null){
+                difference = Math.abs(lower - n);
+            }else if(lower == null){
+                difference = Math.abs(higher - n);
+            }else{
+                difference = Math.min(higher - n, n - lower);
+            }
+            if(difference > diff)
+                res++;
+        }
+        return res;
+
     }
 }
