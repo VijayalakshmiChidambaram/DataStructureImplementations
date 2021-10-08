@@ -28,6 +28,7 @@ public class ArrayDataStructure {
         List<Integer> aa = Arrays.asList(7,6,5);
         List<Integer> bb = Arrays.asList(7,6,2);
         arr.comparatorValueTwoArrays(aa, bb, 1);
+        arr.comparatorValueUsingTreeSet(aa,bb,3);
     }
 
     //Array Traversal
