@@ -11,18 +11,19 @@ public class TreeDSProblems {
         TreeNodeImplementation.TreeNode root1 = tree.createNode(7);
        /* int[] arr = {1, 2, 3, 4, 5};
         tree.createBST(arr);*/
-        TreeNodeImplementation.TreeNode root = tree.createNode(3);
-        root.left = tree.createNode(2);
-        //root.right = tree.createNode(5);
-        root.left.left = tree.createNode(1);
-        root.left.right = tree.createNode(6);
-        root.left.left.left = tree.createNode(2);
-        root.left.right.left = tree.createNode(4);
-        /*root.right.left = tree.createNode(6);
-        root.right.right = tree.createNode(9);
+        TreeNodeImplementation.TreeNode root = tree.createNode(10);
+        root.left = tree.createNode(8);
+        root.right = tree.createNode(2);
+        root.left.left = tree.createNode(3);
+        root.left.right = tree.createNode(5);
+        //root.left.left.left = tree.createNode(2);
+        //root.left.right.left = tree.createNode(4);
+        root.right.left = tree.createNode(2);
+        /*root.right.right = tree.createNode(9);
         root1.left = tree1.createNode(6);
-        root1.right = tree1.createNode(9);*/
-        tree.leftLeavesSum(root);
+        root1.right = tree1.createNode(9);
+        tree.leftLeavesSum(root);*/
+        tree.hasPathSum(root, 14);
         //tree.isSubTree(root, root1);
         /*tree.isSubString(root, root1);
         tree.bstSequences(root);
@@ -432,6 +433,19 @@ class TreeNodeImplementation {
         }
         return sum;
 
+    }
+//Time - No.of nodes -> n => O(n), Since we use stack for recursion calls => O(n)
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null) {
+            return false;
+        }
+        if(root.left == null && root.right == null && targetSum!= root.data) {
+            return false;
+        }
+        if(root.left == null && root.right == null && targetSum == root.data) {
+            return true;
+        }
+        return (hasPathSum(root.left, targetSum-root.data) || hasPathSum(root.right,  targetSum - root.data));
     }
 
 }
