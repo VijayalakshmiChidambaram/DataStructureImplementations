@@ -1,8 +1,6 @@
 package dataStructureImplementation;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Random;
+import java.util.*;
 
 public class TreeDSProblems {
     public static void main(String[] args) {
@@ -23,7 +21,7 @@ public class TreeDSProblems {
         root1.left = tree1.createNode(6);
         root1.right = tree1.createNode(9);
         tree.leftLeavesSum(root);*/
-        tree.hasPathSum(root, 14);
+        tree.sumNumbers(root);
         //tree.isSubTree(root, root1);
         /*tree.isSubString(root, root1);
         tree.bstSequences(root);
@@ -297,10 +295,10 @@ class TreeNodeImplementation {
         }
     }
 
-//BST Sequences - Print all possible arrays that could have led to this tree. Time - O(n^2), Space - O(n)
+    //BST Sequences - Print all possible arrays that could have led to this tree. Time - O(n^2), Space - O(n)
     public ArrayList<LinkedList<Integer>> bstSequences(TreeNode n) {
         ArrayList<LinkedList<Integer>> result = new ArrayList<LinkedList<Integer>>();
-        if(n == null) {
+        if (n == null) {
             result.add(new LinkedList<>());
             return result;
         }
@@ -308,8 +306,8 @@ class TreeNodeImplementation {
         prefix.add(n.data);
         ArrayList<LinkedList<Integer>> leftLL = bstSequences(n.left);
         ArrayList<LinkedList<Integer>> rightLL = bstSequences(n.right);
-        for(LinkedList<Integer> l : leftLL) {
-            for(LinkedList<Integer> r : rightLL) {
+        for (LinkedList<Integer> l : leftLL) {
+            for (LinkedList<Integer> r : rightLL) {
                 ArrayList<LinkedList<Integer>> weaved = new ArrayList<LinkedList<Integer>>();
                 weaveList(l, r, weaved, prefix);
                 result.addAll(weaved);
@@ -317,8 +315,9 @@ class TreeNodeImplementation {
         }
         return result;
     }
+
     public void weaveList(LinkedList<Integer> l, LinkedList<Integer> r, ArrayList<LinkedList<Integer>> weave, LinkedList<Integer> pre) {
-        if(l.size() == 0 || r.size() ==0) {
+        if (l.size() == 0 || r.size() == 0) {
             LinkedList<Integer> copy = new LinkedList<>();
             copy = (LinkedList<Integer>) pre.clone();
             copy.addAll(l);
@@ -356,8 +355,9 @@ class TreeNodeImplementation {
         return (s1.indexOf(s2.toString())) != -1;
 
     }
+
     public StringBuilder checkSubstring(TreeNode t, StringBuilder s) {
-        if(t == null) {
+        if (t == null) {
             s.append('x');
             return null;
         }
@@ -366,6 +366,7 @@ class TreeNodeImplementation {
         checkSubstring(t.right, s);
         return s;
     }
+
     //2. Using recursion. Time - O(n1*n2), Space(log n1 +log n2)
     /*
     t2 - is subtree of t1
@@ -380,27 +381,27 @@ class TreeNodeImplementation {
     match(n1.left, n2.left) && match(n1.right, n2.right)
      */
     public boolean isSubTree(TreeNode n1, TreeNode n2) {
-        if(n2 == null) {
+        if (n2 == null) {
             return true;
         }
-        return subTreeCheck(n1,n2);
+        return subTreeCheck(n1, n2);
     }
+
     public boolean subTreeCheck(TreeNode t1, TreeNode t2) {
-        if(t1 == null) {
+        if (t1 == null) {
             return false;
-        }
-        else if((t1.data == t2.data) && matchTree(t1,t2)) {
+        } else if ((t1.data == t2.data) && matchTree(t1, t2)) {
             return true;
-        }
-        else {
-            return subTreeCheck(t1.left,t2) || subTreeCheck(t1.right,t2);
+        } else {
+            return subTreeCheck(t1.left, t2) || subTreeCheck(t1.right, t2);
         }
     }
+
     public boolean matchTree(TreeNode t1, TreeNode t2) {
-        if(t1 == null && t2 == null) {
+        if (t1 == null && t2 == null) {
             return true;
         }
-        if(t1 == null || t2 == null) {
+        if (t1 == null || t2 == null) {
             return false;
         }
         return matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right);
@@ -409,34 +410,34 @@ class TreeNodeImplementation {
 
     public int leftLeavesSum(TreeNode node) {
         int sum = 0;
-        if(node == null) {
+        if (node == null) {
             return 0;
         }
-        if(node.left != null) {
+        if (node.left != null) {
             /*if(node.left.left == null && node.left.right == null) {
                 sum += node.left.data;
             }
             else {
                 sum += leftLeavesSum(node.left);
             }*/
-            if(node.left.left != null || node.left.right !=null) {
+            if (node.left.left != null || node.left.right != null) {
                 sum = sum + leftLeavesSum(node.left);
-            }
-            else {
+            } else {
                 sum = sum + node.left.data;
             }
         }
-        if(node.right != null) {
-            if(node.right.left != null || node.right.right != null) {
+        if (node.right != null) {
+            if (node.right.left != null || node.right.right != null) {
                 sum += leftLeavesSum(node.right);
             }
         }
         return sum;
 
     }
-//Time - No.of nodes -> n => O(n), Since we use stack for recursion calls => O(n)
+
+    //Time - No.of nodes -> n => O(n), Since we use stack for recursion calls => O(n)
     public boolean hasPathSum(TreeNode root, int targetSum) {
-        if(root == null) {
+       /* if(root == null) {
             return false;
         }
         if(root.left == null && root.right == null && targetSum!= root.data) {
@@ -446,8 +447,50 @@ class TreeNodeImplementation {
             return true;
         }
         return (hasPathSum(root.left, targetSum-root.data) || hasPathSum(root.right,  targetSum - root.data));
+    }*/
+        if (root == null) {
+            return false;
+        }
+        if (helper(root, 0, targetSum)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    public boolean helper(TreeNode root, int sum, int targetSum) {
+        if (root == null) {
+            return false;
+        }
+
+        sum += root.data;
+
+        if (sum == targetSum) {
+            return true;
+        }
+
+        return helper(root.left, sum, targetSum) || helper(root.right, sum, targetSum);
+
+    }
+//Time - O(n), Space - O(n). Since stringbuilder + stack calls
+    StringBuffer sb = new StringBuffer();
+    int result = 0;
+    public int sumNumbers(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        sb.append(root.data);
+        if(root.left == null && root.right == null) {
+            int left = Integer.parseInt(String.valueOf(sb));
+            result += left;
+        }
+        if(sb.length() != 0) {
+            sumNumbers(root.left);
+            sumNumbers(root.right);
+            sb.deleteCharAt(sb.length()-1);
+        }
+        return result;
+    }
 }
 
 /* Find Lowest Common ancestor - With link to parent node. Time - O(n) n - no. of nodes in tree, Space - O(1)
