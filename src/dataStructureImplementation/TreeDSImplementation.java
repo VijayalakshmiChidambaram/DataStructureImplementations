@@ -13,8 +13,9 @@ public class TreeDSImplementation {
         root.right = treeDS.createTreeNode(7);
         root.left.left = treeDS.createTreeNode(1);
         root.left.right = treeDS.createTreeNode(4);
-        root.right.left = treeDS.createTreeNode(6);
-        root.right.right = treeDS.createTreeNode(9);
+        //root.right.left = treeDS.createTreeNode(6);
+        //root.right.right = treeDS.createTreeNode(9);
+        treeDS.treeHeight(root);
         /*treeDS.preorder(root);
         treeDS.inorderTraversal(root);
         treeDS.postOrderTraversal(root);
@@ -189,6 +190,20 @@ class binarayTreeDS {
         if (Math.abs(leftHeight - rightHeight) > 1) return -1;
         if (leftHeight > rightHeight) return leftHeight + 1;
         return rightHeight + 1;
+    }
+    public int treeHeight(TreeNode node) {
+        if(node == null) {
+            return -1;
+        }
+        int left = treeHeight(node.left);
+        int right = treeHeight(node.right);
+
+        if(left > right) {
+            return left +1;
+        }
+        else {
+            return right+1;
+        }
     }
 }
 class Question {
