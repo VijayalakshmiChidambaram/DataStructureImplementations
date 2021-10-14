@@ -424,4 +424,28 @@ class invertTreefunction {
             levelOrderHelper(output, root.right, level + 1);
         }
     }
+
+    // Time - O(n) -> Visit all nodes, Space - O(n) -> Recursive calls
+    public List<List<Integer>> findLeaves(invertTree root) {
+        List<List<Integer>> output = new ArrayList<>();
+        leavesCollect(root, output);
+        return output;
+    }
+    public int leavesCollect(invertTree node, List<List<Integer>> output) {
+        if(node == null) {
+            return -1;
+        }
+        int left = leavesCollect(node.left, output);
+        int right = leavesCollect(node.right, output);
+
+        int level = Math.max(left, right) + 1;
+        if(level == output.size()) {
+            output.add(new ArrayList());
+        }
+        output.get(level).add(node.val);
+        //node.left = null;
+        //node.right = null;
+
+        return level;
+    }
 }
