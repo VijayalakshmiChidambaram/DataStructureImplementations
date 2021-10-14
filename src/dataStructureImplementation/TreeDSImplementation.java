@@ -2,6 +2,7 @@ package dataStructureImplementation;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class TreeDSImplementation {
@@ -48,9 +49,11 @@ public class TreeDSImplementation {
         invertTree in = new invertTree(1);
         in.left = new invertTree(2);
         in.right = new invertTree(3);
+        in.left.right = new invertTree(4);
 
         invertTreefunction invertTreefunction = new invertTreefunction();
-        invertTreefunction.invertBT(in);
+        //invertTreefunction.invertBT(in);
+        invertTreefunction.levelOrder(in);
     }
 
 }
@@ -402,5 +405,23 @@ class invertTreefunction {
         invertBT(root.right);
 
         return root;
+    }
+    public List<List<Integer>> levelOrder(invertTree root) {
+        List<List<Integer>> output = new ArrayList<>();
+        levelOrderHelper(output, root, 0);
+        return output;
+    }
+
+    public void levelOrderHelper(List<List<Integer>> output, invertTree root, int level) {
+        if (root == null) {
+            return;
+        } else {
+            if (level >= output.size()) {
+                output.add(new ArrayList<>());
+            }
+            output.get(level).add(root.val);
+            levelOrderHelper(output, root.left, level + 1);
+            levelOrderHelper(output, root.right, level + 1);
+        }
     }
 }
