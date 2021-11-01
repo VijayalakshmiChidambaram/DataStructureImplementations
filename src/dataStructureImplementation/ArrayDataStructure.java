@@ -25,9 +25,10 @@ public class ArrayDataStructure {
         arr.kSmallestPairs(nums1, nums2, 2);
         int[] sampleArr = {1,2,3};
         arr.subArraySumBetterTime(sampleArr, 3);*/
+        // 7,6,5 = 7,6,2
         List<Integer> aa = Arrays.asList(7,6,5);
         List<Integer> bb = Arrays.asList(7,6,2);
-        arr.comparatorValueTwoArrays(aa, bb, 1);
+        //arr.comparatorValueTwoArrays(aa, bb, 1);
         arr.comparatorValueUsingTreeSet(aa,bb,3);
     }
 
@@ -380,6 +381,17 @@ public class ArrayDataStructure {
         System.out.println("ans" + comparatorValue);
         return comparatorValue;
     }
+    /*
+    a->[7,5,9] b->[13,1,14] diff = 3
+    //ascending order - Treeset
+    b.add = {13,1,14} = > ts = {1,13,14}
+    7-13 = 6>3(ok)   ,  5-13 = 8>3(ok) ,    9-13 = 4>3(ok)
+    7-1 = 6>3(ok)   ,   5-1 = 4>3(ok) ,     9-1 = 8>3(ok)
+    9-13 = 4>3(ok)  ,   5-14 = 9>3 (ok) ,   9-14 = 5>3 (ok)
+    Output = 3
+    Comparator value is defined as the number of elements x ∈ a such that there are no elements y ∈ b where |x - y| ≤ d. In other words, it's the number of elements in a that are more than d away from any element of b.
+    No value less than 3
+     */
     //Time - O(a), Space - O(b)-> Tree set
         public int comparatorValueUsingTreeSet(List<Integer>a, List<Integer>b, int diff) {
         int res = 0;
@@ -401,6 +413,7 @@ public class ArrayDataStructure {
             if(difference > diff)
                 res++;
         }
+        System.out.println(res);
         return res;
 
     }

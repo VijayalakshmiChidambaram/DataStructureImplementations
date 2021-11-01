@@ -19,9 +19,9 @@ public class StringHashingArrayPrograms {
         System.out.println(sha.permutationUsingSort("abcd", "dcba"));
         System.out.println(sha.permutationCaseSensitiveAndSpace("   Do  g", "God "));
         System.out.println(sha.permutationHashSet("dog","god"));
-        System.out.println(sha.permutationHashMap(" filter", "retlif "));
+        System.out.println(sha.permutationHashMap(" filter", "retlif "));*/
         System.out.println(sha.permutationArray("run1", "1nur"));
-        System.out.println(sha.urlifyArray("Mr John Smith    ", 13));
+        /*System.out.println(sha.urlifyArray("Mr John Smith    ", 13));
         System.out.println(sha.urlifyArrayList("Mr John Smith    ", 13));
         System.out.println(sha.urlifystringbuilder("United States of America !!"));
         System.out.println(sha.palindromePermutation("Tacocattt"));
@@ -58,7 +58,7 @@ public class StringHashingArrayPrograms {
         String[] input = {"practice","makes","perfect","coding","makes"};
         String s1 = "coding";
         String s2 = "practice";
-        sha.shortestDistance(input, s1,s2);
+       // sha.shortestDistance(input, s1,s2);
     }
         //Time - O(n^2)
         public boolean UniqueCharactersArray (String s){
@@ -225,6 +225,8 @@ public class StringHashingArrayPrograms {
             int[] b = new int[128];
             Arrays.fill(b, 0);
             for (int i = 0; i < s1.length(); i++) {
+                System.out.println(s1.charAt(i));
+                System.out.println(b[s1.charAt(i)]);
                 b[s1.charAt(i)]++;
             }
             for (int j = 0; j < s2.length(); j++) {
