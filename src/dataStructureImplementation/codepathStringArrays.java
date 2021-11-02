@@ -12,10 +12,13 @@ public class codepathStringArrays {
         //String[] words = {"bb", "aa", "dd", "cc", "ee", "aa"};
         //char[] wo = {'a', 'b', 'c'};
        // stringArrays.shortestDistance(words,"aa", "cc");
-        String[] words = {"prac","makes","per","code","makes"};
-        stringArrays.createMap(words);
-        stringArrays.shortestDistance2("code", "code");
-        stringArrays.shortestDistance3(words,"makes","makes");
+        //String[] words = {"prac","makes","per","code","makes"};
+        //stringArrays.createMap(words);
+        //stringArrays.shortestDistance2("code", "code");
+        //stringArrays.shortestDistance3(words,"makes","makes");
+        int[] array = {1,-1,2,4,5,2,-3};
+        stringArrays.maxSubArray(array);
+        stringArrays.maxSubArraydp(array);
     }
     public static void permutate(String str) {
         permutation("", str);
@@ -184,7 +187,7 @@ HashMap<String, ArrayList<Integer>> map = new HashMap<>();
         System.out.println(minDistance);
         return minDistance;
     }
-/* Find max sub array sum
+/* Find max sub array sum. Time- O(n), Space- O(1)
 [1,-1,2,4,5,2,-3], Max = 13 [1,-1,2,4,5,2]
 [1] , Max = 1
 [-2,-1,-3,-4], Max = -1
@@ -204,7 +207,7 @@ HashMap<String, ArrayList<Integer>> map = new HashMap<>();
         System.out.println(maxSum);
         return maxSum;
     }
-/*
+/* Time - O(n), Space - O(n)
 [1,-1,2,4,5,2,-3], Max = 13
 [1] , Max = 1
 [-2,-1,-3,-4], Max = -1
