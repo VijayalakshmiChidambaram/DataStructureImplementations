@@ -237,7 +237,7 @@ public class StringHashingArrayPrograms {
             }
             return true;
         }
-
+        //coding for interview - space = 2=> 6
         //3) URLify Replace all spaces in a string with %20 - Using char array - O(n)
         public String urlifyArray (String s1,int truelength){
             char[] s = s1.toCharArray();
@@ -480,6 +480,8 @@ public class StringHashingArrayPrograms {
 
         //7) Rotate Matrix- Using swap - Time : O(n^2), Space is O(1) - Done within the same space
         public void inputDataRotateMatrixUsingSwap ( int n){
+            int start = 0, end = 0, sum = 0, minLength = 0;
+            System.out.println(start + end + sum + minLength);
             int[][] matrix = new int[n][n];
             Scanner input = new Scanner(System.in);
             for (int i = 0; i < n; i++) {
