@@ -183,6 +183,5 @@ HashMap<String, ArrayList<Integer>> map = new HashMap<>();
         }
         System.out.println(minDistance);
         return minDistance;
-
     }
 }
