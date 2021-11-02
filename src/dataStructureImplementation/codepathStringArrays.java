@@ -163,7 +163,7 @@ HashMap<String, ArrayList<Integer>> map = new HashMap<>();
         System.out.println(minDistance);
         return minDistance;
     }
-
+// word1 and word2 can be same/cannot be same. Word1 and word2 are individual words in the list
     public int shortestDistance3(String[] words, String word1, String word2) {
         int minDistance = Integer.MAX_VALUE;
         int w1p = -1, w2p = -1;
