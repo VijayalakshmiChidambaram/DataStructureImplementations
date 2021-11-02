@@ -184,4 +184,49 @@ HashMap<String, ArrayList<Integer>> map = new HashMap<>();
         System.out.println(minDistance);
         return minDistance;
     }
+/* Find max sub array sum
+[1,-1,2,4,5,2,-3], Max = 13 [1,-1,2,4,5,2]
+[1] , Max = 1
+[-2,-1,-3,-4], Max = -1
+[5,4,-1,7,8], Max = 7+8 = 15
+ */
+    public int maxSubArray(int[] arr) {
+        int maxSum = Integer.MIN_VALUE;
+        int currSum = 0;
+        int arrSize = arr.length;
+        for(int i =0; i<arrSize; i++) {
+            currSum += arr[i];
+            maxSum = Math.max(maxSum, currSum);
+            if(currSum < 0) {
+                currSum = 0;
+            }
+        }
+        System.out.println(maxSum);
+        return maxSum;
+    }
+/*
+[1,-1,2,4,5,2,-3], Max = 13
+[1] , Max = 1
+[-2,-1,-3,-4], Max = -1
+[5,4,-1,7,8], Max = 7+8 = 15
+Algo:
+int[] dp = new int[arr.size];
+int max
+dp[0] = arr[0];
+for(i=1)
+  dp[i] = Math.max(num[i],num[i]+dp[i-1]);
+  max = Math.max(max, dp[i]);
+ */
+    public int maxSubArraydp(int[] arr) {
+        int[] dp = new int[arr.length];
+        int maxSum = Integer.MIN_VALUE;
+        dp[0] = arr[0];
+        int arrSize = arr.length;
+        for(int i=1; i<arrSize; i++) {
+            dp[i] = Math.max(arr[i],arr[i]+dp[i-1]);
+            maxSum = Math.max(maxSum, dp[i]);
+        }
+        System.out.println(maxSum);
+        return maxSum;
+    }
 }
