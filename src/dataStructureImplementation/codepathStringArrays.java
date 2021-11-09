@@ -2,6 +2,7 @@ package dataStructureImplementation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class codepathStringArrays {
     public static void main(String[] args) {
@@ -17,8 +18,21 @@ public class codepathStringArrays {
         //stringArrays.shortestDistance2("code", "code");
         //stringArrays.shortestDistance3(words,"makes","makes");
         int[] array = {1,-1,2,4,5,2,-3};
-        stringArrays.maxSubArray(array);
-        stringArrays.maxSubArraydp(array);
+       // stringArrays.maxSubArray(array);
+        //stringArrays.maxSubArraydp(array);
+        List<List<Integer>> mainList = new ArrayList<List<Integer>>();
+        ArrayList<Integer> l1 = new ArrayList<>();
+        l1.add(1);
+        l1.add(1);
+        ArrayList<Integer> l2 = new ArrayList<>();
+        l2.add(2);
+        ArrayList<Integer> l3 = new ArrayList<>();
+        l3.add(1);
+        l3.add(1);
+        mainList.add(l1);
+        mainList.add(l2);
+        mainList.add(l3);
+        //solution.maxSubArraydp(mainList);
     }
     public static void permutate(String str) {
         permutation("", str);
@@ -231,5 +245,29 @@ for(i=1)
         }
         System.out.println(maxSum);
         return maxSum;
+    }
+    public interface NestedInteger {
+        public boolean isInteger();
+        public Integer getInteger();
+        public List<NestedInteger> getList();
+    }
+    public int depthSum(List<NestedInteger> nestedList) {
+        int depth = 1;
+        int sum = 0;
+        if (nestedList.size() == 0 || nestedList == null) {
+            return 0;
+        }
+
+        for(NestedInteger i : nestedList) {
+            if (i.isInteger()) {
+                sum += depth * i.getInteger();
+            } else {
+                depth++;
+                depthSum(i.getList());
+                depth--;
+            }
+        }
+
+        return sum;
     }
 }

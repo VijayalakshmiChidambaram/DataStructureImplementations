@@ -1,4 +1,7 @@
 package dataStructureImplementation;
+
+import java.util.*;
+
 /* Array:
 [12,7,10,1,8]
 [12], [12,7]

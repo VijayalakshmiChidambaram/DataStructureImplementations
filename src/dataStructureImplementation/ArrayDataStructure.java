@@ -26,10 +26,10 @@ public class ArrayDataStructure {
         int[] sampleArr = {1,2,3};
         arr.subArraySumBetterTime(sampleArr, 3);*/
         // 7,6,5 = 7,6,2
-        List<Integer> aa = Arrays.asList(7,6,5);
-        List<Integer> bb = Arrays.asList(7,6,2);
+       // List<Integer> aa = Arrays.asList(7,6,5);
+        //List<Integer> bb = Arrays.asList(7,6,2);
         //arr.comparatorValueTwoArrays(aa, bb, 1);
-        arr.comparatorValueUsingTreeSet(aa,bb,3);
+       // arr.comparatorValueUsingTreeSet(aa,bb,3);
     }
 
     //Array Traversal
