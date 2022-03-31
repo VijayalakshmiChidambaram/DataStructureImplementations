@@ -1,8 +1,6 @@
 package dataStructureImplementation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class codepathStringArrays {
     public static void main(String[] args) {
@@ -18,8 +16,8 @@ public class codepathStringArrays {
         //stringArrays.shortestDistance2("code", "code");
         //stringArrays.shortestDistance3(words,"makes","makes");
         int[] array = {1,-1,2,4,5,2,-3};
-       // stringArrays.maxSubArray(array);
-        //stringArrays.maxSubArraydp(array);
+       /* stringArrays.maxSubArray(array);
+        stringArrays.maxSubArraydp(array);
         List<List<Integer>> mainList = new ArrayList<List<Integer>>();
         ArrayList<Integer> l1 = new ArrayList<>();
         l1.add(1);
@@ -32,14 +30,42 @@ public class codepathStringArrays {
         mainList.add(l1);
         mainList.add(l2);
         mainList.add(l3);
-        //solution.maxSubArraydp(mainList);
+        solution.maxSubArraydp(mainList);*/
         int[] arr = {1,2,3,4,5};
-        stringArrays.searchRotatedSortedArray(arr, 5);
+        //stringArrays.searchRotatedSortedArray(arr, 5);
+        int[] process = {10,4,8,13,20};
+        //stringArrays.minMemory(process, 2);
+        ArrayList<Integer> li = new ArrayList<>();
+        li.add(10);
+        li.add(4);
+        li.add(8);
+        li.add(13);
+        li.add(20);
+        stringArrays.getMinCost(li,7);
+       /* int[][] costs = {{17,2,17},{16,16,5},{14,19,3}};
+        stringArrays.paintHouse(costs);
+        HashMap<Integer, Integer> k = new HashMap<>();
+        List<NestedInteger> list = Arrays.asList(new NestedInteger(1));*/
+    }
+    public codepathStringArrays() {
+        //System.out.println("123");
     }
     public static void permutate(String str) {
         permutation("", str);
     }
-
+    public int paintHouse(int[][] costs) {
+        int[][] dp = new int[costs.length][3];
+        for(int i=0; i<costs.length; i++) {
+            dp[0][i] = costs[0][i]; // dp => 0 row[]
+        }
+        for(int i=1; i<costs.length; i++) {
+            dp[i][0] = costs[i][0] + Math.min(dp[i-1][1], dp[i-1][2]);
+            dp[i][1] = costs[i][1] + Math.min(dp[i-1][0], dp[i-1][2]);
+            dp[i][2] = costs[i][2] + Math.min(dp[i-1][0], dp[i-1][1]);
+        }
+        int minCost = Math.min(dp[costs.length-1][0], dp[costs.length-1][1]);
+        return Math.min(minCost, dp[costs.length -1][2]);
+    }
     private static void permutation(String ans, String remain) {
         int n = remain.length();
         // ans serves as an accumulator variable
@@ -119,9 +145,7 @@ public class codepathStringArrays {
                 minDis = Math.min(minDis, Math.abs(temp1-temp2)); //2
             }
         }
-
         return minDis;
-
     }
     public int shortestDistanceTwoPointers(String[] words, String word1, String word2) {
         int pointer1 = Integer.MAX_VALUE;
@@ -147,7 +171,7 @@ input: ["wordDis","shortest","shortest"]
 [[["prac","makes","per","code","makes"]],["code","prac"],["makes","code"]]
 op:
 [null,3,1]
- */
+    */
 HashMap<String, ArrayList<Integer>> map = new HashMap<>();
     public void createMap(String[] words) {
         int wordLen = words.length;
@@ -161,8 +185,6 @@ HashMap<String, ArrayList<Integer>> map = new HashMap<>();
                 map.put(words[i], list);
             }
         }
-        System.out.println(map);
-
     }
 
     public int shortestDistance2(String word1, String word2) {
@@ -172,14 +194,12 @@ HashMap<String, ArrayList<Integer>> map = new HashMap<>();
         int i=0, j=0;
         while(i<list1.size() && j<list2.size()) {
             minDistance = Math.min(minDistance, Math.abs(list1.get(i) - list2.get(j)));
-            if(list1.get(i) < list2.get(j)) {
+            if (list1.get(i) < list2.get(j)) {
                 i++;
-            }
-            else {
+            } else {
                 j++;
             }
         }
-        System.out.println(minDistance);
         return minDistance;
     }
 // word1 and word2 can be same/cannot be same. Word1 and word2 are individual words in the list
@@ -213,9 +233,19 @@ HashMap<String, ArrayList<Integer>> map = new HashMap<>();
         int maxSum = Integer.MIN_VALUE;
         int currSum = 0;
         int arrSize = arr.length;
+        int index1 = 0;
+        int index2 = 0;
+        int prevMax = -1;
         for(int i =0; i<arrSize; i++) {
             currSum += arr[i];
+            prevMax = maxSum;
             maxSum = Math.max(maxSum, currSum);
+            if(prevMax != maxSum)
+            {
+                index1 = index2;
+                index2 = i;
+
+            }
             if(currSum < 0) {
                 currSum = 0;
             }
@@ -249,9 +279,9 @@ for(i=1)
         return maxSum;
     }
     public interface NestedInteger {
-        public boolean isInteger();
-        public Integer getInteger();
-        public List<NestedInteger> getList();
+        boolean isInteger();
+        Integer getInteger();
+        List<NestedInteger> getList();
     }
     public int depthSum(List<NestedInteger> nestedList) {
         int depth = 1;
@@ -295,5 +325,70 @@ for(i=1)
             }
         }
         return -1;
+    }
+
+    public int minMemory(int[] process, int m)
+    {
+        int min = Integer.MAX_VALUE;
+
+        for(int i=0; i<=process.length-m; i++)
+        {
+            int leftPtr = i;
+            int currMin = 0;
+            while (leftPtr < m+i)
+            {
+                currMin += process[leftPtr];
+                leftPtr++;
+            }
+            if(currMin < min) {
+                min = currMin;
+            }
+        }
+        System.out.println(min);
+        return min;
+    }
+
+    public long getMinCost(List<Integer> parcels, int k)
+    {
+        ArrayList<ArrayList<Integer>> output = new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        int t = 0;
+        int c = 0;
+        if(t == c)
+        {
+            output.add((ArrayList)result.clone());
+        }
+        System.out.println("Before");
+        for(int marks: parcels)
+        {
+
+            System.out.println(marks);
+        }
+        int n = parcels.size(); // n<=k
+        long minCost = 0;
+        Collections.sort(parcels);
+        int nextIndex = 1;
+        //int values = 0;
+        int remaining = k-n; //7-5 = 2
+        System.out.println("After");
+        for(int marks: parcels)
+        {
+            System.out.println(marks);
+        }
+        for(int i=0; i<n; i++)
+        {
+            int parcel = parcels.get(i);
+            if(parcel > 1)
+            {
+                while(parcel > nextIndex && nextIndex<=remaining)
+                {
+                    minCost += nextIndex;
+                    nextIndex++;//2
+                }
+
+            }
+        }
+        System.out.println(minCost);
+        return minCost;
     }
 }

@@ -443,6 +443,7 @@ public class StringHashingArrayPrograms {
         //Using a new string will copy the contents of older string into the new new string every time. So time complexity is - x+2x+3X+.. = x(x+1)/2 (G.P)
         //Hence time complexity is O(n^2)
         public String stringCompressionUsingNewString (String s){
+        HashMap<Integer, Integer> map = new LinkedHashMap();
             String newString = "";
             int count = 0;
             for (int i = 0; i < s.length(); i++) {
@@ -480,6 +481,9 @@ public class StringHashingArrayPrograms {
 
         //7) Rotate Matrix- Using swap - Time : O(n^2), Space is O(1) - Done within the same space
         public void inputDataRotateMatrixUsingSwap ( int n){
+        String s = "dog";
+        StringBuilder reverse = new StringBuilder(s).reverse();
+        String newStr = reverse.toString();
             int start = 0, end = 0, sum = 0, minLength = 0;
             System.out.println(start + end + sum + minLength);
             int[][] matrix = new int[n][n];
