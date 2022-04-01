@@ -1,17 +1,16 @@
 package dataStructureImplementation;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import javax.swing.*;
+import java.util.*;
 
 public class Graph {
     public static void main(String[] args)
     {
         Graph graphProb = new Graph();
-        int arr[][] = {{0,1}, {0,2},{3,4}};
-        int n = 5;
-        graphProb.GraphvalidTreeDFSRec(n,arr);
+        int arr[][] = {{0,1}, {0,2},{1,2}};
+        int n = 3;
+       // graphProb.GraphvalidTreeDFSRec(n,arr);
+        graphProb.graphValidTreeBFS(n,arr);
 
     }
     // Prob 1 : Time - O(E+V), Space - O(V)
@@ -85,19 +84,55 @@ public class Graph {
         {
             return true;
         }
-        List<List<Integer>> adjList = new ArrayList<>();
+        List<Set<Integer>> adjList = new ArrayList<Set<Integer>>();
         for(int i=0; i<n; i++)
         {
-            adjList.add(new ArrayList<>());
+            adjList.add(new HashSet<>());
         }
-        for(int edge[]:grap)
+        for(int edg[]:grap)
         {
-
+            adjList.get(edg[0]).add(edg[1]);
+            adjList.get(edg[1]).add(edg[0]);
         }
-
+        HashSet<Integer> visited = new HashSet<>();
+        if(hasACycle(adjList, visited, 0))
+        {
+            System.out.println("false");
+            return false;
+        }
+        for(int i=0; i<n; i++)
+        {
+            if(!visited.contains(i))
+            {
+                System.out.println("false");
+                return false;
+            }
+        }
+        System.out.println("true");
         return true;
     }
-    public boolean ask(List<int[]> g)
+    public boolean hasACycle(List<Set<Integer>> adjList, HashSet<Integer> visited, int currNode)
+    {
+        Queue<Integer> bfsqueue = new ArrayDeque<>();
+        bfsqueue.add(currNode);
+        while (!bfsqueue.isEmpty())
+        {
+            int queueRemove = bfsqueue.poll();
+            if(visited.contains(queueRemove))
+            {
+                return true;
+            }
+            Set<Integer> n = adjList.get(queueRemove);
+            for(int i: n)
+            {
+                bfsqueue.add(i);
+                adjList.get(i).remove(queueRemove);
+            }
+            visited.add(queueRemove);
+        }
+        return false;
+    }
+   /* public boolean ask(List<int[]> g)
     {
         int n = 5;
         List<List<Integer>> adjList = new ArrayList<>();
@@ -112,5 +147,5 @@ public class Graph {
         }
 
         return true;
-    }
+    }*/
 }
