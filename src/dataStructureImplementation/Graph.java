@@ -163,4 +163,62 @@ public class Graph {
         System.out.println(-1);
         return -1;
     }
+    //3) Smallest String With Swaps. Time - O(plogp), space - O(s)
+    public int[] parent;
+    public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
+        if(s.length() == 0)
+        {
+            return null;
+        }
+        if(s.length() == 1)
+        {
+            return s;
+        }
+        parent = new int[s.length()];
+        for(int i=0; i<s.length(); i++) // O(s)
+        {
+            parent[i] = i;
+        }
+        for(List<Integer> pair : pairs) //O(p)
+        {
+            groupParent(pair.get(0), pair.get(1));
+        }
+        HashMap<Integer, PriorityQueue<Character>> map = new HashMap<>();
+        for(int i=0; i<s.length(); i++)
+        {
+            int index = findParent(i);
+            map.putIfAbsent(index, new PriorityQueue<>()); //O(p logp)
+            map.get(index).offer(s.charAt(i));
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<s.length(); i++)
+        {
+            int index = findParent(i);
+            sb.append(map.get(index).poll()); // poll() important because that particular element is removed from map and so when i poll the next time other element gets picked
+        }
+        return sb.toString();
+    }
+
+    public int findParent(int i)
+    {
+        while(parent[i] != i)
+        {
+            i = parent[parent[i]];
+        }
+        return i;
+
+    }
+    public void groupParent(int a, int b)
+    {
+        int parentA = findParent(a);
+        int parentB = findParent(b);
+        if(parentA < parentB)
+        {
+            parent[parentB] = parentA; // if-else uses tree compression, always append the smaller true to the root of the bigger tree therefore less path traveled each time
+        }
+        else
+        {
+            parent[parentA] = parentB;
+        }
+    }
 }
