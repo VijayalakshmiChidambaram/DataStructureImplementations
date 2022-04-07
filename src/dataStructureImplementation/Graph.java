@@ -10,10 +10,9 @@ public class Graph {
         int n = 3;
         // graphProb.GraphvalidTreeDFSRec(n,arr);
         //graphProb.graphValidTreeBFS(n, arr);
-        int logs[][] = {{0,2,0},{1,0,1},{3,0,3},{4,1,2},{7,3,1}};
+        int logs[][] = {{0, 2, 0}, {1, 0, 1}, {3, 0, 3}, {4, 1, 2}, {7, 3, 1}};
         int edges = 4;
         graphProb.earliestAcq(logs, edges);
-
     }
 
     // Prob 1 : Time - O(E+V), Space - O(V)
@@ -163,62 +162,122 @@ public class Graph {
         System.out.println(-1);
         return -1;
     }
+
     //3) Smallest String With Swaps. Time - O(plogp), space - O(s)
     public int[] parent;
+
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
-        if(s.length() == 0)
-        {
+        if (s.length() == 0) {
             return null;
         }
-        if(s.length() == 1)
-        {
+        if (s.length() == 1) {
             return s;
         }
         parent = new int[s.length()];
-        for(int i=0; i<s.length(); i++) // O(s)
+        for (int i = 0; i < s.length(); i++) // O(s)
         {
             parent[i] = i;
         }
-        for(List<Integer> pair : pairs) //O(p)
+        for (List<Integer> pair : pairs) //O(p)
         {
             groupParent(pair.get(0), pair.get(1));
         }
         HashMap<Integer, PriorityQueue<Character>> map = new HashMap<>();
-        for(int i=0; i<s.length(); i++)
-        {
+        for (int i = 0; i < s.length(); i++) {
             int index = findParent(i);
             map.putIfAbsent(index, new PriorityQueue<>()); //O(p logp)
             map.get(index).offer(s.charAt(i));
         }
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i<s.length(); i++)
-        {
+        for (int i = 0; i < s.length(); i++) {
             int index = findParent(i);
             sb.append(map.get(index).poll()); // poll() important because that particular element is removed from map and so when i poll the next time other element gets picked
         }
         return sb.toString();
     }
 
-    public int findParent(int i)
-    {
-        while(parent[i] != i)
-        {
+    public int findParent(int i) {
+        while (parent[i] != i) {
             i = parent[parent[i]];
         }
         return i;
 
     }
-    public void groupParent(int a, int b)
-    {
+
+    public void groupParent(int a, int b) {
         int parentA = findParent(a);
         int parentB = findParent(b);
-        if(parentA < parentB)
-        {
+        if (parentA < parentB) {
             parent[parentB] = parentA; // if-else uses tree compression, always append the smaller true to the root of the bigger tree therefore less path traveled each time
-        }
-        else
-        {
+        } else {
             parent[parentA] = parentB;
         }
     }
 }
+    /*
+    Time : O(E + Q*(V + E)) where E is the number of edges, note that E is also the number of equations here.
+    1st, create the graph, i.e. construct the adjacency list, O(E) because we use the equations here
+    2nd, DFS for each query, DFS of graph is O(V + E), V: the number of nodes, E: the number of edges/equations, so total O(Q*(V + E))
+    So total O(E + Q*(V + E))
+    Space : O(E)
+    */
+ /*   HashMap<String, List<Node>> map = new HashMap<>();
+
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        buildGraph(map, equations, values);
+        double[] result = new double[queries.size()];
+        int i = 0;
+        for (List<String> query : queries) {
+            String src = query.get(0);
+            String dest = query.get(1);
+            HashSet<String> visited = new HashSet<>();
+            result[i++] = dfs(map, src, dest, result, visited);
+        }
+        return result;
+
+    }
+
+    public double dfs(HashMap<String, List<Node>> map, String src, String dest, double[] result, HashSet<String> visited) {
+        if (!(map.containsKey(src) && map.containsKey(dest))) {
+            return -1.0;
+        }
+        if (src.equals(dest)) {
+            return 1.0;
+        }
+        visited.add(src);
+        for (Node n : map.get(src)) {
+            if (!visited.contains(n.str)) {
+                double ans = dfs(map, n.str, dest, result, visited);
+                if (ans != -1.0) {
+                    return ans * n.value;
+                }
+            }
+        }
+        return -1.0;
+    }
+
+    public void buildGraph(HashMap<String, List<Node>> map, List<List<String>> equations, double[] values) {
+        int index = 0;
+        for (List<String> equ : equations) {
+            String src = equ.get(0);
+            String dest = equ.get(1);
+            map.putIfAbsent(src, new ArrayList());
+            map.putIfAbsent(dest, new ArrayList());
+            map.get(src).add(new Nodess(dest, values[index]));
+            map.get(dest).add(new Nodess(src, 1 / values[index]));
+            index++;
+        }
+    }
+
+}
+class TreeNodeImp {
+    class Nodess {
+        String str;
+        double value;
+
+        public Nodess(String s, double v) {
+            str = s;
+            value = v;
+        }
+    }
+} */
