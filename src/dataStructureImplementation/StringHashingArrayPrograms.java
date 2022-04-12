@@ -55,12 +55,13 @@ public class StringHashingArrayPrograms {
         int[] n = {1, 2, 1, 3, 2};
        // sha.findShortestSubArray(n);
         //sha.solution(n);
+        sha.majorityElement(n,5);
 
         String[] input = {"practice", "makes", "perfect", "coding", "makes"};
         String s1 = "coding";
         String s2 = "practice";
         // sha.shortestDistance(input, s1,s2);
-        sha.codesignal(input);
+       // sha.codesignal(input);
     }
 
     //Time - O(n^2)
@@ -886,5 +887,26 @@ public class StringHashingArrayPrograms {
         }
         System.out.println("final " + sb);
         return sb.toString();
+    }
+// Time - O(n), Space - O(1)
+    public int majorityElement(int a[], int size)
+    {
+        // your code here
+        int occurence = size/2; //2/2 = 1
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i=0; i<size; i++)
+        {
+            map.put(a[i], map.getOrDefault(a[i],0)+1);
+        }
+
+        for(Map.Entry<Integer,Integer> m: map.entrySet())
+        {
+            //System.out.println(m.getValue());
+            if(m.getValue() > occurence)
+            {
+                return m.getKey();
+            }
+        }
+        return -1;
     }
 }
