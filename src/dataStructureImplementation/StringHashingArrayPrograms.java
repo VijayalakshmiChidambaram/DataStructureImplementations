@@ -52,10 +52,11 @@ public class StringHashingArrayPrograms {
         n2.add(6);
         sha.mergeSortedList(n1, n2);*/
 
-        int[] n = {1, 2, 1, 3, 2};
+        int[] n = {8,3,1,2,4};
        // sha.findShortestSubArray(n);
         //sha.solution(n);
-        sha.majorityElement(n,5);
+        //sha.majorityElement(n,5);
+        sha.peakElement(n, 5);
 
         String[] input = {"practice", "makes", "perfect", "coding", "makes"};
         String s1 = "coding";
@@ -908,5 +909,23 @@ public class StringHashingArrayPrograms {
             }
         }
         return -1;
+    }
+    //Time - O(log n), Space - O(1)
+    public int peakElement(int[] arr,int n)
+    {
+        //add code here.
+        //[1,2,3,4], [8, 3, 1 , 2, 4]
+        int start = 0;
+        int end = n - 1;
+        while (start < end) {//0<4 3<4
+            int mid = start + (end - start) / 2; //0+(4-0/2) = 2, 3+(4-3/2) = 3
+            if (arr[mid] > arr[mid + 1]) {//1>2 , 2>4
+                end = mid;
+            } else {
+                start = mid + 1;//3, 4
+            }
+        }
+        System.out.println(start);
+        return start;
     }
 }
